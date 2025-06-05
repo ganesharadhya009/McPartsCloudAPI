@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "U1mNjrcSH8wyS480mvqsH7xywRtH3DOj19Sj9+E2nNQ=",
+  "Source": "McPartsAPI",
+  "BasePath": "_content/McPartsAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

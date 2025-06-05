@@ -1,0 +1,312 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}|Mcparts.Infrastructure\\Mcparts.DataAccess.csproj|c:\\users\\admin\\source\\repos\\mcpartsapi\\mcparts.infrastructure\\services\\itemssevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}|Mcparts.Infrastructure\\Mcparts.DataAccess.csproj|solutionrelative:mcparts.infrastructure\\services\\itemssevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0DF800E-19F4-4378-ABA1-3DCEB12F5FAB}|McPartsAPI\\McPartsAPI.csproj|c:\\users\\admin\\source\\repos\\mcpartsapi\\mcpartsapi\\controllers\\itemscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0DF800E-19F4-4378-ABA1-3DCEB12F5FAB}|McPartsAPI\\McPartsAPI.csproj|solutionrelative:mcpartsapi\\controllers\\itemscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}|Mcparts.Infrastructure\\Mcparts.DataAccess.csproj|c:\\users\\admin\\source\\repos\\mcpartsapi\\mcparts.infrastructure\\commands\\items.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}|Mcparts.Infrastructure\\Mcparts.DataAccess.csproj|solutionrelative:mcparts.infrastructure\\commands\\items.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0DF800E-19F4-4378-ABA1-3DCEB12F5FAB}|McPartsAPI\\McPartsAPI.csproj|c:\\users\\admin\\source\\repos\\mcpartsapi\\mcpartsapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0DF800E-19F4-4378-ABA1-3DCEB12F5FAB}|McPartsAPI\\McPartsAPI.csproj|solutionrelative:mcpartsapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}|Mcparts.Infrastructure\\Mcparts.DataAccess.csproj|c:\\users\\admin\\source\\repos\\mcpartsapi\\mcparts.infrastructure\\interfaces\\ibasehandlersevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}|Mcparts.Infrastructure\\Mcparts.DataAccess.csproj|solutionrelative:mcparts.infrastructure\\interfaces\\ibasehandlersevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0DF800E-19F4-4378-ABA1-3DCEB12F5FAB}|McPartsAPI\\McPartsAPI.csproj|c:\\users\\admin\\source\\repos\\mcpartsapi\\mcpartsapi\\controllers\\itemcategorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0DF800E-19F4-4378-ABA1-3DCEB12F5FAB}|McPartsAPI\\McPartsAPI.csproj|solutionrelative:mcpartsapi\\controllers\\itemcategorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}|Mcparts.Infrastructure\\Mcparts.DataAccess.csproj|c:\\users\\admin\\source\\repos\\mcpartsapi\\mcparts.infrastructure\\interfaces\\iitemcategorysevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}|Mcparts.Infrastructure\\Mcparts.DataAccess.csproj|solutionrelative:mcparts.infrastructure\\interfaces\\iitemcategorysevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}|Mcparts.Infrastructure\\Mcparts.Infrastructure.csproj|c:\\users\\admin\\source\\repos\\mcpartsapi\\mcparts.infrastructure\\services\\itemcategorysevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}|Mcparts.Infrastructure\\Mcparts.Infrastructure.csproj|solutionrelative:mcparts.infrastructure\\services\\itemcategorysevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}|Mcparts.Infrastructure\\Mcparts.DataAccess.csproj|c:\\users\\admin\\source\\repos\\mcpartsapi\\mcparts.infrastructure\\dtos\\itemcategorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}|Mcparts.Infrastructure\\Mcparts.DataAccess.csproj|solutionrelative:mcparts.infrastructure\\dtos\\itemcategorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0DF800E-19F4-4378-ABA1-3DCEB12F5FAB}|McPartsAPI\\McPartsAPI.csproj|c:\\users\\admin\\source\\repos\\mcpartsapi\\mcpartsapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A0DF800E-19F4-4378-ABA1-3DCEB12F5FAB}|McPartsAPI\\McPartsAPI.csproj|solutionrelative:mcpartsapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}|Mcparts.Infrastructure\\Mcparts.DataAccess.csproj|c:\\users\\admin\\source\\repos\\mcpartsapi\\mcparts.infrastructure\\interfaces\\idatabaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}|Mcparts.Infrastructure\\Mcparts.DataAccess.csproj|solutionrelative:mcparts.infrastructure\\interfaces\\idatabaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}|Mcparts.Infrastructure\\Mcparts.Infrastructure.csproj|c:\\users\\admin\\source\\repos\\mcpartsapi\\mcparts.infrastructure\\services\\databaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}|Mcparts.Infrastructure\\Mcparts.Infrastructure.csproj|solutionrelative:mcparts.infrastructure\\services\\databaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0DF800E-19F4-4378-ABA1-3DCEB12F5FAB}|McPartsAPI\\McPartsAPI.csproj|c:\\users\\admin\\source\\repos\\mcpartsapi\\mcpartsapi\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0DF800E-19F4-4378-ABA1-3DCEB12F5FAB}|McPartsAPI\\McPartsAPI.csproj|solutionrelative:mcpartsapi\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0DF800E-19F4-4378-ABA1-3DCEB12F5FAB}|McPartsAPI\\McPartsAPI.csproj|c:\\users\\admin\\source\\repos\\mcpartsapi\\mcpartsapi\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0DF800E-19F4-4378-ABA1-3DCEB12F5FAB}|McPartsAPI\\McPartsAPI.csproj|solutionrelative:mcpartsapi\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}|Mcparts.Infrastructure\\Mcparts.Infrastructure.csproj|c:\\users\\admin\\source\\repos\\mcpartsapi\\mcparts.infrastructure\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}|Mcparts.Infrastructure\\Mcparts.Infrastructure.csproj|solutionrelative:mcparts.infrastructure\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0DF800E-19F4-4378-ABA1-3DCEB12F5FAB}|McPartsAPI\\McPartsAPI.csproj|c:\\users\\admin\\source\\repos\\mcpartsapi\\mcpartsapi\\mcpartsapi.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{A0DF800E-19F4-4378-ABA1-3DCEB12F5FAB}|McPartsAPI\\McPartsAPI.csproj|solutionrelative:mcpartsapi\\mcpartsapi.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0DF800E-19F4-4378-ABA1-3DCEB12F5FAB}|McPartsAPI\\McPartsAPI.csproj|c:\\users\\admin\\source\\repos\\mcpartsapi\\mcpartsapi\\mcpartsapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{A0DF800E-19F4-4378-ABA1-3DCEB12F5FAB}|McPartsAPI\\McPartsAPI.csproj|solutionrelative:mcpartsapi\\mcpartsapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IBaseHandlerSevice.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\Mcparts.Infrastructure\\Interfaces\\IBaseHandlerSevice.cs",
+              "RelativeDocumentMoniker": "Mcparts.Infrastructure\\Interfaces\\IBaseHandlerSevice.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\Mcparts.Infrastructure\\Interfaces\\IBaseHandlerSevice.cs",
+              "RelativeToolTip": "Mcparts.Infrastructure\\Interfaces\\IBaseHandlerSevice.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-05T10:58:59.001Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ItemsSevice.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\Mcparts.Infrastructure\\Services\\ItemsSevice.cs",
+              "RelativeDocumentMoniker": "Mcparts.Infrastructure\\Services\\ItemsSevice.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\Mcparts.Infrastructure\\Services\\ItemsSevice.cs",
+              "RelativeToolTip": "Mcparts.Infrastructure\\Services\\ItemsSevice.cs",
+              "ViewState": "AgIAAAUBAAAAAAAAAAAswAsBAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-05T10:58:06.376Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IItemCategorySevice.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\Mcparts.Infrastructure\\Interfaces\\IItemCategorySevice.cs",
+              "RelativeDocumentMoniker": "Mcparts.Infrastructure\\Interfaces\\IItemCategorySevice.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\Mcparts.Infrastructure\\Interfaces\\IItemCategorySevice.cs",
+              "RelativeToolTip": "Mcparts.Infrastructure\\Interfaces\\IItemCategorySevice.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T17:14:32.705Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ItemCategoryDto.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\Mcparts.Infrastructure\\Dtos\\ItemCategoryDto.cs",
+              "RelativeDocumentMoniker": "Mcparts.Infrastructure\\Dtos\\ItemCategoryDto.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\Mcparts.Infrastructure\\Dtos\\ItemCategoryDto.cs",
+              "RelativeToolTip": "Mcparts.Infrastructure\\Dtos\\ItemCategoryDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T16:49:20.415Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\McPartsAPI\\Program.cs",
+              "RelativeDocumentMoniker": "McPartsAPI\\Program.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\McPartsAPI\\Program.cs",
+              "RelativeToolTip": "McPartsAPI\\Program.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T13:24:01.034Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Items.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\Mcparts.Infrastructure\\Commands\\Items.cs",
+              "RelativeDocumentMoniker": "Mcparts.Infrastructure\\Commands\\Items.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\Mcparts.Infrastructure\\Commands\\Items.cs",
+              "RelativeToolTip": "Mcparts.Infrastructure\\Commands\\Items.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAuwBIAAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-05T11:50:42.355Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ItemsController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\McPartsAPI\\Controllers\\ItemsController.cs",
+              "RelativeDocumentMoniker": "McPartsAPI\\Controllers\\ItemsController.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\McPartsAPI\\Controllers\\ItemsController.cs",
+              "RelativeToolTip": "McPartsAPI\\Controllers\\ItemsController.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACUAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-05T11:57:40.182Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ItemCategoryController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\McPartsAPI\\Controllers\\ItemCategoryController.cs",
+              "RelativeDocumentMoniker": "McPartsAPI\\Controllers\\ItemCategoryController.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\McPartsAPI\\Controllers\\ItemCategoryController.cs",
+              "RelativeToolTip": "McPartsAPI\\Controllers\\ItemCategoryController.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAAD8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T15:06:03.462Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "IDatabaseService.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\Mcparts.Infrastructure\\Interfaces\\IDatabaseService.cs",
+              "RelativeDocumentMoniker": "Mcparts.Infrastructure\\Interfaces\\IDatabaseService.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\Mcparts.Infrastructure\\Interfaces\\IDatabaseService.cs",
+              "RelativeToolTip": "Mcparts.Infrastructure\\Interfaces\\IDatabaseService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-05T10:58:42.756Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\McPartsAPI\\appsettings.json",
+              "RelativeDocumentMoniker": "McPartsAPI\\appsettings.json",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\McPartsAPI\\appsettings.json",
+              "RelativeToolTip": "McPartsAPI\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAADlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-06-04T14:38:38.341Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ItemCategorySevice.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\Mcparts.Infrastructure\\Services\\ItemCategorySevice.cs",
+              "RelativeDocumentMoniker": "Mcparts.Infrastructure\\Services\\ItemCategorySevice.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\Mcparts.Infrastructure\\Services\\ItemCategorySevice.cs",
+              "RelativeToolTip": "Mcparts.Infrastructure\\Services\\ItemCategorySevice.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAAADgAAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T15:01:44.616Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "WeatherForecastController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\McPartsAPI\\Controllers\\WeatherForecastController.cs",
+              "RelativeDocumentMoniker": "McPartsAPI\\Controllers\\WeatherForecastController.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\McPartsAPI\\Controllers\\WeatherForecastController.cs",
+              "RelativeToolTip": "McPartsAPI\\Controllers\\WeatherForecastController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T15:07:25.112Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "DatabaseService.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\Mcparts.Infrastructure\\Services\\DatabaseService.cs",
+              "RelativeDocumentMoniker": "Mcparts.Infrastructure\\Services\\DatabaseService.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\Mcparts.Infrastructure\\Services\\DatabaseService.cs",
+              "RelativeToolTip": "Mcparts.Infrastructure\\Services\\DatabaseService.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAAADwAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T14:42:41.358Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "WeatherForecast.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\McPartsAPI\\WeatherForecast.cs",
+              "RelativeDocumentMoniker": "McPartsAPI\\WeatherForecast.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\McPartsAPI\\WeatherForecast.cs",
+              "RelativeToolTip": "McPartsAPI\\WeatherForecast.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T15:40:06.368Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\Mcparts.Infrastructure\\Class1.cs",
+              "RelativeDocumentMoniker": "Mcparts.Infrastructure\\Class1.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\Mcparts.Infrastructure\\Class1.cs",
+              "RelativeToolTip": "Mcparts.Infrastructure\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T13:46:40.153Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "McPartsAPI",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\McPartsAPI\\McPartsAPI.csproj",
+              "RelativeDocumentMoniker": "McPartsAPI\\McPartsAPI.csproj",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\McPartsAPI\\McPartsAPI.csproj",
+              "RelativeToolTip": "McPartsAPI\\McPartsAPI.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-06-04T13:24:21.069Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "McPartsAPI.http",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\McPartsAPI\\McPartsAPI.http",
+              "RelativeDocumentMoniker": "McPartsAPI\\McPartsAPI.http",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\McPartsAPI\\McPartsAPI\\McPartsAPI.http",
+              "RelativeToolTip": "McPartsAPI\\McPartsAPI.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2025-06-04T13:22:35.027Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

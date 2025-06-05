@@ -1,0 +1,6 @@
+@McPartsAPI_HostAddress = http://localhost:5012
+
+GET {{McPartsAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
