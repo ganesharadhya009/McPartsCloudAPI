@@ -15,8 +15,8 @@ namespace Mcparts.DataAccess.Commands
         public static string Update = "UPDATE itemcategory set name=@name, description=@description where id=@id";
         public static string Delete = "UPDATE itemcategory set isdeleted=@isdeleted where id=@id";
 
-        public static string GetSearchFilters = "select id,controltype, issearchable, ismultiselect, isiconsupported,category from searchfilters";
-        public static string GetSearcFilterData = "select id,name,tablename from searchheadervalues";
+        public static string GetSearchFilters = "select id,controltype, issearchable, ismultiselect, isiconsupported, category, categoryname from searchfilters";
+        public static string GetSearcFilterData = "select id,name,tablename,iconpathsearch from searchheadervalues";
         public static string Search = "SELECT id,partnumber,name,description,additionaldescription,note FROM itemsviewall";
     }
 }

@@ -279,7 +279,14 @@ namespace Mcparts.Infrastructure.Services
                 var filterDataLocal = filterData.Where(p=>p.GetValue("tablename").Value<string>() == tableName);
                 if (filterDataLocal != null)
                 {
-                    totalfilter.Add("filterData", JArray.FromObject(filterDataLocal));
+                    JArray arrayItems = new JArray();
+                    foreach(var filterdatalocalitem in filterDataLocal)
+                    {
+                        var clonedData = filterdatalocalitem.DeepClone() as JObject;
+                        clonedData.Remove("tablename");
+                        arrayItems.Add(clonedData);
+                    }
+                    totalfilter.Add("filterData", JArray.FromObject(arrayItems));
                     listFilters.Add(totalfilter);
                 }
             }
@@ -302,6 +309,8 @@ namespace Mcparts.Infrastructure.Services
                     data.Add("id", Convert.ToString(reader["id"]));
                     data.Add("name", Convert.ToString(reader["name"]));
                     data.Add("tablename", Convert.ToString(reader["tablename"]));
+                    data.Add("iconpathsearch", Convert.ToString(reader["iconpathsearch"]));
+                    
                     dataList.Add(data);
                 }
             }
@@ -327,6 +336,7 @@ namespace Mcparts.Infrastructure.Services
                     data.Add("ismultiselect", Convert.ToString(reader["ismultiselect"]));
                     data.Add("isiconsupported", Convert.ToString(reader["isiconsupported"]));
                     data.Add("category", Convert.ToString(reader["category"]));
+                    data.Add("name", Convert.ToString(reader["categoryname"]));
                     dataList.Add(data);
                 }
             }
