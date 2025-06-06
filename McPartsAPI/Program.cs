@@ -25,7 +25,7 @@ builder.Services.AddControllers()
 builder.Services.AddSingleton((provider) => new NpgsqlConnection(connectionString));
 builder.Services.AddSingleton<IDatabaseService, DatabaseService>();
 builder.Services.AddSingleton<IItemCategorySevice, ItemCategorySevice>();
-builder.Services.AddSingleton<IItemsSevice, ItemsSevice>();
+builder.Services.AddSingleton<IProductsSevice, ProductsSevice>();
 
 
 var app = builder.Build();

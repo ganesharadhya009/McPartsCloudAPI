@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Mcparts.Infrastructure.Interfaces
 {
-    public interface IItemsSevice : IBaseHandlerSevice
+    public interface IProductsSevice : IBaseHandlerSevice
     {
-        public Task<bool> Create(ItemsDtoPost data);
-        public Task<bool> Update(ItemsDto data);
+        public Task<bool> Create(ProductsDtoPost data);
+        public Task<bool> Update(ProductsDto data);
         public Task<List<JObject>> Search(JObject filter);
         public Task<List<JObject>> GetAllSearchFilterData();
     }

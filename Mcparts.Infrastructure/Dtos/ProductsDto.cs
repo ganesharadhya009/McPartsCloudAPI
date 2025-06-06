@@ -7,34 +7,42 @@ using System.Threading.Tasks;
 
 namespace Mcparts.DataAccess.Dtos
 {
-    public record ItemsDto : ItemsDtoBase
+    public record ProductsDto : ProductsDtoBase
     {
         public string id { get; set; }
     }
 
-    public record ItemsDtoPost : ItemsDtoBase
+    public record ProductsDtoPost : ProductsDtoBase
     {
         [JsonIgnore]
         public string id { get; set; } = Guid.NewGuid().ToString();
     }
 
-    public record ItemsDtoBase
+    public record ProductsDtoBase
     {
-        public string? partnumber { get; set; }
-
         public string? name { get; set; }
+
+        public string? partnumber { get; set; }
 
         public string? description { get; set; }
 
-        public bool? isdeleted { get; set; }
+        public double? unitprice { get; set; }
 
-        public string? createdby { get; set; }
+        public bool? physical { get; set; }
 
-        public DateTime? createddate { get; set; }
+        public string? unitmeasureid { get; set; }
 
-        public string? updatedby { get; set; }
+        public string? productgroupid { get; set; }
 
-        public DateTime? updateddate { get; set; }
+        public bool isdeleted { get; set; }
+
+        public DateTime? createdatutc { get; set; }
+
+        public string? createdbyid { get; set; }
+
+        public DateTime? updatedatutc { get; set; }
+
+        public string? updatedbyid { get; set; }
 
         public string? additionaldescription { get; set; }
 

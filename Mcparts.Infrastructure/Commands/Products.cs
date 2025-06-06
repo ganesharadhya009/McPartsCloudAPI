@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Mcparts.DataAccess.Commands
 {
-    public class Items
+    public class Products
     {
         public static string GetAll = "select id,partnumber,name,description,additionaldescription,note from itemsviewall where isdeleted=@isdeleted";
         public static string GetById = "SELECT id, name, description FROM public.itemcategory where id=@id and isdeleted=@isdeleted";
@@ -17,6 +17,6 @@ namespace Mcparts.DataAccess.Commands
 
         public static string GetSearchFilters = "select id,controltype, issearchable, ismultiselect, isiconsupported, category, categoryname from searchfilters";
         public static string GetSearcFilterData = "select id,name,tablename,iconpathsearch from searchheadervalues";
-        public static string Search = "SELECT id,partnumber,name,description,additionaldescription,note FROM itemsviewall";
+        public static string Search = "SELECT id,partnumber,name,description,additionaldescription,note FROM productsviewall";
     }
 }

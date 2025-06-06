@@ -13,14 +13,14 @@ using System.Threading.Tasks;
 
 namespace Mcparts.Infrastructure.Services
 {
-    public class ItemsSevice : IItemsSevice
+    public class ProductsSevice : IProductsSevice
     {
         IDatabaseService databaseService;
-        public ItemsSevice(IDatabaseService databaseService) {
+        public ProductsSevice(IDatabaseService databaseService) {
             this.databaseService = databaseService;
         }
 
-        private void AddParameters(NpgsqlCommand command, ItemsDto data)
+        private void AddParameters(NpgsqlCommand command, ProductsDto data)
         {
             var parameters = command.Parameters;
 
@@ -33,8 +33,7 @@ namespace Mcparts.Infrastructure.Services
         {
             var dataList = new List<JObject>();
             using var cmd = databaseService.McPartsonnection.CreateCommand();
-            cmd.CommandText = Items.GetAll;
-            cmd.Parameters.AddWithValue("@isdeleted", false);
+            cmd.CommandText = Products.Search;
             await databaseService.OpenConnection();
             using var reader = await cmd.ExecuteReaderAsync();
 
@@ -55,10 +54,10 @@ namespace Mcparts.Infrastructure.Services
             return dataList;
         }
 
-        public async Task<bool> Create(ItemsDtoPost data)
+        public async Task<bool> Create(ProductsDtoPost data)
         {
             using var cmd = databaseService.McPartsonnection.CreateCommand();
-            cmd.CommandText = Items.Insert;
+            cmd.CommandText = Products.Insert;
             cmd.Parameters.AddWithValue("@id", data.id);
             cmd.Parameters.AddWithValue("@name", data.name ?? string.Empty);
             cmd.Parameters.AddWithValue("@description", data.description ?? string.Empty);
@@ -67,10 +66,10 @@ namespace Mcparts.Infrastructure.Services
             return rowAffected > 0;
         }
 
-        public async Task<bool> Update(ItemsDto data)
+        public async Task<bool> Update(ProductsDto data)
         {
             using var cmd = databaseService.McPartsonnection.CreateCommand();
-            cmd.CommandText = Items.Update;
+            cmd.CommandText = Products.Update;
             AddParameters(cmd, data);
             await databaseService.OpenConnection();
             var rowAffected = await cmd.ExecuteNonQueryAsync();
@@ -81,7 +80,7 @@ namespace Mcparts.Infrastructure.Services
         {
             var itemCategory = new JObject();
             using var cmd = databaseService.McPartsonnection.CreateCommand();
-            cmd.CommandText = Items.GetById;
+            cmd.CommandText = Products.GetById;
             cmd.Parameters.AddWithValue("@id", id);
             cmd.Parameters.AddWithValue("@isdeleted", false);
             await databaseService.OpenConnection();
@@ -102,7 +101,7 @@ namespace Mcparts.Infrastructure.Services
         public async Task<bool> Delete(string id)
         {
             using var cmd = databaseService.McPartsonnection.CreateCommand();
-            cmd.CommandText = Items.Delete;
+            cmd.CommandText = Products.Delete;
             cmd.Parameters.AddWithValue("@id", id);
             cmd.Parameters.AddWithValue("@isdeleted", true);
             await databaseService.OpenConnection();
@@ -132,8 +131,8 @@ namespace Mcparts.Infrastructure.Services
             string dimensionsKey = "dimensions";
 
             using var cmd = databaseService.McPartsonnection.CreateCommand();
-            cmd.CommandText = Items.Search;
-            var baseCommand = Items.Search + " where ";
+            cmd.CommandText = Products.Search;
+            var baseCommand = Products.Search + " where ";
             if (filter == null)
             {
             }
@@ -297,7 +296,7 @@ namespace Mcparts.Infrastructure.Services
         {
             var dataList = new List<JObject>();
             using var cmd = databaseService.McPartsonnection.CreateCommand();
-            cmd.CommandText = Items.GetSearcFilterData;
+            cmd.CommandText = Products.GetSearcFilterData;
             await databaseService.OpenConnection();
             using var reader = await cmd.ExecuteReaderAsync();
 
@@ -321,7 +320,7 @@ namespace Mcparts.Infrastructure.Services
         {
             var dataList = new List<JObject>();
             using var cmd = databaseService.McPartsonnection.CreateCommand();
-            cmd.CommandText = Items.GetSearchFilters;
+            cmd.CommandText = Products.GetSearchFilters;
             await databaseService.OpenConnection();
             using var reader = await cmd.ExecuteReaderAsync();
 

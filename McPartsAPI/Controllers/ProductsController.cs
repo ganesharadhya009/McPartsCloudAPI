@@ -7,12 +7,12 @@ namespace McPartsAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ItemsController : ControllerBase
+    public class ProductsController : ControllerBase
     {
-        private readonly ILogger<ItemsController> _logger;
-        private IItemsSevice itemsSevice;
+        private readonly ILogger<ProductsController> _logger;
+        private IProductsSevice itemsSevice;
 
-        public ItemsController(ILogger<ItemsController> logger, IItemsSevice itemsSevice)
+        public ProductsController(ILogger<ProductsController> logger, IProductsSevice itemsSevice)
         {
             _logger = logger;
             this.itemsSevice = itemsSevice;
@@ -55,14 +55,14 @@ namespace McPartsAPI.Controllers
 
         [HttpPost]
         [Route("create")]
-        public async Task<bool> Create([FromBody] ItemsDtoPost data)
+        public async Task<bool> Create([FromBody] ProductsDtoPost data)
         {
             return await itemsSevice.Create(data);
         }
 
         [HttpPut]
         [Route("update")]
-        public async Task<bool> Update([FromBody] ItemsDto data)
+        public async Task<bool> Update([FromBody] ProductsDto data)
         {
             return await itemsSevice.Update(data);
         }
