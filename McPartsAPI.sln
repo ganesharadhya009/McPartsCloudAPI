@@ -5,7 +5,7 @@ VisualStudioVersion = 17.13.36105.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "McPartsAPI", "McPartsAPI\McPartsAPI.csproj", "{A0DF800E-19F4-4378-ABA1-3DCEB12F5FAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcparts.DataAccess", "Mcparts.Infrastructure\Mcparts.DataAccess.csproj", "{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcparts.DataAccess", "Mcparts.DataAccess\Mcparts.DataAccess.csproj", "{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

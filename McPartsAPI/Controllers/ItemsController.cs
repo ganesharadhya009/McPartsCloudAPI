@@ -7,12 +7,12 @@ namespace McPartsAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase
+    public class ItemsController : ControllerBase
     {
-        private readonly ILogger<ProductsController> _logger;
+        private readonly ILogger<ItemsController> _logger;
         private IProductsSevice itemsSevice;
 
-        public ProductsController(ILogger<ProductsController> logger, IProductsSevice itemsSevice)
+        public ItemsController(ILogger<ItemsController> logger, IProductsSevice itemsSevice)
         {
             _logger = logger;
             this.itemsSevice = itemsSevice;
@@ -36,7 +36,16 @@ namespace McPartsAPI.Controllers
         [Route("GetSearchFilter")]
         public async Task<IEnumerable<JObject>> GetSearchFilter()
         {
-            return await itemsSevice.GetAllSearchFilterData();
+            //return await itemsSevice.GetAllSearchFilterData();
+            return null;
+        }
+
+        [HttpGet]
+        [Route("GetProductGroupCategory")]
+        public async Task<IEnumerable<JObject>> GetProductGroupCategory()
+        {
+            //return await itemsSevice.GetAllSearchFilterData();
+            return null;
         }
 
         [HttpPost]
