@@ -1,0 +1,36 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace Mcparts.DataAccess.Models;
+
+public partial class vendorcontact
+{
+    public string id { get; set; } = null!;
+
+    public string? name { get; set; }
+
+    public string? number { get; set; }
+
+    public string? jobtitle { get; set; }
+
+    public string? phonenumber { get; set; }
+
+    public string? emailaddress { get; set; }
+
+    public string? description { get; set; }
+
+    public string? vendorid { get; set; }
+
+    public BitArray isdeleted { get; set; } = null!;
+
+    public DateTime? createdatutc { get; set; }
+
+    public string? createdbyid { get; set; }
+
+    public DateTime? updatedatutc { get; set; }
+
+    public string? updatedbyid { get; set; }
+
+    public virtual vendor? vendor { get; set; }
+}

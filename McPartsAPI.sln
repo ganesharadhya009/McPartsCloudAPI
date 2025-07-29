@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "McPartsAPI", "McPartsAPI\Mc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcparts.DataAccess", "Mcparts.DataAccess\Mcparts.DataAccess.csproj", "{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcparts.Business", "Mcparts.Business\Mcparts.Business.csproj", "{CE09286C-3263-95A6-0AA3-F7BFFA2AB421}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9361F83D-8B75-4B8A-8C39-D019A1FE57E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE09286C-3263-95A6-0AA3-F7BFFA2AB421}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE09286C-3263-95A6-0AA3-F7BFFA2AB421}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE09286C-3263-95A6-0AA3-F7BFFA2AB421}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE09286C-3263-95A6-0AA3-F7BFFA2AB421}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

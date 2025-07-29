@@ -1,4 +1,5 @@
 using Mcparts.DataAccess.Dtos;
+using Mcparts.DataAccess.Models;
 using Mcparts.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
@@ -11,11 +12,13 @@ namespace McPartsAPI.Controllers
     {
         private readonly ILogger<ItemsController> _logger;
         private IProductsSevice itemsSevice;
+        McpartsDbContext _dbcontext;
 
-        public ItemsController(ILogger<ItemsController> logger, IProductsSevice itemsSevice)
+        public ItemsController(ILogger<ItemsController> logger, McpartsDbContext dbcontext, IProductsSevice itemsSevice)
         {
             _logger = logger;
             this.itemsSevice = itemsSevice;
+            _dbcontext = dbcontext;
         }
 
         //[HttpGet(Name = "GetAllItemCategory")]
@@ -29,6 +32,7 @@ namespace McPartsAPI.Controllers
         [HttpGet]
         public async Task<IEnumerable<JObject>> GetAll()
         {
+
             return await itemsSevice.GetAll();
         }
 
