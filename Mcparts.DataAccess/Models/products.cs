@@ -33,6 +33,8 @@ public partial class products
 
     public string? note { get; set; }
 
+    public int? lotsize { get; set; }
+
     public virtual ICollection<inventorytransaction> inventorytransaction { get; set; } = new List<inventorytransaction>();
 
     public virtual ICollection<productmapper> productmapper { get; set; } = new List<productmapper>();

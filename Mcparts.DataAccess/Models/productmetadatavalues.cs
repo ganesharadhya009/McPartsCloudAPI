@@ -25,5 +25,7 @@ public partial class productmetadatavalues
 
     public string? iconpath { get; set; }
 
+    public string? partnumbercode { get; set; }
+
     public virtual productmetadata? productmetdata { get; set; }
 }

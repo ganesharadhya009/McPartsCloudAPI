@@ -38,5 +38,9 @@ namespace Mcparts.Business.Services.IServices.IServiceMappings
     {
     }
 
+    public interface IProductMapperService : IGenericServiceAsync<productmapper, productmapperdto>
+    {
+    }
+
 
 }

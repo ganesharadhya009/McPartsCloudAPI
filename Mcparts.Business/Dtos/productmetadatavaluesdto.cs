@@ -27,6 +27,8 @@ namespace Mcparts.Business.Dtos
 
         public string? productmetdataid { get; set; }
 
+        public string? partnumbercode { get; set; }
+
         public string? iconpath { get; set; }
     }
 }

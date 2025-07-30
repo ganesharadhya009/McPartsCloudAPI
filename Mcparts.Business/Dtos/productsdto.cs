@@ -35,5 +35,7 @@ namespace Mcparts.Business.Dtos
         public string? additionaldescription { get; set; }
 
         public string? note { get; set; }
+
+        public int? lotsize { get; set; }
     }
 }

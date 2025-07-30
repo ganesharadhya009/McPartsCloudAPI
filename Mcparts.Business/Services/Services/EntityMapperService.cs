@@ -60,5 +60,12 @@ namespace Mcparts.Business.Services.Services
         }
     }
 
+    public class ProductMapperService : GenericServiceAsync<productmapper, productmapperdto>, IProductMapperService
+    {
+        public ProductMapperService(IGenericRepository<productmapper, productmapperdto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
 
 }

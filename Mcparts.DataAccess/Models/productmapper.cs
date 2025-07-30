@@ -27,6 +27,8 @@ public partial class productmapper
 
     public DateTime? updatedatutc { get; set; }
 
+    public string? productmetadatavaluesid { get; set; }
+
     public virtual products? product { get; set; }
 
     public virtual productcategory? productcategory { get; set; }

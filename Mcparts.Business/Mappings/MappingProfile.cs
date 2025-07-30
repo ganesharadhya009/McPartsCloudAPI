@@ -50,6 +50,11 @@ namespace Mcparts.Business.Mappings
             CreateMap<productsdto, productsdtoGet>().ReverseMap();
             CreateMap<productsdto, productsdtoGet>();
 
+            CreateMap<productmapper, productmapperdto>().ReverseMap();
+            CreateMap<productmapper, productmapperdto>();
+            CreateMap<productmapperdto, productmapperdtoGet>().ReverseMap();
+            CreateMap<productmapperdto, productmapperdtoGet>();
+
 
 
         }

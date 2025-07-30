@@ -1175,6 +1175,7 @@ public partial class McpartsDbContext : DbContext
             entity.Property(e => e.productgroupid).HasColumnType("character varying");
             entity.Property(e => e.productid).HasColumnType("character varying");
             entity.Property(e => e.productmetadataid).HasColumnType("character varying");
+            entity.Property(e => e.productmetadatavaluesid).HasColumnType("character varying");
             entity.Property(e => e.productsubcategoryid).HasColumnType("character varying");
             entity.Property(e => e.productsubcategorysubsetid).HasColumnType("character varying");
             entity.Property(e => e.updatedbyid).HasColumnType("character varying");
@@ -1245,6 +1246,7 @@ public partial class McpartsDbContext : DbContext
             entity.Property(e => e.iconpath).HasColumnType("character varying");
             entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.name).HasColumnType("character varying");
+            entity.Property(e => e.partnumbercode).HasColumnType("character varying");
             entity.Property(e => e.productmetdataid).HasColumnType("character varying");
             entity.Property(e => e.updatedbyid).HasColumnType("character varying");
 
