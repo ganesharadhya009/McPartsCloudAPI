@@ -13,24 +13,24 @@ namespace McPartsAPI.Helpers
     
     public class HelperMethods
     {
-        public static string categoryidSocketHead = "b1404928-4100-4d11-be64-ab0d897e7953";
-        public static string subcategoryIdSocketHead = "4fa08198-358f-4e1c-b64a-38239893ec7f";
-        public static string groupIdSocketHead = "36f5679d-3f43-4d0e-a540-6fd27b17c8be";
+        public  string categoryidSocketHead = "b1404928-4100-4d11-be64-ab0d897e7953";
+        public  string subcategoryIdSocketHead = "4fa08198-358f-4e1c-b64a-38239893ec7f";
+        public  string groupIdSocketHead = "36f5679d-3f43-4d0e-a540-6fd27b17c8be";
 
-        public static string categoryWasher = "3691290b-c9ae-43e4-a6ed-f1885d7987c2";
-        public static string subcategoryWasherPlain = "29e2d40b-02b4-4d13-ba80-e74c33cb7069";
-        public static string subcategoryWasherSpring = "32b58073-f6f9-48da-a604-0e5d8379f161";
-        public static string groupIdPlainWasher = "23d0f96c-ed6f-4259-8e50-678f58b1b2af";
+        public  string categoryWasher = "3691290b-c9ae-43e4-a6ed-f1885d7987c2";
+        public  string subcategoryWasherPlain = "29e2d40b-02b4-4d13-ba80-e74c33cb7069";
+        public  string subcategoryWasherSpring = "32b58073-f6f9-48da-a604-0e5d8379f161";
+        public  string groupIdWasher = "23d0f96c-ed6f-4259-8e50-678f58b1b2af";
 
-        public static string categoryPin = "5995d01b-8a8d-44e9-bb3a-cc520caf6bdb";
-        public static string subcategoryPinM6 = "e488be40-3ea9-405f-92af-a64aedd7850a";
-        public static string subcategoryPinH6 = "fce7635b-f3ee-415a-b744-8ec7799833fb";
-        public static string groupIPin = "f360b031-bb25-4cc6-b9e9-163df1836df6";
-
-
+        public  string categoryPin = "5995d01b-8a8d-44e9-bb3a-cc520caf6bdb";
+        public  string subcategoryPinM6 = "e488be40-3ea9-405f-92af-a64aedd7850a";
+        public  string subcategoryPinH6 = "fce7635b-f3ee-415a-b744-8ec7799833fb";
+        public  string groupIPin = "f360b031-bb25-4cc6-b9e9-163df1836df6";
 
 
-        public static string GetProductCodeForSocketHeads(IEnumerable<productmetadatavaluesdto> metadataValues, DataRow row)
+
+
+        public  string GetProductCodeForSocketHeads(IEnumerable<productmetadatavaluesdto> metadataValues, DataRow row)
         {
             var materialType = row["MATERIAL"].ToString();
             var threadType = row["THREAD TYPE"].ToString();
@@ -61,7 +61,7 @@ namespace McPartsAPI.Helpers
             return code;
         }
 
-        public static string GetProductCode(IEnumerable<productmetadatavaluesdto> metadataValues, DataRow row, List<string> metadata)
+        public  string GetProductCode(IEnumerable<productmetadatavaluesdto> metadataValues, DataRow row, List<string> metadata)
         {
             string code = string.Empty;
             foreach (var met in metadata)
@@ -72,7 +72,7 @@ namespace McPartsAPI.Helpers
             return code;
         }
 
-        public static string GetProductCodeForPinM6(IEnumerable<productmetadatavaluesdto> metadataValues, DataRow row, List<string> metadata)
+        public  string GetProductCodeForPinM6(IEnumerable<productmetadatavaluesdto> metadataValues, DataRow row, List<string> metadata)
         {
             string code = string.Empty;
             foreach(var met  in metadata)
@@ -111,7 +111,7 @@ namespace McPartsAPI.Helpers
             return code;
         }
 
-        public static string GetProductCodeForPlainWasher(IEnumerable<productmetadatavaluesdto> metadataValues, DataRow row)
+        public  string GetProductCodeForPlainWasher(IEnumerable<productmetadatavaluesdto> metadataValues, DataRow row)
         {
             var materialType = row["MATERIAL"].ToString();
             var threadType = row["THREAD TYPE"].ToString();
@@ -137,7 +137,7 @@ namespace McPartsAPI.Helpers
             return code;
         }
 
-        public static string GetProductCodeForSpringWasher(IEnumerable<productmetadatavaluesdto> metadataValues, DataRow row)
+        public  string GetProductCodeForSpringWasher(IEnumerable<productmetadatavaluesdto> metadataValues, DataRow row)
         {
             var materialType = row["MATERIAL"].ToString();
             var threadType = row["THREAD TYPE"].ToString();
@@ -165,7 +165,7 @@ namespace McPartsAPI.Helpers
             return code;
         }
 
-        public static Dictionary<string, List<string>> ProcessHeaderAndData(DataTable table, string category, string subcategory, Dictionary<string, List<string>> dictionaryMetadata, string name)
+        public  Dictionary<string, List<string>> ProcessHeaderAndData(DataTable table, string category, string subcategory, Dictionary<string, List<string>> dictionaryMetadata, string name)
         {
             Dictionary<string, List<string>> dictionaryMetValues = new Dictionary<string, List<string>>();
             var values = dictionaryMetadata[name];
@@ -186,7 +186,31 @@ namespace McPartsAPI.Helpers
             return dictionaryMetValues;
         }
 
-        public static productmapperdto GetProductMapperDTO(productsdto product, string categoryid, string subcategoryId, string productGroupId, string metadataId, string metadataValueId)
+        public  async Task SaveMetadataAndValues(List<string> met, 
+            IProductMetadataService _productMetadataService, 
+            Dictionary<string, List<string>> dataMetadataVValues,
+            IProductMetadataValuesService _productMetadataValueService)
+        {
+            List<productmetadatadto> listproductMetadataDto = new List<productmetadatadto>();
+            foreach (var mData in met)
+            {
+                var productMetadataDtoData = GetProductMetadataDTO(mData, categoryidSocketHead, subcategoryIdSocketHead);
+                await _productMetadataService.AddAsync(productMetadataDtoData);
+                int partnumbercount = 1;
+                foreach (var mValue in dataMetadataVValues)
+                {
+                    foreach (var vd in mValue.Value)
+                    {
+                        var metvaluesdto = GetProductMetadatavaluesDTO(vd, partnumbercount.ToString(), productMetadataDtoData.id);
+                        await _productMetadataValueService.AddAsync(metvaluesdto);
+                        partnumbercount++;
+                    }
+                }
+                listproductMetadataDto.Add(productMetadataDtoData);
+            }
+        }
+
+        public  productmapperdto GetProductMapperDTO(productsdto product, string categoryid, string subcategoryId, string productGroupId, string metadataId, string metadataValueId)
         {
             return new productmapperdto()
             {
@@ -200,7 +224,7 @@ namespace McPartsAPI.Helpers
             };
         }
 
-        public static productsdto GetProductsDTO(string productName)
+        public  productsdto GetProductsDTO(string productName)
         {
             return new productsdto()
             {
@@ -211,7 +235,7 @@ namespace McPartsAPI.Helpers
             };
         }
 
-        public static productmetadatadto GetProductMetadataDTO(string name, string category, string subcat)
+        public  productmetadatadto GetProductMetadataDTO(string name, string category, string subcat)
         {
             return new productmetadatadto()
             {
@@ -227,7 +251,7 @@ namespace McPartsAPI.Helpers
             };
         }
 
-        public static productmetadatavaluesdto GetProductMetadatavaluesDTO(string name, string partnumber, string metadataid)
+        public  productmetadatavaluesdto GetProductMetadatavaluesDTO(string name, string partnumber, string metadataid)
         {
             return new productmetadatavaluesdto()
             {
@@ -239,7 +263,7 @@ namespace McPartsAPI.Helpers
             };
         }
 
-        public static async Task ProcessSpringWasher(DataRow row,
+        public  async Task ProcessSpringWasher(DataRow row,
           IEnumerable<productmetadatadto> metadata,
           IEnumerable<productmetadatavaluesdto> metadataValues,
           IProductsService _service,
@@ -247,17 +271,17 @@ namespace McPartsAPI.Helpers
         {
             var name = row["NAME"].ToString();
             var productsdto = GetProductsDTO(name);
-            var code = HelperMethods.GetProductCodeForSpringWasher(metadataValues, row);
+            var code = GetProductCodeForSpringWasher(metadataValues, row);
             productsdto.partnumber = code;
             await _service.AddAsync(productsdto);
 
 
             var data = ProcessDataRowMetadataValues("MATERIAL", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
-            var productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            var productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("THREAD TYPE", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             //data = ProcessThreadPitch(row, metadata, metadataValues);
@@ -277,23 +301,23 @@ namespace McPartsAPI.Helpers
             //await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("SURFACE FINISH", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("SIZE", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("D1 MIN", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("D1 MAX", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("D2 MAX", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             //data = ProcessK(row, metadata, metadataValues);
@@ -301,12 +325,12 @@ namespace McPartsAPI.Helpers
             //await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("S", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
         }
 
-        public static async Task ProcessPlainWasher(DataRow row,
+        public  async Task ProcessPlainWasher(DataRow row,
            IEnumerable<productmetadatadto> metadata,
            IEnumerable<productmetadatavaluesdto> metadataValues,
            IProductsService _service,
@@ -314,17 +338,17 @@ namespace McPartsAPI.Helpers
         {
             var name = row["NAME"].ToString();
             var productsdto = GetProductsDTO(name);
-            var code = HelperMethods.GetProductCodeForPlainWasher(metadataValues, row);
+            var code = GetProductCodeForPlainWasher(metadataValues, row);
             productsdto.partnumber = code;
             await _service.AddAsync(productsdto);
 
 
             var data = ProcessDataRowMetadataValues("MATERIAL", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
-            var productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            var productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("THREAD TYPE", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             //data = ProcessThreadPitch(row, metadata, metadataValues);
@@ -344,19 +368,19 @@ namespace McPartsAPI.Helpers
             //await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("SURFACE FINISH", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("SIZE", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("D1", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("D2", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             //data = ProcessK(row, metadata, metadataValues);
@@ -364,15 +388,16 @@ namespace McPartsAPI.Helpers
             //await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("S", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
         }
 
-        public static async Task<List<string>> ProcessSOCKETHEADMainFunction(DataTable table, IEnumerable<productmetadatadto> metadata,
+        public  async Task<List<string>> ProcessSOCKETHEADMainFunction(DataTable table, IEnumerable<productmetadatadto> metadata,
             IEnumerable<productmetadatavaluesdto> metadataValues,
             IProductsService _service,
-            IProductMapperService _productMapperService)
+            IProductMapperService _productMapperService,
+            List<string> listMetadata)
         {
             var list = new List<string>();
             foreach (DataRow row in table.Rows)
@@ -383,7 +408,19 @@ namespace McPartsAPI.Helpers
                     //create products
                     if (row["NAME"] != null && row["NAME"].ToString() != "")
                     {
-                        await ProcessSOCKETHEAD(row, metadata, metadataValues, _service, _productMapperService);
+                        //await ProcessSOCKETHEAD(row, metadata, metadataValues, _service, _productMapperService);
+                        var name = row["NAME"].ToString();
+                        var productsdto = GetProductsDTO(name);
+                        var code = GetProductCode(metadataValues, row, listMetadata);
+                        await _service.AddAsync(productsdto);
+                        productsdto.partnumber = code;
+
+                        foreach (var met in listMetadata)
+                        {
+                            var data = ProcessDataRowMetadataValues(met, row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+                            var productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+                            await _productMapperService.AddAsync(productMapperDto);
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -395,10 +432,12 @@ namespace McPartsAPI.Helpers
             return list;
         }
 
-        public static async Task<List<string>> ProcessPlainWasherMainFunction(DataTable table, IEnumerable<productmetadatadto> metadata,
+        public  async Task<List<string>> ProcessDowelPinM6DMainFunction(DataTable table, IEnumerable<productmetadatadto> metadata,
            IEnumerable<productmetadatavaluesdto> metadataValues,
            IProductsService _service,
-           IProductMapperService _productMapperService)
+           IProductMapperService _productMapperService,
+           List<string> listMetadata
+            )
         {
             var list = new List<string>();
             foreach (DataRow row in table.Rows)
@@ -409,7 +448,19 @@ namespace McPartsAPI.Helpers
                     //create products
                     if (row["NAME"] != null && row["NAME"].ToString() != "")
                     {
-                        await ProcessPlainWasher(row, metadata, metadataValues, _service, _productMapperService);
+                        var name = row["NAME"].ToString();
+                        var productsdto = GetProductsDTO(name);
+                        var code = GetProductCode(metadataValues, row, listMetadata);
+                        await _service.AddAsync(productsdto);
+                        productsdto.partnumber = code;
+
+                        foreach(var met in listMetadata)
+                        {
+                            var data = ProcessDataRowMetadataValues(met, row, metadata, metadataValues, categoryPin, subcategoryPinM6);
+                            var productMapperDto = GetProductMapperDTO(productsdto, categoryPin, subcategoryPinM6, groupIPin, data.MetadataId, data.MetadataIdValue);
+                            await _productMapperService.AddAsync(productMapperDto);
+                        }
+
                     }
                 }
                 catch (Exception ex)
@@ -421,10 +472,89 @@ namespace McPartsAPI.Helpers
             return list;
         }
 
-        public static async Task<List<string>> ProcessSpringWasherMainFunction(DataTable table, IEnumerable<productmetadatadto> metadata,
+        public  async Task<List<string>> ProcessDowelPinH6DMainFunction(DataTable table, IEnumerable<productmetadatadto> metadata,
+         IEnumerable<productmetadatavaluesdto> metadataValues,
+         IProductsService _service,
+         IProductMapperService _productMapperService,
+         List<string> listMetadata
+          )
+        {
+            var list = new List<string>();
+            foreach (DataRow row in table.Rows)
+            {
+                var slNo = row["SL NO"].ToString();
+                try
+                {
+                    //create products
+                    if (row["NAME"] != null && row["NAME"].ToString() != "")
+                    {
+                        var name = row["NAME"].ToString();
+                        var productsdto = GetProductsDTO(name);
+                        var code = GetProductCode(metadataValues, row, listMetadata);
+                        await _service.AddAsync(productsdto);
+                        productsdto.partnumber = code;
+
+                        foreach (var met in listMetadata)
+                        {
+                            var data = ProcessDataRowMetadataValues(met, row, metadata, metadataValues, categoryPin, subcategoryPinH6);
+                            var productMapperDto = GetProductMapperDTO(productsdto, categoryPin, subcategoryPinH6, groupIPin, data.MetadataId, data.MetadataIdValue);
+                            await _productMapperService.AddAsync(productMapperDto);
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    list.Add(slNo);
+                }
+
+            }
+            return list;
+        }
+
+        public  async Task<List<string>> ProcessPlainWasherMainFunction(DataTable table, IEnumerable<productmetadatadto> metadata,
+           IEnumerable<productmetadatavaluesdto> metadataValues,
+           IProductsService _service,
+           IProductMapperService _productMapperService,
+            List<string> listMetadata)
+        {
+            var list = new List<string>();
+            foreach (DataRow row in table.Rows)
+            {
+                var slNo = row["SL NO"].ToString();
+                try
+                {
+                    if (row["NAME"] != null && row["NAME"].ToString() != "")
+                    {
+                        var name = row["NAME"].ToString();
+                        var productsdto = GetProductsDTO(name);
+                        var code = GetProductCode(metadataValues, row, listMetadata);
+                        await _service.AddAsync(productsdto);
+                        productsdto.partnumber = code;
+
+                        foreach (var met in listMetadata)
+                        {
+                            var data = ProcessDataRowMetadataValues(met, row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
+                            var productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataIdValue);
+                            await _productMapperService.AddAsync(productMapperDto);
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    list.Add(slNo);
+                }
+
+            }
+            return list;
+        }
+
+        public  async Task<List<string>> ProcessSpringWasherMainFunction(DataTable table, IEnumerable<productmetadatadto> metadata,
           IEnumerable<productmetadatavaluesdto> metadataValues,
           IProductsService _service,
-          IProductMapperService _productMapperService)
+          IProductMapperService _productMapperService,
+           List<string> listMetadata)
         {
             var list = new List<string>();
             foreach (DataRow row in table.Rows)
@@ -435,8 +565,21 @@ namespace McPartsAPI.Helpers
                     //create products
                     if (row["NAME"] != null && row["NAME"].ToString() != "")
                     {
-                        await ProcessSpringWasher(row, metadata, metadataValues, _service, _productMapperService);
+                        var name = row["NAME"].ToString();
+                        var productsdto = GetProductsDTO(name);
+                        var code = GetProductCode(metadataValues, row, listMetadata);
+                        await _service.AddAsync(productsdto);
+                        productsdto.partnumber = code;
+
+                        foreach (var met in listMetadata)
+                        {
+                            var data = ProcessDataRowMetadataValues(met, row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
+                            var productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
+                            await _productMapperService.AddAsync(productMapperDto);
+                        }
+
                     }
+                    //await ProcessSpringWasher(row, metadata, metadataValues, _service, _productMapperService);
                 }
                 catch (Exception ex)
                 {
@@ -447,7 +590,7 @@ namespace McPartsAPI.Helpers
             return list;
         }
 
-        public static async Task ProcessSOCKETHEAD(DataRow row , 
+        public  async Task ProcessSOCKETHEAD(DataRow row , 
             IEnumerable<productmetadatadto> metadata, 
             IEnumerable<productmetadatavaluesdto> metadataValues,
             IProductsService _service,
@@ -455,7 +598,7 @@ namespace McPartsAPI.Helpers
         {
             var name = row["NAME"].ToString();
             var productsdto = GetProductsDTO(name);
-            var code = HelperMethods.GetProductCodeForSocketHeads(metadataValues, row);
+            var code = GetProductCodeForSocketHeads(metadataValues, row);
             await _service.AddAsync(productsdto);
             productsdto.partnumber = code;
 
@@ -509,7 +652,7 @@ namespace McPartsAPI.Helpers
 
         }
 
-        public static async Task ProcessM6(DataRow row,
+        public  async Task ProcessM6(DataRow row,
             IEnumerable<productmetadatadto> metadata,
             IEnumerable<productmetadatavaluesdto> metadataValues,
             IProductsService _service,
@@ -517,7 +660,7 @@ namespace McPartsAPI.Helpers
         {
             var name = row["NAME"].ToString();
             var productsdto = GetProductsDTO(name);
-            var code = HelperMethods.GetProductCodeForSocketHeads(metadataValues, row);
+            var code = GetProductCodeForSocketHeads(metadataValues, row);
             await _service.AddAsync(productsdto);
             productsdto.partnumber = code;
 
@@ -571,7 +714,7 @@ namespace McPartsAPI.Helpers
 
         }
 
-        //public static MetadataAndValue ProcessMaterial(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //public  MetadataAndValue ProcessMaterial(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
         //{
         //    var material = row["MATERIAL"].ToString();
         //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "MATERIAL".ToLower());
@@ -584,7 +727,7 @@ namespace McPartsAPI.Helpers
         //    };
         //}
 
-        //public static MetadataAndValue ProcessThreadType(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //public  MetadataAndValue ProcessThreadType(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
         //{
         //    var threadType = row["THREAD TYPE"].ToString();
         //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "THREAD TYPE".ToLower());
@@ -597,7 +740,7 @@ namespace McPartsAPI.Helpers
         //    };
         //}
 
-        //public static MetadataAndValue ProcessThreadPitch(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //public  MetadataAndValue ProcessThreadPitch(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
         //{
         //    var threadPitch = row["THREAD PITCH"].ToString();
         //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "THREAD PITCH".ToLower());
@@ -610,7 +753,7 @@ namespace McPartsAPI.Helpers
         //    };
         //}
 
-        //public static MetadataAndValue ProcessForm(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //public  MetadataAndValue ProcessForm(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
         //{
         //    var FORM = row["FORM"].ToString();
         //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "FORM".ToLower());
@@ -623,7 +766,7 @@ namespace McPartsAPI.Helpers
         //    };
         //}
 
-        //public static MetadataAndValue ProcessDriveType(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //public  MetadataAndValue ProcessDriveType(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
         //{
         //    var driveType = row["DRIVE TYPE"].ToString();
         //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "DRIVE TYPE".ToLower());
@@ -636,7 +779,7 @@ namespace McPartsAPI.Helpers
         //    };
         //}
 
-        //public static MetadataAndValue ProcessPropertyClass(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //public  MetadataAndValue ProcessPropertyClass(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
         //{
         //    var property = row["PROPERTY CLASS"].ToString();
         //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "PROPERTY CLASS".ToLower());
@@ -649,7 +792,7 @@ namespace McPartsAPI.Helpers
         //    };
         //}
 
-        //public static MetadataAndValue ProcessSurfaceFinish(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //public  MetadataAndValue ProcessSurfaceFinish(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
         //{
         //    var surfaceFinish = row["SURFACE FINISH"].ToString();
         //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "SURFACE FINISH".ToLower());
@@ -662,7 +805,7 @@ namespace McPartsAPI.Helpers
         //    };
         //}
 
-        //public static MetadataAndValue ProcessSize(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //public  MetadataAndValue ProcessSize(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
         //{
         //    var SIZE = row["SIZE"].ToString();
         //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "SIZE".ToLower());
@@ -675,7 +818,7 @@ namespace McPartsAPI.Helpers
         //    };
         //}
 
-        //public static MetadataAndValue ProcessLength(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //public  MetadataAndValue ProcessLength(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
         //{
         //    var length = row["L"].ToString();
         //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "Length".ToLower());
@@ -688,7 +831,7 @@ namespace McPartsAPI.Helpers
         //    };
         //}
 
-        //public static MetadataAndValue ProcessD2(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //public  MetadataAndValue ProcessD2(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
         //{
         //    var d2 = row["D2"].ToString();
         //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "D2".ToLower());
@@ -701,7 +844,7 @@ namespace McPartsAPI.Helpers
         //    };
         //}
 
-        //public static MetadataAndValue ProcessD1(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //public  MetadataAndValue ProcessD1(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
         //{
         //    var d1 = row["D1"].ToString();
         //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "D1".ToLower());
@@ -714,7 +857,7 @@ namespace McPartsAPI.Helpers
         //    };
         //}
 
-        //public static MetadataAndValue ProcessK(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //public  MetadataAndValue ProcessK(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
         //{
         //    var K = row["K"].ToString();
         //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "K".ToLower());
@@ -727,7 +870,7 @@ namespace McPartsAPI.Helpers
         //    };
         //}
 
-        //public static MetadataAndValue ProcessS(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //public  MetadataAndValue ProcessS(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
         //{
         //    var S = row["S"].ToString();
         //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "S".ToLower());
@@ -740,7 +883,7 @@ namespace McPartsAPI.Helpers
         //    };
         //}
 
-        //public static MetadataAndValue ProcessD1Min(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //public  MetadataAndValue ProcessD1Min(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
         //{
         //    var key = "D1 MIN";
         //    var keyData = row[key].ToString();
@@ -754,7 +897,7 @@ namespace McPartsAPI.Helpers
         //    };
         //}
 
-        public static MetadataAndValue ProcessDataRowMetadataValues(string key, DataRow row, 
+        public  MetadataAndValue ProcessDataRowMetadataValues(string key, DataRow row, 
             IEnumerable<productmetadatadto> metadata, 
             IEnumerable<productmetadatavaluesdto> metadatavalues,
             string category,

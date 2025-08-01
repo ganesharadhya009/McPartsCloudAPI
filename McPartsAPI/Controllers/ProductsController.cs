@@ -29,6 +29,7 @@ namespace McPartsAPI.Controllers
         private readonly IProductMetadataService _productMetadataService;
         private readonly IProductMetadataValuesService _productMetadataValueService;
         private readonly IProductMapperService _productMapperService;
+        private readonly HelperMethods _helperMethods = new HelperMethods();
         //private readonly TokenProvider _tokenProvider;
 
         public ProductsController(IProductsService service,
@@ -152,119 +153,108 @@ namespace McPartsAPI.Controllers
                     string subcategoryId = null;
                     if (table.TableName == "SOCKET HEAD")
                     {
-                        //var dataMetadataVValues = HelperMethods.ProcessHeaderAndData(table, "", "", dictionaryMetadata, "SOCKET HEAD");
-                        //var met = dictionaryMetadata["SOCKET HEAD"];
-                        //List<productmetadatadto> listproductMetadataDto = new List<productmetadatadto>();
-                        //foreach (var mData in met)
-                        //{
-                        //    var productMetadataDtoData = HelperMethods.GetProductMetadataDTO( mData, HelperMethods.categoryidSocketHead, HelperMethods.subcategoryIdSocketHead);
-                        //    await _productMetadataService.AddAsync(productMetadataDtoData);
-                        //    int partnumbercount = 1;
-                        //    foreach(var mValue in dataMetadataVValues)
-                        //    {
-                        //        foreach (var vd in mValue.Value)
-                        //        {
-                        //            var metvaluesdto = HelperMethods.GetProductMetadatavaluesDTO(vd, partnumbercount.ToString(), productMetadataDtoData.id);
-                        //            await _productMetadataValueService.AddAsync(metvaluesdto);
-                        //            partnumbercount++;
-                        //        }
-                        //    }
-                        //    listproductMetadataDto.Add(productMetadataDtoData);
-                        //}
-                        var failedList = await HelperMethods.ProcessSOCKETHEADMainFunction(table, metadata, metadatavalues, _service, _productMapperService);
+                        var dataMetadataVValues = _helperMethods.ProcessHeaderAndData(table, "", "", dictionaryMetadata, "SOCKET HEAD");
+                        var met = dictionaryMetadata["SOCKET HEAD"];
+                        List<productmetadatadto> listproductMetadataDto = new List<productmetadatadto>();
+                        await _helperMethods.SaveMetadataAndValues(met, _productMetadataService, dataMetadataVValues, _productMetadataValueService);
+                        //var failedList = await HelperMethods.ProcessSOCKETHEADMainFunction(table, metadata, metadatavalues, _service, _productMapperService, met);
                     }
                     if (table.TableName == "PLAIN WASHER")
                     {
-                        //var dataMetadataVValues = HelperMethods.ProcessHeaderAndData(table, "", "", dictionaryMetadata, "PLAIN WASHER");
-                        //var met = dictionaryMetadata["PLAIN WASHER"];
-                        //List<productmetadatadto> listproductMetadataDto = new List<productmetadatadto>();
-                        //foreach (var mData in met)
-                        //{
-                        //    var productMetadataDtoData = HelperMethods.GetProductMetadataDTO(mData, HelperMethods.categoryWasher, HelperMethods.subcategoryWasherPlain);
-                        //    await _productMetadataService.AddAsync(productMetadataDtoData);
-                        //    int partnumbercount = 1;
-                        //    foreach (var mValue in dataMetadataVValues)
-                        //    {
-                        //        foreach (var vd in mValue.Value)
-                        //        {
-                        //            var metvaluesdto = HelperMethods.GetProductMetadatavaluesDTO(vd, partnumbercount.ToString(), productMetadataDtoData.id);
-                        //            await _productMetadataValueService.AddAsync(metvaluesdto);
-                        //            partnumbercount++;
-                        //        }
-                        //    }
-                        //    listproductMetadataDto.Add(productMetadataDtoData);
-                        //}
-                        var failedList = await HelperMethods.ProcessPlainWasherMainFunction(table, metadata, metadatavalues, _service, _productMapperService);
+                        
+                        var met = dictionaryMetadata["PLAIN WASHER"];
+                        var dataMetadataVValues = _helperMethods.ProcessHeaderAndData(table, "", "", dictionaryMetadata, "PLAIN WASHER");
+                        List<productmetadatadto> listproductMetadataDto = new List<productmetadatadto>();
+                        foreach (var mData in met)
+                        {
+                            var productMetadataDtoData = _helperMethods.GetProductMetadataDTO(mData, _helperMethods.categoryWasher, _helperMethods.subcategoryWasherPlain);
+                            await _productMetadataService.AddAsync(productMetadataDtoData);
+                            int partnumbercount = 1;
+                            foreach (var mValue in dataMetadataVValues)
+                            {
+                                foreach (var vd in mValue.Value)
+                                {
+                                    var metvaluesdto = _helperMethods.GetProductMetadatavaluesDTO(vd, partnumbercount.ToString(), productMetadataDtoData.id);
+                                    await _productMetadataValueService.AddAsync(metvaluesdto);
+                                    partnumbercount++;
+                                }
+                            }
+                            listproductMetadataDto.Add(productMetadataDtoData);
+                        }
+                        //var failedList = await HelperMethods.ProcessPlainWasherMainFunction(table, metadata, metadatavalues, _service, _productMapperService, met);
                     }
                     if (table.TableName == "SPRING WASHER")
                     {
-                        //var dataMetadataVValues = HelperMethods.ProcessHeaderAndData(table, "", "", dictionaryMetadata, "SPRING WASHER");
-                        //var met = dictionaryMetadata["SPRING WASHER"];
-                        //List<productmetadatadto> listproductMetadataDto = new List<productmetadatadto>();
-                        //foreach (var mData in met)
-                        //{
-                        //    var productMetadataDtoData = HelperMethods.GetProductMetadataDTO(mData, HelperMethods.categoryWasher, HelperMethods.subcategoryWasherSpring);
-                        //    await _productMetadataService.AddAsync(productMetadataDtoData);
-                        //    int partnumbercount = 1;
-                        //    foreach (var mValue in dataMetadataVValues)
-                        //    {
-                        //        foreach (var vd in mValue.Value)
-                        //        {
-                        //            var metvaluesdto = HelperMethods.GetProductMetadatavaluesDTO(vd, partnumbercount.ToString(), productMetadataDtoData.id);
-                        //            await _productMetadataValueService.AddAsync(metvaluesdto);
-                        //            partnumbercount++;
-                        //        }
-                        //    }
-                        //    listproductMetadataDto.Add(productMetadataDtoData);
-                        //}
-                        var failedList = await HelperMethods.ProcessSpringWasherMainFunction(table, metadata, metadatavalues, _service, _productMapperService);
+                        
+                        var met = dictionaryMetadata["SPRING WASHER"];
+                        var dataMetadataVValues = _helperMethods.ProcessHeaderAndData(table, "", "", dictionaryMetadata, "SPRING WASHER");
+                        List<productmetadatadto> listproductMetadataDto = new List<productmetadatadto>();
+                        foreach (var mData in met)
+                        {
+                            var productMetadataDtoData = _helperMethods.GetProductMetadataDTO(mData, _helperMethods.categoryWasher, _helperMethods.subcategoryWasherSpring);
+                            await _productMetadataService.AddAsync(productMetadataDtoData);
+                            int partnumbercount = 1;
+                            foreach (var mValue in dataMetadataVValues)
+                            {
+                                foreach (var vd in mValue.Value)
+                                {
+                                    var metvaluesdto = _helperMethods.GetProductMetadatavaluesDTO(vd, partnumbercount.ToString(), productMetadataDtoData.id);
+                                    await _productMetadataValueService.AddAsync(metvaluesdto);
+                                    partnumbercount++;
+                                }
+                            }
+                            listproductMetadataDto.Add(productMetadataDtoData);
+                        }
+                        //var failedList = await HelperMethods.ProcessSpringWasherMainFunction(table, metadata, metadatavalues, _service, _productMapperService, met);
                     }
                     if (table.TableName == "DOWEL PIN M6")
                     {
-                        //var dataMetadataVValues = HelperMethods.ProcessHeaderAndData(table, "", "", dictionaryMetadata, "DOWEL PIN M6");
+                        
                         var met = dictionaryMetadata["DOWEL PIN M6"];
-                        //List<productmetadatadto> listproductMetadataDto = new List<productmetadatadto>();
-                        //foreach (var mData in met)
-                        //{
-                        //    var productMetadataDtoData = HelperMethods.GetProductMetadataDTO(mData, HelperMethods.categoryPin, HelperMethods.subcategoryPinM6);
-                        //    await _productMetadataService.AddAsync(productMetadataDtoData);
-                        //    int partnumbercount = 1;
-                        //    foreach (var mValue in dataMetadataVValues)
-                        //    {
-                        //        foreach (var vd in mValue.Value)
-                        //        {
-                        //            var metvaluesdto = HelperMethods.GetProductMetadatavaluesDTO(vd, partnumbercount.ToString(), productMetadataDtoData.id);
-                        //            await _productMetadataValueService.AddAsync(metvaluesdto);
-                        //            partnumbercount++;
-                        //        }
-                        //    }
-                        //    listproductMetadataDto.Add(productMetadataDtoData);
-                        //}
-                        //var failedList = await HelperMethods.ProcessSpringWasherMainFunction(table, metadata, metadatavalues, _service, _productMapperService);
+                        var dataMetadataVValues = _helperMethods.ProcessHeaderAndData(table, "", "", dictionaryMetadata, "DOWEL PIN M6");
+                        List<productmetadatadto> listproductMetadataDto = new List<productmetadatadto>();
+                        foreach (var mData in met)
+                        {
+                            var productMetadataDtoData = _helperMethods.GetProductMetadataDTO(mData, _helperMethods.categoryPin, _helperMethods.subcategoryPinM6);
+                            await _productMetadataService.AddAsync(productMetadataDtoData);
+                            int partnumbercount = 1;
+                            foreach (var mValue in dataMetadataVValues)
+                            {
+                                foreach (var vd in mValue.Value)
+                                {
+                                    var metvaluesdto = _helperMethods.GetProductMetadatavaluesDTO(vd, partnumbercount.ToString(), productMetadataDtoData.id);
+                                    await _productMetadataValueService.AddAsync(metvaluesdto);
+                                    partnumbercount++;
+                                }
+                            }
+                            listproductMetadataDto.Add(productMetadataDtoData);
+                        }
+                        //var failedList = await HelperMethods.ProcessDowelPinM6DMainFunction(table, metadata, metadatavalues, _service, _productMapperService, met);
                     }
                     if (table.TableName == "DOWEL PIN H6")
                     {
-                        //var dataMetadataVValues = HelperMethods.ProcessHeaderAndData(table, "", "", dictionaryMetadata, "DOWEL PIN H6");
+                        
 
-                        //var met = dictionaryMetadata["DOWEL PIN H6"];
-                        //List<productmetadatadto> listproductMetadataDto = new List<productmetadatadto>();
-                        //foreach (var mData in met)
-                        //{
-                        //    var productMetadataDtoData = HelperMethods.GetProductMetadataDTO(mData, HelperMethods.categoryPin, HelperMethods.subcategoryPinH6);
-                        //    await _productMetadataService.AddAsync(productMetadataDtoData);
-                        //    int partnumbercount = 1;
-                        //    foreach (var mValue in dataMetadataVValues)
-                        //    {
-                        //        foreach (var vd in mValue.Value)
-                        //        {
-                        //            var metvaluesdto = HelperMethods.GetProductMetadatavaluesDTO(vd, partnumbercount.ToString(), productMetadataDtoData.id);
-                        //            await _productMetadataValueService.AddAsync(metvaluesdto);
-                        //            partnumbercount++;
-                        //        }
-                        //    }
-                        //    listproductMetadataDto.Add(productMetadataDtoData);
-                        //}
-                        //var failedList = await HelperMethods.ProcessSpringWasherMainFunction(table, metadata, metadatavalues, _service, _productMapperService);
+                        var met = dictionaryMetadata["DOWEL PIN H6"];
+                        var dataMetadataVValues = _helperMethods.ProcessHeaderAndData(table, "", "", dictionaryMetadata, "DOWEL PIN H6");
+                        List<productmetadatadto> listproductMetadataDto = new List<productmetadatadto>();
+                        foreach (var mData in met)
+                        {
+                            var productMetadataDtoData = _helperMethods.GetProductMetadataDTO(mData, _helperMethods.categoryPin, _helperMethods.subcategoryPinH6);
+                            await _productMetadataService.AddAsync(productMetadataDtoData);
+                            int partnumbercount = 1;
+                            foreach (var mValue in dataMetadataVValues)
+                            {
+                                foreach (var vd in mValue.Value)
+                                {
+                                    var metvaluesdto = _helperMethods.GetProductMetadatavaluesDTO(vd, partnumbercount.ToString(), productMetadataDtoData.id);
+                                    await _productMetadataValueService.AddAsync(metvaluesdto);
+                                    partnumbercount++;
+                                }
+                            }
+                            listproductMetadataDto.Add(productMetadataDtoData);
+                        }
+                        //var failedList = await HelperMethods.ProcessDowelPinH6DMainFunction(table, metadata, metadatavalues, _service, _productMapperService, met);
                     }
 
                     if (table.TableName == "Sheet1")
