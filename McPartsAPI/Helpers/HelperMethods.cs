@@ -189,12 +189,12 @@ namespace McPartsAPI.Helpers
         public  async Task SaveMetadataAndValues(List<string> met, 
             IProductMetadataService _productMetadataService, 
             Dictionary<string, List<string>> dataMetadataVValues,
-            IProductMetadataValuesService _productMetadataValueService)
+            IProductMetadataValuesService _productMetadataValueService, string category, string subcategory)
         {
             List<productmetadatadto> listproductMetadataDto = new List<productmetadatadto>();
             foreach (var mData in met)
             {
-                var productMetadataDtoData = GetProductMetadataDTO(mData, categoryidSocketHead, subcategoryIdSocketHead);
+                var productMetadataDtoData = GetProductMetadataDTO(mData, category, subcategory);
                 await _productMetadataService.AddAsync(productMetadataDtoData);
                 int partnumbercount = 1;
                 foreach (var mValue in dataMetadataVValues)
@@ -665,51 +665,51 @@ namespace McPartsAPI.Helpers
             productsdto.partnumber = code;
 
             var data = ProcessDataRowMetadataValues("MATERIAL", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            var productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            var productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("THREAD TYPE", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("THREAD PITCH", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("FORM", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("DRIVE TYPE", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("PROPERTY CLASS", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("SURFACE FINISH", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("SIZE", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("L", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("D2", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("K", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
             data = ProcessDataRowMetadataValues("S", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
             await _productMapperService.AddAsync(productMapperDto);
 
         }
