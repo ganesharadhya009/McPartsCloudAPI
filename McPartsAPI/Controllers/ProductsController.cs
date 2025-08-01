@@ -3,6 +3,7 @@ using ExcelDataReader;
 using Mcparts.Business.Dtos;
 using Mcparts.Business.Services;
 using Mcparts.Business.Services.IServices.IServiceMappings;
+using Mcparts.Business.Services.Services;
 using Mcparts.DataAccess.Dtos;
 using Mcparts.DataAccess.Models;
 using Mcparts.Infrastructure.Interfaces;
@@ -13,6 +14,7 @@ using Microsoft.EntityFrameworkCore.Storage.Json;
 using Newtonsoft.Json.Linq;
 using System.Data;
 using System.Linq.Expressions;
+using System.Net.Sockets;
 using System.Text;
 using System.Xml.Linq;
 
@@ -105,6 +107,9 @@ namespace McPartsAPI.Controllers
             List<string> slnos = new List<string>();
             List<productmapperdto> listProductMapper = new List<productmapperdto>();
 
+            Dictionary<string, List<string>> dictionaryMetadata = new Dictionary<string, List<string>>();
+            Dictionary<string, List<string>> dictionaryMetValues = new Dictionary<string, List<string>>();
+
             var metadata = await _productMetadataService.GetAllAsync();
             var metadatavalues = await _productMetadataValueService.GetAllAsync();
 
@@ -118,7 +123,27 @@ namespace McPartsAPI.Controllers
                     }
                 });
 
-                foreach(DataTable table in result.Tables)
+                DataTable metadataexceltable = result.Tables["Metadata"];
+                foreach (DataColumn dc in metadataexceltable.Columns)
+                {
+                    if (string.IsNullOrEmpty(dc.ColumnName))
+                        continue;
+
+                    dictionaryMetadata.Add(dc.ColumnName.ToString(), new List<string>());
+                }
+                foreach (DataRow row in metadataexceltable.Rows)
+                {
+                    foreach(KeyValuePair<string, List<string>> entry in dictionaryMetadata)
+                    {
+                        var socketHead = row[entry.Key].ToString();
+                        if (string.IsNullOrEmpty(socketHead))
+                            continue;
+
+                        entry.Value.Add(socketHead);
+                    }
+                }
+
+                foreach (DataTable table in result.Tables)
                 {
                     if (table.TableName == "List Data")
                         continue;
@@ -127,290 +152,147 @@ namespace McPartsAPI.Controllers
                     string subcategoryId = null;
                     if (table.TableName == "SOCKET HEAD")
                     {
-                        categoryid = "b1404928-4100-4d11-be64-ab0d897e7953";
-                        subcategoryId = "4fa08198-358f-4e1c-b64a-38239893ec7f";
-                    
-
-                        var columnHeaders = table.Columns;
-                        foreach (DataRow row in table.Rows)
-                        {
-                            var slNo = row["SL NO"].ToString();
-                            try
-                            {
-                                //create products
-                                if (row["NAME"] != null && row["NAME"].ToString() != "")
-                                {
-                                    var product = new productsdto()
-                                    {
-                                        id = Guid.NewGuid().ToString(),
-                                        name = row["NAME"].ToString(),
-                                        unitmeasureid = "88184107-81be-452b-a28f-086426d6f225",
-                                        lotsize = 25
-                                    };
-                                    var code = HelperMethods.GetProductCodeForSocketHeads(metadatavalues, row);
-                                    product.partnumber = code;
-                                    listProducts.Add(product);
-                                    await _service.AddAsync(product);
-                                    //cretae mapper
-
-                                    var material = row["MATERIAL"].ToString();
-                                    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "MATERIAL".ToLower());
-                                    var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == material.ToLower());
-                                    var productmapper = new productmapperdto()
-                                    {
-                                        id = Guid.NewGuid().ToString(),
-                                        productid = product.id,
-                                        productcategoryid = categoryid,
-                                        productsubcategoryid = subcategoryId,
-                                        productgroupid = "36f5679d-3f43-4d0e-a540-6fd27b17c8be",
-                                        productmetadataid = metadataSingle.id,
-                                        productmetadatavaluesid = metvalue.id
-                                    };
-                                    
-                                    listProductMapper.Add(productmapper);
-                                    await _productMapperService.AddAsync(productmapper);
-
-                                    var threadType = row["THREAD TYPE"].ToString();
-                                    metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "THREAD TYPE".ToLower());
-                                    metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == threadType.ToLower());
-                                    productmapper = new productmapperdto()
-                                    {
-                                        id = Guid.NewGuid().ToString(),
-                                        productid = product.id,
-                                        productcategoryid = categoryid,
-                                        productsubcategoryid = subcategoryId,
-                                        productgroupid = "36f5679d-3f43-4d0e-a540-6fd27b17c8be",
-                                        productmetadataid = metadataSingle.id,
-                                        productmetadatavaluesid = metvalue.id
-                                    };
-                                    listProductMapper.Add(productmapper);
-                                    await _productMapperService.AddAsync(productmapper);
-
-                                    var threadPitch = row["THREAD PITCH"].ToString();
-                                    metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "THREAD PITCH".ToLower());
-                                    metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == threadPitch.ToLower());
-                                    productmapper = new productmapperdto()
-                                    {
-                                        id = Guid.NewGuid().ToString(),
-                                        productid = product.id,
-                                        productcategoryid = categoryid,
-                                        productsubcategoryid = subcategoryId,
-                                        productgroupid = "36f5679d-3f43-4d0e-a540-6fd27b17c8be",
-                                        productmetadataid = metadataSingle.id,
-                                        productmetadatavaluesid = metvalue.id
-                                    };
-                                    listProductMapper.Add(productmapper);
-                                    await _productMapperService.AddAsync(productmapper);
-
-                                    var FORM = row["FORM"].ToString();
-                                    metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "FORM".ToLower());
-                                    metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == FORM.ToLower());
-                                    productmapper = new productmapperdto()
-                                    {
-                                        id = Guid.NewGuid().ToString(),
-                                        productid = product.id,
-                                        productcategoryid = categoryid,
-                                        productsubcategoryid = subcategoryId,
-                                        productgroupid = "36f5679d-3f43-4d0e-a540-6fd27b17c8be",
-                                        productmetadataid = metadataSingle.id,
-                                        productmetadatavaluesid = metvalue.id
-                                    };
-                                    listProductMapper.Add(productmapper);
-                                    await _productMapperService.AddAsync(productmapper);
-
-                                    var driveType = row["DRIVE TYPE"].ToString();
-                                    metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "DRIVE TYPE".ToLower());
-                                    metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == driveType.ToLower());
-                                    productmapper = new productmapperdto()
-                                    {
-                                        id = Guid.NewGuid().ToString(),
-                                        productid = product.id,
-                                        productcategoryid = categoryid,
-                                        productsubcategoryid = subcategoryId,
-                                        productgroupid = "36f5679d-3f43-4d0e-a540-6fd27b17c8be",
-                                        productmetadataid = metadataSingle.id,
-                                        productmetadatavaluesid = metvalue.id
-                                    };
-                                    listProductMapper.Add(productmapper);
-                                    await _productMapperService.AddAsync(productmapper);
-
-                                    var property = row["PROPERTY CLASS"].ToString();
-                                    metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "PROPERTY CLASS".ToLower());
-                                    metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == property.ToLower());
-                                    productmapper = new productmapperdto()
-                                    {
-                                        id = Guid.NewGuid().ToString(),
-                                        productid = product.id,
-                                        productcategoryid = categoryid,
-                                        productsubcategoryid = subcategoryId,
-                                        productgroupid = "36f5679d-3f43-4d0e-a540-6fd27b17c8be",
-                                        productmetadataid = metadataSingle.id,
-                                        productmetadatavaluesid = metvalue.id
-                                    };
-                                    listProductMapper.Add(productmapper);
-                                    await _productMapperService.AddAsync(productmapper);
-
-                                    var surfaceFinish = row["SURFACE FINISH"].ToString();
-                                    metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "SURFACE FINISH".ToLower());
-                                    metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == surfaceFinish.ToLower());
-                                    productmapper = new productmapperdto()
-                                    {
-                                        id = Guid.NewGuid().ToString(),
-                                        productid = product.id,
-                                        productcategoryid = categoryid,
-                                        productsubcategoryid = subcategoryId,
-                                        productgroupid = "36f5679d-3f43-4d0e-a540-6fd27b17c8be",
-                                        productmetadataid = metadataSingle.id,
-                                        productmetadatavaluesid = metvalue.id
-                                    };
-                                    listProductMapper.Add(productmapper);
-                                    await _productMapperService.AddAsync(productmapper);
-
-                                    var SIZE = row["SIZE"].ToString();
-                                    metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "SIZE".ToLower());
-                                    metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == SIZE.ToLower());
-                                    productmapper = new productmapperdto()
-                                    {
-                                        id = Guid.NewGuid().ToString(),
-                                        productid = product.id,
-                                        productcategoryid = categoryid,
-                                        productsubcategoryid = subcategoryId,
-                                        productgroupid = "36f5679d-3f43-4d0e-a540-6fd27b17c8be",
-                                        productmetadataid = metadataSingle.id,
-                                        productmetadatavaluesid = metvalue.id
-                                    };
-                                    listProductMapper.Add(productmapper);
-                                    await _productMapperService.AddAsync(productmapper);
-
-                                    var length = row["L"].ToString();
-                                    metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "Length".ToLower());
-                                    metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == length.ToLower());
-                                    productmapper = new productmapperdto()
-                                    {
-                                        id = Guid.NewGuid().ToString(),
-                                        productid = product.id,
-                                        productcategoryid = categoryid,
-                                        productsubcategoryid = subcategoryId,
-                                        productgroupid = "36f5679d-3f43-4d0e-a540-6fd27b17c8be",
-                                        productmetadataid = metadataSingle.id,
-                                        productmetadatavaluesid = metvalue.id
-                                    };
-                                    listProductMapper.Add(productmapper);
-                                    await _productMapperService.AddAsync(productmapper);
-
-                                    var d2 = row["D2"].ToString();
-                                    metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "D2".ToLower());
-                                    metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == d2.ToLower());
-                                    productmapper = new productmapperdto()
-                                    {
-                                        id = Guid.NewGuid().ToString(),
-                                        productid = product.id,
-                                        productcategoryid = categoryid,
-                                        productsubcategoryid = subcategoryId,
-                                        productgroupid = "36f5679d-3f43-4d0e-a540-6fd27b17c8be",
-                                        productmetadataid = metadataSingle.id,
-                                        productmetadatavaluesid = metvalue.id
-                                    };
-                                    listProductMapper.Add(productmapper);
-                                    await _productMapperService.AddAsync(productmapper);
-
-                                    var K = row["K"].ToString();
-                                    metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "K".ToLower());
-                                    metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == K.ToLower());
-                                    productmapper = new productmapperdto()
-                                    {
-                                        id = Guid.NewGuid().ToString(),
-                                        productid = product.id,
-                                        productcategoryid = categoryid,
-                                        productsubcategoryid = subcategoryId,
-                                        productgroupid = "36f5679d-3f43-4d0e-a540-6fd27b17c8be",
-                                        productmetadataid = metadataSingle.id,
-                                        productmetadatavaluesid = metvalue.id
-                                    };
-                                    listProductMapper.Add(productmapper);
-                                    await _productMapperService.AddAsync(productmapper);
-
-                                    var S = row["S"].ToString();
-                                    metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "S".ToLower());
-                                    metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == S.ToLower());
-                                    productmapper = new productmapperdto()
-                                    {
-                                        id = Guid.NewGuid().ToString(),
-                                        productid = product.id,
-                                        productcategoryid = categoryid,
-                                        productsubcategoryid = subcategoryId,
-                                        productgroupid = "36f5679d-3f43-4d0e-a540-6fd27b17c8be",
-                                        productmetadataid = metadataSingle.id,
-                                        productmetadatavaluesid = metvalue.id
-                                    };
-                                    listProductMapper.Add(productmapper);
-                                    await _productMapperService.AddAsync(productmapper);
-
-
-
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                slnos.Add(slNo);
-                            }
-
-                        }
-
-
-                        //foreach (var column in columnHeaders)
+                        //var dataMetadataVValues = HelperMethods.ProcessHeaderAndData(table, "", "", dictionaryMetadata, "SOCKET HEAD");
+                        //var met = dictionaryMetadata["SOCKET HEAD"];
+                        //List<productmetadatadto> listproductMetadataDto = new List<productmetadatadto>();
+                        //foreach (var mData in met)
                         //{
-                        //    var test = row[((System.Data.DataColumn)column).ColumnName];
-                        //    if(!string.IsNullOrEmpty(test?.ToString()))
+                        //    var productMetadataDtoData = HelperMethods.GetProductMetadataDTO( mData, HelperMethods.categoryidSocketHead, HelperMethods.subcategoryIdSocketHead);
+                        //    await _productMetadataService.AddAsync(productMetadataDtoData);
+                        //    int partnumbercount = 1;
+                        //    foreach(var mValue in dataMetadataVValues)
                         //    {
-                               
+                        //        foreach (var vd in mValue.Value)
+                        //        {
+                        //            var metvaluesdto = HelperMethods.GetProductMetadatavaluesDTO(vd, partnumbercount.ToString(), productMetadataDtoData.id);
+                        //            await _productMetadataValueService.AddAsync(metvaluesdto);
+                        //            partnumbercount++;
+                        //        }
                         //    }
-                        //    //var orderId = row.Field<string>(((System.Data.DataColumn)column).ColumnName);
+                        //    listproductMetadataDto.Add(productMetadataDtoData);
                         //}
-
+                        var failedList = await HelperMethods.ProcessSOCKETHEADMainFunction(table, metadata, metadatavalues, _service, _productMapperService);
                     }
                     if (table.TableName == "PLAIN WASHER")
                     {
+                        //var dataMetadataVValues = HelperMethods.ProcessHeaderAndData(table, "", "", dictionaryMetadata, "PLAIN WASHER");
+                        //var met = dictionaryMetadata["PLAIN WASHER"];
+                        //List<productmetadatadto> listproductMetadataDto = new List<productmetadatadto>();
+                        //foreach (var mData in met)
+                        //{
+                        //    var productMetadataDtoData = HelperMethods.GetProductMetadataDTO(mData, HelperMethods.categoryWasher, HelperMethods.subcategoryWasherPlain);
+                        //    await _productMetadataService.AddAsync(productMetadataDtoData);
+                        //    int partnumbercount = 1;
+                        //    foreach (var mValue in dataMetadataVValues)
+                        //    {
+                        //        foreach (var vd in mValue.Value)
+                        //        {
+                        //            var metvaluesdto = HelperMethods.GetProductMetadatavaluesDTO(vd, partnumbercount.ToString(), productMetadataDtoData.id);
+                        //            await _productMetadataValueService.AddAsync(metvaluesdto);
+                        //            partnumbercount++;
+                        //        }
+                        //    }
+                        //    listproductMetadataDto.Add(productMetadataDtoData);
+                        //}
+                        var failedList = await HelperMethods.ProcessPlainWasherMainFunction(table, metadata, metadatavalues, _service, _productMapperService);
+                    }
+                    if (table.TableName == "SPRING WASHER")
+                    {
+                        //var dataMetadataVValues = HelperMethods.ProcessHeaderAndData(table, "", "", dictionaryMetadata, "SPRING WASHER");
+                        //var met = dictionaryMetadata["SPRING WASHER"];
+                        //List<productmetadatadto> listproductMetadataDto = new List<productmetadatadto>();
+                        //foreach (var mData in met)
+                        //{
+                        //    var productMetadataDtoData = HelperMethods.GetProductMetadataDTO(mData, HelperMethods.categoryWasher, HelperMethods.subcategoryWasherSpring);
+                        //    await _productMetadataService.AddAsync(productMetadataDtoData);
+                        //    int partnumbercount = 1;
+                        //    foreach (var mValue in dataMetadataVValues)
+                        //    {
+                        //        foreach (var vd in mValue.Value)
+                        //        {
+                        //            var metvaluesdto = HelperMethods.GetProductMetadatavaluesDTO(vd, partnumbercount.ToString(), productMetadataDtoData.id);
+                        //            await _productMetadataValueService.AddAsync(metvaluesdto);
+                        //            partnumbercount++;
+                        //        }
+                        //    }
+                        //    listproductMetadataDto.Add(productMetadataDtoData);
+                        //}
+                        var failedList = await HelperMethods.ProcessSpringWasherMainFunction(table, metadata, metadatavalues, _service, _productMapperService);
+                    }
+                    if (table.TableName == "DOWEL PIN M6")
+                    {
+                        //var dataMetadataVValues = HelperMethods.ProcessHeaderAndData(table, "", "", dictionaryMetadata, "DOWEL PIN M6");
+                        var met = dictionaryMetadata["DOWEL PIN M6"];
+                        //List<productmetadatadto> listproductMetadataDto = new List<productmetadatadto>();
+                        //foreach (var mData in met)
+                        //{
+                        //    var productMetadataDtoData = HelperMethods.GetProductMetadataDTO(mData, HelperMethods.categoryPin, HelperMethods.subcategoryPinM6);
+                        //    await _productMetadataService.AddAsync(productMetadataDtoData);
+                        //    int partnumbercount = 1;
+                        //    foreach (var mValue in dataMetadataVValues)
+                        //    {
+                        //        foreach (var vd in mValue.Value)
+                        //        {
+                        //            var metvaluesdto = HelperMethods.GetProductMetadatavaluesDTO(vd, partnumbercount.ToString(), productMetadataDtoData.id);
+                        //            await _productMetadataValueService.AddAsync(metvaluesdto);
+                        //            partnumbercount++;
+                        //        }
+                        //    }
+                        //    listproductMetadataDto.Add(productMetadataDtoData);
+                        //}
+                        //var failedList = await HelperMethods.ProcessSpringWasherMainFunction(table, metadata, metadatavalues, _service, _productMapperService);
+                    }
+                    if (table.TableName == "DOWEL PIN H6")
+                    {
+                        //var dataMetadataVValues = HelperMethods.ProcessHeaderAndData(table, "", "", dictionaryMetadata, "DOWEL PIN H6");
 
+                        //var met = dictionaryMetadata["DOWEL PIN H6"];
+                        //List<productmetadatadto> listproductMetadataDto = new List<productmetadatadto>();
+                        //foreach (var mData in met)
+                        //{
+                        //    var productMetadataDtoData = HelperMethods.GetProductMetadataDTO(mData, HelperMethods.categoryPin, HelperMethods.subcategoryPinH6);
+                        //    await _productMetadataService.AddAsync(productMetadataDtoData);
+                        //    int partnumbercount = 1;
+                        //    foreach (var mValue in dataMetadataVValues)
+                        //    {
+                        //        foreach (var vd in mValue.Value)
+                        //        {
+                        //            var metvaluesdto = HelperMethods.GetProductMetadatavaluesDTO(vd, partnumbercount.ToString(), productMetadataDtoData.id);
+                        //            await _productMetadataValueService.AddAsync(metvaluesdto);
+                        //            partnumbercount++;
+                        //        }
+                        //    }
+                        //    listproductMetadataDto.Add(productMetadataDtoData);
+                        //}
+                        //var failedList = await HelperMethods.ProcessSpringWasherMainFunction(table, metadata, metadatavalues, _service, _productMapperService);
+                    }
+
+                    if (table.TableName == "Sheet1")
+                    {
+                        //foreach (DataRow row in table.Rows)
+                        //{
+                        //    var name = row["Name"].ToString();
+
+                        //    var code = row["code"].ToString();
+
+                        //    var metadataName = row["metadata name"].ToString();
+
+                        //    var metadataInstance = metadata.FirstOrDefault(p => p.name.ToLower() == metadataName.ToLower());
+
+                        //    var productmetadatavaluesdto = new productmetadatavaluesdto()
+                        //    {
+                        //        id = Guid.NewGuid().ToString(),
+                        //        name = name,
+                        //        description = name,
+                        //        partnumbercode = code,
+                        //        productmetdataid = metadataInstance.id,
+                        //    };
+                        //    await _productMetadataValueService.AddAsync(productmetadatavaluesdto);
+
+                        //}
                     }
                 }
             }
-
-            //using (var reader = ExcelReaderFactory.CreateReader(data))
-            //{
-            //    do
-            //    {
-            //        int i = 0;
-            //        while (reader.Read())
-            //        {
-            //            if (i == 0)
-            //            {
-            //                i++;
-            //                headers.Add(reader.GetString(1));
-            //                continue;
-            //            }
-
-            //            var name = reader.GetString(1);
-            //            if (string.IsNullOrEmpty(name))
-            //            {
-            //                i++;
-            //                continue;
-            //            }
-            //            else
-            //            {
-            //                if(!productNames.Contains(name))
-            //                {
-            //                    productNames.Add(name);
-            //                }
-            //            }
-            //            i++;
-            //        }
-            //    } while (reader.NextResult());
-            //}
-
-
-           
-
             return true;
         }
     }

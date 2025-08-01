@@ -1,7 +1,11 @@
 ﻿using Mcparts.Business.Dtos;
+using Mcparts.Business.Services.IServices.IServiceMappings;
+using Mcparts.Business.Services.Services;
 using Mcparts.DataAccess.Dtos;
 using Mcparts.DataAccess.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Data;
+using System.Security.Claims;
 using System.Xml.Linq;
 
 namespace McPartsAPI.Helpers
@@ -12,6 +16,19 @@ namespace McPartsAPI.Helpers
         public static string categoryidSocketHead = "b1404928-4100-4d11-be64-ab0d897e7953";
         public static string subcategoryIdSocketHead = "4fa08198-358f-4e1c-b64a-38239893ec7f";
         public static string groupIdSocketHead = "36f5679d-3f43-4d0e-a540-6fd27b17c8be";
+
+        public static string categoryWasher = "3691290b-c9ae-43e4-a6ed-f1885d7987c2";
+        public static string subcategoryWasherPlain = "29e2d40b-02b4-4d13-ba80-e74c33cb7069";
+        public static string subcategoryWasherSpring = "32b58073-f6f9-48da-a604-0e5d8379f161";
+        public static string groupIdPlainWasher = "23d0f96c-ed6f-4259-8e50-678f58b1b2af";
+
+        public static string categoryPin = "5995d01b-8a8d-44e9-bb3a-cc520caf6bdb";
+        public static string subcategoryPinM6 = "e488be40-3ea9-405f-92af-a64aedd7850a";
+        public static string subcategoryPinH6 = "fce7635b-f3ee-415a-b744-8ec7799833fb";
+        public static string groupIPin = "f360b031-bb25-4cc6-b9e9-163df1836df6";
+
+
+
 
         public static string GetProductCodeForSocketHeads(IEnumerable<productmetadatavaluesdto> metadataValues, DataRow row)
         {
@@ -44,6 +61,131 @@ namespace McPartsAPI.Helpers
             return code;
         }
 
+        public static string GetProductCode(IEnumerable<productmetadatavaluesdto> metadataValues, DataRow row, List<string> metadata)
+        {
+            string code = string.Empty;
+            foreach (var met in metadata)
+            {
+                var metexcelvalue = row[met].ToString();
+                code = code + $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == metexcelvalue.ToLower())?.partnumbercode}";
+            }
+            return code;
+        }
+
+        public static string GetProductCodeForPinM6(IEnumerable<productmetadatavaluesdto> metadataValues, DataRow row, List<string> metadata)
+        {
+            string code = string.Empty;
+            foreach(var met  in metadata)
+            {
+                var metexcelvalue =  row[met].ToString();
+                code = code + $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == metexcelvalue.ToLower())?.partnumbercode}";
+            }
+           // var materialType = row["MATERIAL"].ToString();
+           // var threadType = row["THREAD TYPE"].ToString();
+           //// var threadPitch = row["THREAD PITCH"].ToString();
+           // //var FORM = row["FORM"].ToString();
+           // //var driveType = row["DRIVE TYPE"].ToString();
+           // //var property = row["PROPERTY CLASS"].ToString();
+           // var surfaceFinish = row["SURFACE FINISH"].ToString();
+           // var driveType = row["DRIVE TYPE"].ToString();
+           // var property = row["PROPERTY CLASS"].ToString();
+           // var SIZE = row["SIZE"].ToString();
+           // var length = row["L"].ToString();
+           // var d2 = row["D2"].ToString();
+           // var K = row["K"].ToString();
+           // var S = row["S"].ToString();
+
+           // var code = $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == materialType.ToLower())?.partnumbercode}" +
+           //     $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == threadType.ToLower())?.partnumbercode}" +
+           //     $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == threadPitch.ToLower())?.partnumbercode}" +
+           //     $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == FORM.ToLower())?.partnumbercode}" +
+           //     $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == driveType.ToLower())?.partnumbercode}" +
+           //     $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == property.ToLower())?.partnumbercode}" +
+           //     $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == surfaceFinish.ToLower())?.partnumbercode}" +
+           //     $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == SIZE.ToLower())?.partnumbercode}" +
+           //     $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == length.ToLower())?.partnumbercode}" +
+           //     $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == d2.ToLower())?.partnumbercode}" +
+           //     $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == K.ToLower())?.partnumbercode}" +
+           //     $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == S.ToLower())?.partnumbercode}";
+
+            return code;
+        }
+
+        public static string GetProductCodeForPlainWasher(IEnumerable<productmetadatavaluesdto> metadataValues, DataRow row)
+        {
+            var materialType = row["MATERIAL"].ToString();
+            var threadType = row["THREAD TYPE"].ToString();
+            var threadPitch = row["THREAD PITCH"].ToString();
+            var FORM = row["FORM"].ToString();
+            var driveType = row["DRIVE TYPE"].ToString();
+            var property = row["PROPERTY CLASS"].ToString();
+            var surfaceFinish = row["SURFACE FINISH"].ToString();
+            var SIZE = row["SIZE"].ToString();
+            //var length = row["L"].ToString();
+            var d1 = row["D1"].ToString();
+            var d2 = row["D2"].ToString();
+            var S = row["S"].ToString();
+
+            var code = $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == materialType.ToLower())?.partnumbercode}" +
+               $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == threadType.ToLower())?.partnumbercode}" +
+                $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == surfaceFinish.ToLower())?.partnumbercode}" +
+                $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == SIZE.ToLower())?.partnumbercode}" +
+                $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == d1.ToLower())?.partnumbercode}" +
+                $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == d2.ToLower())?.partnumbercode}" +
+                $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == S.ToLower())?.partnumbercode}";
+
+            return code;
+        }
+
+        public static string GetProductCodeForSpringWasher(IEnumerable<productmetadatavaluesdto> metadataValues, DataRow row)
+        {
+            var materialType = row["MATERIAL"].ToString();
+            var threadType = row["THREAD TYPE"].ToString();
+            var threadPitch = row["THREAD PITCH"].ToString();
+            var FORM = row["FORM"].ToString();
+            var driveType = row["DRIVE TYPE"].ToString();
+            var property = row["PROPERTY CLASS"].ToString();
+            var surfaceFinish = row["SURFACE FINISH"].ToString();
+            var SIZE = row["SIZE"].ToString();
+            //var length = row["L"].ToString();
+            var d1Min = row["D1 MIN"].ToString();
+            var D1MAX = row["D1 MAX"].ToString();
+            var D2MAX = row["D2 MAX"].ToString();
+            var S = row["S"].ToString();
+
+            var code = $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == materialType.ToLower())?.partnumbercode}" +
+               $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == threadType.ToLower())?.partnumbercode}" +
+                $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == surfaceFinish.ToLower())?.partnumbercode}" +
+                $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == SIZE.ToLower())?.partnumbercode}" +
+                $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == d1Min.ToLower())?.partnumbercode}" +
+                $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == D1MAX.ToLower())?.partnumbercode}" +
+                $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == D2MAX.ToLower())?.partnumbercode}" +
+                $"{metadataValues.FirstOrDefault(p => p.name.ToLower() == S.ToLower())?.partnumbercode}";
+
+            return code;
+        }
+
+        public static Dictionary<string, List<string>> ProcessHeaderAndData(DataTable table, string category, string subcategory, Dictionary<string, List<string>> dictionaryMetadata, string name)
+        {
+            Dictionary<string, List<string>> dictionaryMetValues = new Dictionary<string, List<string>>();
+            var values = dictionaryMetadata[name];
+            foreach (var met in values)
+            {
+                List<string> metValuesList = new List<string>();
+                foreach (DataRow row in table.Rows)
+                {
+                    var metvalues = row[met].ToString();
+                    if (!string.IsNullOrEmpty(metvalues))
+                    {
+                        if (!metValuesList.Contains(metvalues))
+                            metValuesList.Add(metvalues);
+                    }
+                }
+                dictionaryMetValues.Add(met, metValuesList);
+            }
+            return dictionaryMetValues;
+        }
+
         public static productmapperdto GetProductMapperDTO(productsdto product, string categoryid, string subcategoryId, string productGroupId, string metadataId, string metadataValueId)
         {
             return new productmapperdto()
@@ -69,199 +211,558 @@ namespace McPartsAPI.Helpers
             };
         }
 
-        public static void ProcessSOCKETHEAD(DataRow row , IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadataValues)
+        public static productmetadatadto GetProductMetadataDTO(string name, string category, string subcat)
+        {
+            return new productmetadatadto()
+            {
+                id = Guid.NewGuid().ToString(),
+                name = name,
+                description = name,
+                controltype = "List",
+                issearchable = true,
+                ismultiselect = true,
+                isiconsupported = true,
+                productcategoryid = category,
+                productsubcategoryid = subcat
+            };
+        }
+
+        public static productmetadatavaluesdto GetProductMetadatavaluesDTO(string name, string partnumber, string metadataid)
+        {
+            return new productmetadatavaluesdto()
+            {
+                id = Guid.NewGuid().ToString(),
+                name = name,
+                description = name,
+                partnumbercode = partnumber,
+                productmetdataid = metadataid
+            };
+        }
+
+        public static async Task ProcessSpringWasher(DataRow row,
+          IEnumerable<productmetadatadto> metadata,
+          IEnumerable<productmetadatavaluesdto> metadataValues,
+          IProductsService _service,
+          IProductMapperService _productMapperService)
+        {
+            var name = row["NAME"].ToString();
+            var productsdto = GetProductsDTO(name);
+            var code = HelperMethods.GetProductCodeForSpringWasher(metadataValues, row);
+            productsdto.partnumber = code;
+            await _service.AddAsync(productsdto);
+
+
+            var data = ProcessDataRowMetadataValues("MATERIAL", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
+            var productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("THREAD TYPE", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            //data = ProcessThreadPitch(row, metadata, metadataValues);
+            //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            //await _productMapperService.AddAsync(productMapperDto);
+
+            //data = ProcessForm(row, metadata, metadataValues);
+            //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            //await _productMapperService.AddAsync(productMapperDto);
+
+            //data = ProcessDriveType(row, metadata, metadataValues);
+            //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            //await _productMapperService.AddAsync(productMapperDto);
+
+            //data = ProcessPropertyClass(row, metadata, metadataValues);
+            //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            //await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("SURFACE FINISH", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("SIZE", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("D1 MIN", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("D1 MAX", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("D2 MAX", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            //data = ProcessK(row, metadata, metadataValues);
+            //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            //await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("S", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+        }
+
+        public static async Task ProcessPlainWasher(DataRow row,
+           IEnumerable<productmetadatadto> metadata,
+           IEnumerable<productmetadatavaluesdto> metadataValues,
+           IProductsService _service,
+           IProductMapperService _productMapperService)
+        {
+            var name = row["NAME"].ToString();
+            var productsdto = GetProductsDTO(name);
+            var code = HelperMethods.GetProductCodeForPlainWasher(metadataValues, row);
+            productsdto.partnumber = code;
+            await _service.AddAsync(productsdto);
+
+
+            var data = ProcessDataRowMetadataValues("MATERIAL", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
+            var productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("THREAD TYPE", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            //data = ProcessThreadPitch(row, metadata, metadataValues);
+            //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            //await _productMapperService.AddAsync(productMapperDto);
+
+            //data = ProcessForm(row, metadata, metadataValues);
+            //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            //await _productMapperService.AddAsync(productMapperDto);
+
+            //data = ProcessDriveType(row, metadata, metadataValues);
+            //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            //await _productMapperService.AddAsync(productMapperDto);
+
+            //data = ProcessPropertyClass(row, metadata, metadataValues);
+            //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            //await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("SURFACE FINISH", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("SIZE", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("D1", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("D2", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            //data = ProcessK(row, metadata, metadataValues);
+            //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            //await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("S", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+        }
+
+        public static async Task<List<string>> ProcessSOCKETHEADMainFunction(DataTable table, IEnumerable<productmetadatadto> metadata,
+            IEnumerable<productmetadatavaluesdto> metadataValues,
+            IProductsService _service,
+            IProductMapperService _productMapperService)
+        {
+            var list = new List<string>();
+            foreach (DataRow row in table.Rows)
+            {
+                var slNo = row["SL NO"].ToString();
+                try
+                {
+                    //create products
+                    if (row["NAME"] != null && row["NAME"].ToString() != "")
+                    {
+                        await ProcessSOCKETHEAD(row, metadata, metadataValues, _service, _productMapperService);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    list.Add(slNo);
+                }
+
+            }
+            return list;
+        }
+
+        public static async Task<List<string>> ProcessPlainWasherMainFunction(DataTable table, IEnumerable<productmetadatadto> metadata,
+           IEnumerable<productmetadatavaluesdto> metadataValues,
+           IProductsService _service,
+           IProductMapperService _productMapperService)
+        {
+            var list = new List<string>();
+            foreach (DataRow row in table.Rows)
+            {
+                var slNo = row["SL NO"].ToString();
+                try
+                {
+                    //create products
+                    if (row["NAME"] != null && row["NAME"].ToString() != "")
+                    {
+                        await ProcessPlainWasher(row, metadata, metadataValues, _service, _productMapperService);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    list.Add(slNo);
+                }
+
+            }
+            return list;
+        }
+
+        public static async Task<List<string>> ProcessSpringWasherMainFunction(DataTable table, IEnumerable<productmetadatadto> metadata,
+          IEnumerable<productmetadatavaluesdto> metadataValues,
+          IProductsService _service,
+          IProductMapperService _productMapperService)
+        {
+            var list = new List<string>();
+            foreach (DataRow row in table.Rows)
+            {
+                var slNo = row["SL NO"].ToString();
+                try
+                {
+                    //create products
+                    if (row["NAME"] != null && row["NAME"].ToString() != "")
+                    {
+                        await ProcessSpringWasher(row, metadata, metadataValues, _service, _productMapperService);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    list.Add(slNo);
+                }
+
+            }
+            return list;
+        }
+
+        public static async Task ProcessSOCKETHEAD(DataRow row , 
+            IEnumerable<productmetadatadto> metadata, 
+            IEnumerable<productmetadatavaluesdto> metadataValues,
+            IProductsService _service,
+            IProductMapperService _productMapperService)
         {
             var name = row["NAME"].ToString();
             var productsdto = GetProductsDTO(name);
             var code = HelperMethods.GetProductCodeForSocketHeads(metadataValues, row);
+            await _service.AddAsync(productsdto);
             productsdto.partnumber = code;
 
-            var data = ProcessMaterial(row, metadata, metadataValues);
+            var data = ProcessDataRowMetadataValues("MATERIAL", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
             var productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessThreadType(row, metadata, metadataValues);
+            data = ProcessDataRowMetadataValues("THREAD TYPE", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
             productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessThreadPitch(row, metadata, metadataValues);
+            data = ProcessDataRowMetadataValues("THREAD PITCH", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
             productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessForm(row, metadata, metadataValues);
+            data = ProcessDataRowMetadataValues("FORM", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
             productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDriveType(row, metadata, metadataValues);
+            data = ProcessDataRowMetadataValues("DRIVE TYPE", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
             productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessPropertyClass(row, metadata, metadataValues);
+            data = ProcessDataRowMetadataValues("PROPERTY CLASS", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
             productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessSurfaceFinish(row, metadata, metadataValues);
+            data = ProcessDataRowMetadataValues("SURFACE FINISH", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
             productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessSize(row, metadata, metadataValues);
+            data = ProcessDataRowMetadataValues("SIZE", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
             productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessLength(row, metadata, metadataValues);
+            data = ProcessDataRowMetadataValues("L", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
             productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessD2(row, metadata, metadataValues);
+            data = ProcessDataRowMetadataValues("D2", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
             productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessK(row, metadata, metadataValues);
+            data = ProcessDataRowMetadataValues("K", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
             productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessS(row, metadata, metadataValues);
+            data = ProcessDataRowMetadataValues("S", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
             productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
 
         }
 
-        public static MetadataAndValue ProcessMaterial(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        public static async Task ProcessM6(DataRow row,
+            IEnumerable<productmetadatadto> metadata,
+            IEnumerable<productmetadatavaluesdto> metadataValues,
+            IProductsService _service,
+            IProductMapperService _productMapperService)
         {
-            var material = row["MATERIAL"].ToString();
-            var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "MATERIAL".ToLower());
-            var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == material.ToLower());
+            var name = row["NAME"].ToString();
+            var productsdto = GetProductsDTO(name);
+            var code = HelperMethods.GetProductCodeForSocketHeads(metadataValues, row);
+            await _service.AddAsync(productsdto);
+            productsdto.partnumber = code;
 
-            return new MetadataAndValue()
-            {
-                MetadataId = metadataSingle.id,
-                MetadataIdValue = metvalue.id
-            };
+            var data = ProcessDataRowMetadataValues("MATERIAL", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+            var productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("THREAD TYPE", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("THREAD PITCH", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("FORM", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("DRIVE TYPE", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("PROPERTY CLASS", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("SURFACE FINISH", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("SIZE", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("L", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("D2", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("K", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
+            data = ProcessDataRowMetadataValues("S", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+            await _productMapperService.AddAsync(productMapperDto);
+
         }
 
-        public static MetadataAndValue ProcessThreadType(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //public static MetadataAndValue ProcessMaterial(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //{
+        //    var material = row["MATERIAL"].ToString();
+        //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "MATERIAL".ToLower());
+        //    var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == material.ToLower());
+
+        //    return new MetadataAndValue()
+        //    {
+        //        MetadataId = metadataSingle.id,
+        //        MetadataIdValue = metvalue.id
+        //    };
+        //}
+
+        //public static MetadataAndValue ProcessThreadType(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //{
+        //    var threadType = row["THREAD TYPE"].ToString();
+        //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "THREAD TYPE".ToLower());
+        //    var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == threadType.ToLower());
+
+        //    return new MetadataAndValue()
+        //    {
+        //        MetadataId = metadataSingle.id,
+        //        MetadataIdValue = metvalue.id
+        //    };
+        //}
+
+        //public static MetadataAndValue ProcessThreadPitch(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //{
+        //    var threadPitch = row["THREAD PITCH"].ToString();
+        //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "THREAD PITCH".ToLower());
+        //    var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == threadPitch.ToLower());
+
+        //    return new MetadataAndValue()
+        //    {
+        //        MetadataId = metadataSingle.id,
+        //        MetadataIdValue = metvalue.id
+        //    };
+        //}
+
+        //public static MetadataAndValue ProcessForm(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //{
+        //    var FORM = row["FORM"].ToString();
+        //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "FORM".ToLower());
+        //    var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == FORM.ToLower());
+
+        //    return new MetadataAndValue()
+        //    {
+        //        MetadataId = metadataSingle.id,
+        //        MetadataIdValue = metvalue.id
+        //    };
+        //}
+
+        //public static MetadataAndValue ProcessDriveType(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //{
+        //    var driveType = row["DRIVE TYPE"].ToString();
+        //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "DRIVE TYPE".ToLower());
+        //    var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == driveType.ToLower());
+
+        //    return new MetadataAndValue()
+        //    {
+        //        MetadataId = metadataSingle.id,
+        //        MetadataIdValue = metvalue.id
+        //    };
+        //}
+
+        //public static MetadataAndValue ProcessPropertyClass(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //{
+        //    var property = row["PROPERTY CLASS"].ToString();
+        //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "PROPERTY CLASS".ToLower());
+        //    var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == property.ToLower());
+
+        //    return new MetadataAndValue()
+        //    {
+        //        MetadataId = metadataSingle.id,
+        //        MetadataIdValue = metvalue.id
+        //    };
+        //}
+
+        //public static MetadataAndValue ProcessSurfaceFinish(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //{
+        //    var surfaceFinish = row["SURFACE FINISH"].ToString();
+        //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "SURFACE FINISH".ToLower());
+        //    var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == surfaceFinish.ToLower());
+
+        //    return new MetadataAndValue()
+        //    {
+        //        MetadataId = metadataSingle.id,
+        //        MetadataIdValue = metvalue.id
+        //    };
+        //}
+
+        //public static MetadataAndValue ProcessSize(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //{
+        //    var SIZE = row["SIZE"].ToString();
+        //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "SIZE".ToLower());
+        //    var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == SIZE.ToLower());
+
+        //    return new MetadataAndValue()
+        //    {
+        //        MetadataId = metadataSingle.id,
+        //        MetadataIdValue = metvalue.id
+        //    };
+        //}
+
+        //public static MetadataAndValue ProcessLength(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //{
+        //    var length = row["L"].ToString();
+        //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "Length".ToLower());
+        //    var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == length.ToLower());
+
+        //    return new MetadataAndValue()
+        //    {
+        //        MetadataId = metadataSingle.id,
+        //        MetadataIdValue = metvalue.id
+        //    };
+        //}
+
+        //public static MetadataAndValue ProcessD2(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //{
+        //    var d2 = row["D2"].ToString();
+        //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "D2".ToLower());
+        //    var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == d2.ToLower());
+
+        //    return new MetadataAndValue()
+        //    {
+        //        MetadataId = metadataSingle.id,
+        //        MetadataIdValue = metvalue.id
+        //    };
+        //}
+
+        //public static MetadataAndValue ProcessD1(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //{
+        //    var d1 = row["D1"].ToString();
+        //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "D1".ToLower());
+        //    var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == d1.ToLower());
+
+        //    return new MetadataAndValue()
+        //    {
+        //        MetadataId = metadataSingle.id,
+        //        MetadataIdValue = metvalue.id
+        //    };
+        //}
+
+        //public static MetadataAndValue ProcessK(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //{
+        //    var K = row["K"].ToString();
+        //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "K".ToLower());
+        //    var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == K.ToLower());
+
+        //    return new MetadataAndValue()
+        //    {
+        //        MetadataId = metadataSingle.id,
+        //        MetadataIdValue = metvalue.id
+        //    };
+        //}
+
+        //public static MetadataAndValue ProcessS(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //{
+        //    var S = row["S"].ToString();
+        //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "S".ToLower());
+        //    var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == S.ToLower());
+
+        //    return new MetadataAndValue()
+        //    {
+        //        MetadataId = metadataSingle.id,
+        //        MetadataIdValue = metvalue.id
+        //    };
+        //}
+
+        //public static MetadataAndValue ProcessD1Min(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
+        //{
+        //    var key = "D1 MIN";
+        //    var keyData = row[key].ToString();
+        //    var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == key.ToLower());
+        //    var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == keyData.ToLower());
+
+        //    return new MetadataAndValue()
+        //    {
+        //        MetadataId = metadataSingle.id,
+        //        MetadataIdValue = metvalue.id
+        //    };
+        //}
+
+        public static MetadataAndValue ProcessDataRowMetadataValues(string key, DataRow row, 
+            IEnumerable<productmetadatadto> metadata, 
+            IEnumerable<productmetadatavaluesdto> metadatavalues,
+            string category,
+            string subcategory)
         {
-            var threadType = row["THREAD TYPE"].ToString();
-            var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "THREAD TYPE".ToLower());
-            var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == threadType.ToLower());
-
-            return new MetadataAndValue()
-            {
-                MetadataId = metadataSingle.id,
-                MetadataIdValue = metvalue.id
-            };
-        }
-
-        public static MetadataAndValue ProcessThreadPitch(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
-        {
-            var threadPitch = row["THREAD PITCH"].ToString();
-            var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "THREAD PITCH".ToLower());
-            var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == threadPitch.ToLower());
-
-            return new MetadataAndValue()
-            {
-                MetadataId = metadataSingle.id,
-                MetadataIdValue = metvalue.id
-            };
-        }
-
-        public static MetadataAndValue ProcessForm(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
-        {
-            var FORM = row["FORM"].ToString();
-            var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "FORM".ToLower());
-            var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == FORM.ToLower());
-
-            return new MetadataAndValue()
-            {
-                MetadataId = metadataSingle.id,
-                MetadataIdValue = metvalue.id
-            };
-        }
-
-        public static MetadataAndValue ProcessDriveType(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
-        {
-            var driveType = row["DRIVE TYPE"].ToString();
-            var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "DRIVE TYPE".ToLower());
-            var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == driveType.ToLower());
-
-            return new MetadataAndValue()
-            {
-                MetadataId = metadataSingle.id,
-                MetadataIdValue = metvalue.id
-            };
-        }
-
-        public static MetadataAndValue ProcessPropertyClass(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
-        {
-            var property = row["PROPERTY CLASS"].ToString();
-            var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "PROPERTY CLASS".ToLower());
-            var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == property.ToLower());
-
-            return new MetadataAndValue()
-            {
-                MetadataId = metadataSingle.id,
-                MetadataIdValue = metvalue.id
-            };
-        }
-
-        public static MetadataAndValue ProcessSurfaceFinish(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
-        {
-            var surfaceFinish = row["SURFACE FINISH"].ToString();
-            var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "SURFACE FINISH".ToLower());
-            var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == surfaceFinish.ToLower());
-
-            return new MetadataAndValue()
-            {
-                MetadataId = metadataSingle.id,
-                MetadataIdValue = metvalue.id
-            };
-        }
-
-        public static MetadataAndValue ProcessSize(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
-        {
-            var SIZE = row["SIZE"].ToString();
-            var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "SIZE".ToLower());
-            var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == SIZE.ToLower());
-
-            return new MetadataAndValue()
-            {
-                MetadataId = metadataSingle.id,
-                MetadataIdValue = metvalue.id
-            };
-        }
-
-        public static MetadataAndValue ProcessLength(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
-        {
-            var length = row["L"].ToString();
-            var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "Length".ToLower());
-            var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == length.ToLower());
-
-            return new MetadataAndValue()
-            {
-                MetadataId = metadataSingle.id,
-                MetadataIdValue = metvalue.id
-            };
-        }
-
-        public static MetadataAndValue ProcessD2(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
-        {
-            var d2 = row["D2"].ToString();
-            var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "D2".ToLower());
-            var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == d2.ToLower());
-
-            return new MetadataAndValue()
-            {
-                MetadataId = metadataSingle.id,
-                MetadataIdValue = metvalue.id
-            };
-        }
-
-        public static MetadataAndValue ProcessK(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
-        {
-            var K = row["K"].ToString();
-            var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "K".ToLower());
-            var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == K.ToLower());
-
-            return new MetadataAndValue()
-            {
-                MetadataId = metadataSingle.id,
-                MetadataIdValue = metvalue.id
-            };
-        }
-
-        public static MetadataAndValue ProcessS(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
-        {
-            var S = row["S"].ToString();
-            var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == "S".ToLower());
-            var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == S.ToLower());
+            var keyData = row[key].ToString();
+            var metadataSingle = metadata.FirstOrDefault(p => p.name.ToLower() == key.ToLower() && p.productcategoryid == category && p.productsubcategoryid == subcategory);
+            var metvalue = metadatavalues.FirstOrDefault(p => p.name.ToLower() == keyData.ToLower());
 
             return new MetadataAndValue()
             {
