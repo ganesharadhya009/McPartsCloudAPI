@@ -1,18 +1,19 @@
-﻿using Mcparts.DataAccess.Interfaces;
+﻿using AutoMapper;
+using AutoMapper.AspNet.OData;
+using AutoMapper.QueryableExtensions;
+using Mcparts.DataAccess.Commands;
+using Mcparts.DataAccess.Interfaces;
+using Mcparts.DataAccess.Models;
+using Microsoft.AspNetCore.OData.Query;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using Mcparts.DataAccess.Models;
-using AutoMapper;
-using Microsoft.AspNetCore.OData.Query;
-using System.Linq.Expressions;
-using AutoMapper.AspNet.OData;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Diagnostics;
-using AutoMapper.QueryableExtensions;
 
 namespace Mcparts.DataAccess.Repositories
 {
@@ -36,7 +37,7 @@ namespace Mcparts.DataAccess.Repositories
             return await _dbSet.FindAsync(id);
         }
 
-        public async Task<List<TDto>> GetAllAsync(bool tracked = true)
+        public async Task<List<TDto>> GetAllAsync(bool tracked = false)
         {
             IQueryable<T> query = _dbSet;
 
@@ -48,7 +49,7 @@ namespace Mcparts.DataAccess.Repositories
             return await query.ProjectTo<TDto>(mapper.ConfigurationProvider).ToListAsync();
         }
 
-        public async Task<int> GetAllCount(bool tracked = true)
+        public async Task<int> GetAllCount(bool tracked = false)
         {
             IQueryable<T> query = _dbSet;
 
@@ -60,7 +61,12 @@ namespace Mcparts.DataAccess.Repositories
             return await query.CountAsync();
         }
 
-        public async Task<int> GetAllCountByExpresson(Expression<Func<T, bool>> predicate, bool tracked = true)
+        //public async Task<TDto> getSQLQueryData()
+        //{
+        //    return await _databaseContext.Database.SqlQueryRaw<TDto?>(Products.GetProductGroupCategories).ToListAsync();
+        //}
+
+        public async Task<int> GetAllCountByExpresson(Expression<Func<T, bool>> predicate, bool tracked = false)
         {
             IQueryable<T> query = _dbSet;
 

@@ -7,6 +7,7 @@ using Mcparts.Business.Services.Services;
 using Mcparts.DataAccess.Dtos;
 using Mcparts.DataAccess.Models;
 using Mcparts.Infrastructure.Interfaces;
+using Mcparts.Infrastructure.Services;
 using McPartsAPI.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -25,6 +26,8 @@ namespace McPartsAPI.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductsService _service;
+        private readonly IProductsGetSevice _productsGetService;
+        
         private readonly IMapper _mapper;
         private readonly IProductMetadataService _productMetadataService;
         private readonly IProductMetadataValuesService _productMetadataValueService;
@@ -35,6 +38,7 @@ namespace McPartsAPI.Controllers
         public ProductsController(IProductsService service,
             IProductMetadataService _productMetadataService,
             IProductMetadataValuesService _productMetadataValueService,
+            IProductsGetSevice _productsGetService,
             IProductMapperService _productMapperService,
             IMapper mapper)
         {
@@ -43,6 +47,7 @@ namespace McPartsAPI.Controllers
             this._productMetadataService = _productMetadataService;
             this._productMetadataValueService = _productMetadataValueService;
             this._productMapperService = _productMapperService;
+            this._productsGetService = _productsGetService;
         }
 
         [HttpGet]
@@ -54,6 +59,7 @@ namespace McPartsAPI.Controllers
             return Ok(requestpayload);
 
         }
+
         [HttpGet]
         [Route("{id}")]
         public async Task<ActionResult<productsdtoGet>> GetDataById([FromRoute] string id)
@@ -63,6 +69,65 @@ namespace McPartsAPI.Controllers
             var requestpayload = _mapper.Map<productsdtoGet>(data);
             return Ok(requestpayload);
         }
+
+        [HttpGet]
+        [Route("GetProductGroupCategroyData")]
+        public async Task<ActionResult<List<ProductGroupCategoriesDto>>> GetProductGroupCategroyData()
+        {
+            var data = await _productsGetService.GetProductsGroupCategory();
+            //Expression<Func<products, bool>> expression = p => p.isdeleted == false && p.id == id;
+            //var data = await _service.GetSingleEntityByExpressionAsync(expression);
+            //var requestpayload = _mapper.Map<productsdtoGet>(data);
+            return Ok(data);
+        }
+
+        [HttpGet]
+        [Route("GetSearchFilterAllByCategory/{productcategoryid}")]
+        public async Task<ActionResult<List<SearchFilterAll>>> GetSearchFilterAllByCategory(string productcategoryid)
+        {
+            var data = await _productsGetService.GetSearchFilterAllByCategory(productcategoryid);
+            return Ok(data);
+        }
+
+        [HttpGet]
+        [Route("GetSearchFilterAllBySubCategory/{productsubcategoryid}")]
+        public async Task<ActionResult<List<SearchFilterAll>>> GetSearchFilterAllBySubCategory(string productsubcategoryid)
+        {
+            var data = await _productsGetService.GetSearchFilterAllBySubCategory(productsubcategoryid);
+            return Ok(data);
+        }
+
+        [HttpGet]
+        [Route("GetProductDataBySubCategoryWithCount/{productcategoryid}")]
+        public async Task<ActionResult<List<ProductDataBySubCategoryWithCount>>> GetProductDataBySubCategoryWithCount(string productcategoryid)
+        {
+            var data = await _productsGetService.GetProductDataBySubCategoryWithCount(productcategoryid);
+            return Ok(data);
+        }
+
+        [HttpGet]
+        [Route("GetProductDataBySubCategorySubsetWithCount/{productsubcategoryid}")]
+        public async Task<ActionResult<List<ProductDataBySubCategoryWithCount>>> GetProductDataBySubCategorySubsetWithCount(string productsubcategoryid)
+        {
+            var data = await _productsGetService.GetProductDataBySubCategorySubsetWithCount(productsubcategoryid);
+            return Ok(data);
+        }
+
+        [HttpPost]
+        [Route("GetProductDataBySubCategoryWithCountForMetadata")]
+        public async Task<ActionResult<List<ProductDataBySubCategoryWithCountForMetadata>>> GetProductDataBySubCategoryWithCountForMetadata([FromBody] SearchFilterInput searchFilterInput)
+        {
+            var data = await _productsGetService.GetProductDataBySubCategoryWithCountForMetadata(searchFilterInput.metadatavalueid, searchFilterInput.categoryId);
+            return Ok(data);
+        }
+
+        //[HttpGet]
+        //[Route("GetSearchFilterAllByCategory/{productcategoryid}")]
+        //public async Task<ActionResult<List<ProductDataBySubCategoryWithCount>>> GetSearchFilterAllByCategory(string productcategoryid)
+        //{
+        //    var data = await _productsGetService.GetSearchFilterAllByCategory(productcategoryid);
+        //    return Ok(data);
+        //}
 
         [HttpPost]
         [Route("create")]

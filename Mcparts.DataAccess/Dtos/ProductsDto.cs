@@ -7,6 +7,98 @@ using System.Threading.Tasks;
 
 namespace Mcparts.DataAccess.Dtos
 {
+    public record ProductGroupCategoriesDto
+    {
+        public string? productgroupid { get; set; }
+
+        public string? productgroupname { get; set; }
+
+        public string? productcategoryid { get; set; }
+
+        public string? productcategoryname { get; set; }
+    }
+
+    public record ProductDataGetBase
+    {
+        public string? name { get; set; }
+
+        public string? description { get; set; }
+
+        public string? iconpath { get; set; }
+    }
+
+    public record ProductDataByCategoryWithCount : ProductDataGetBase
+    {
+        public int? count { get; set; }
+
+        public string? productcategoryid { get; set; }
+    }
+
+    public record ProductDataBySubCategoryWithCount : ProductDataGetBase
+    {
+        public int? count { get; set; }
+
+        public string? productsubcategoryid { get; set; }
+    }
+
+    public record ProductDataBySubCategorySubsetWithCount : ProductDataGetBase
+    {
+        public int? count { get; set; }
+
+        public string? productsubcategoryid { get; set; }
+    }
+
+    public record ProductDataByCategoryWithCountForMetadata : ProductDataGetBase 
+    {
+        public int? count { get; set; }
+
+        public string? productcategoryid { get; set; }
+    }
+
+    public record ProductDataBySubCategoryWithCountForMetadata : ProductDataGetBase
+    {
+        public int? count { get; set; }
+
+        public string? productsubcategoryid { get; set; }
+    }
+
+    public record ProductDataBySubCategorySubsetWithCountForMetadata : ProductDataGetBase
+    {
+        public int? count { get; set; }
+
+        public string? productsubcategoryid { get; set; }
+    }
+
+    public record SearchFilterAll
+    {
+        public string? metadataid { get; set; }
+
+        public string? metadataname { get; set; }
+
+        public string? controltype { get; set; }
+
+        public bool? issearchable { get; set; }
+
+        public bool? ismultiselect { get; set; }
+
+        public bool? isiconsupported { get; set; }
+
+        public string? metadatavalueid { get; set; }
+
+        public string? metadatavaluename { get; set; }
+    }
+
+    public record SearchFilterInput
+    {
+        public string? categoryId { get; set; }
+
+        public string? subcategoryId { get; set; }
+
+        public string? metadataid { get; set; }
+
+        public List<string>? metadatavalueid { get; set; }
+    }
+
     public record ProductsDto : ProductsDtoBase
     {
         public string id { get; set; }

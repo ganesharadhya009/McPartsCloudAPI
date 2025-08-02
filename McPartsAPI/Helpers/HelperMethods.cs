@@ -412,8 +412,9 @@ namespace McPartsAPI.Helpers
                         var name = row["NAME"].ToString();
                         var productsdto = GetProductsDTO(name);
                         var code = GetProductCode(metadataValues, row, listMetadata);
-                        await _service.AddAsync(productsdto);
                         productsdto.partnumber = code;
+                        await _service.AddAsync(productsdto);
+                        
 
                         foreach (var met in listMetadata)
                         {
@@ -451,8 +452,9 @@ namespace McPartsAPI.Helpers
                         var name = row["NAME"].ToString();
                         var productsdto = GetProductsDTO(name);
                         var code = GetProductCode(metadataValues, row, listMetadata);
-                        await _service.AddAsync(productsdto);
                         productsdto.partnumber = code;
+                        await _service.AddAsync(productsdto);
+                        
 
                         foreach(var met in listMetadata)
                         {
@@ -491,8 +493,9 @@ namespace McPartsAPI.Helpers
                         var name = row["NAME"].ToString();
                         var productsdto = GetProductsDTO(name);
                         var code = GetProductCode(metadataValues, row, listMetadata);
-                        await _service.AddAsync(productsdto);
                         productsdto.partnumber = code;
+                        await _service.AddAsync(productsdto);
+
 
                         foreach (var met in listMetadata)
                         {
@@ -529,8 +532,9 @@ namespace McPartsAPI.Helpers
                         var name = row["NAME"].ToString();
                         var productsdto = GetProductsDTO(name);
                         var code = GetProductCode(metadataValues, row, listMetadata);
-                        await _service.AddAsync(productsdto);
                         productsdto.partnumber = code;
+                        await _service.AddAsync(productsdto);
+                        
 
                         foreach (var met in listMetadata)
                         {
@@ -568,8 +572,9 @@ namespace McPartsAPI.Helpers
                         var name = row["NAME"].ToString();
                         var productsdto = GetProductsDTO(name);
                         var code = GetProductCode(metadataValues, row, listMetadata);
-                        await _service.AddAsync(productsdto);
                         productsdto.partnumber = code;
+                        await _service.AddAsync(productsdto);
+                        
 
                         foreach (var met in listMetadata)
                         {

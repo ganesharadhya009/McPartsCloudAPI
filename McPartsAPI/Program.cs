@@ -67,6 +67,7 @@ builder.Services.AddScoped<IProductMetadataValuesService, ProductMetadataValuesS
 builder.Services.AddScoped<IProductSubCategoryService, ProductSubCategoryService>();
 builder.Services.AddScoped<IProductSubCategorySubsetService, ProductSubCategorySubsetService>();
 builder.Services.AddScoped<IProductsService, ProductsService>();
+builder.Services.AddScoped<IProductsGetSevice, ProductsGetSevice>();
 builder.Services.AddScoped<IProductMapperService, ProductMapperService>();
 
 

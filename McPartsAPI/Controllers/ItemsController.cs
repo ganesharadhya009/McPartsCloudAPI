@@ -1,90 +1,90 @@
-using Mcparts.DataAccess.Dtos;
-using Mcparts.DataAccess.Models;
-using Mcparts.Infrastructure.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
+//using Mcparts.DataAccess.Dtos;
+//using Mcparts.DataAccess.Models;
+//using Mcparts.Infrastructure.Interfaces;
+//using Microsoft.AspNetCore.Mvc;
+//using Newtonsoft.Json.Linq;
 
-namespace McPartsAPI.Controllers
-{
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ItemsController : ControllerBase
-    {
-        private readonly ILogger<ItemsController> _logger;
-        private IProductsSevice itemsSevice;
-        McpartsDbContext _dbcontext;
+//namespace McPartsAPI.Controllers
+//{
+//    [Route("api/[controller]")]
+//    [ApiController]
+//    public class ItemsController : ControllerBase
+//    {
+//        private readonly ILogger<ItemsController> _logger;
+//        private IProductsSevice itemsSevice;
+//        McpartsDbContext _dbcontext;
 
-        public ItemsController(ILogger<ItemsController> logger, McpartsDbContext dbcontext, IProductsSevice itemsSevice)
-        {
-            _logger = logger;
-            this.itemsSevice = itemsSevice;
-            _dbcontext = dbcontext;
-        }
+//        public ItemsController(ILogger<ItemsController> logger, McpartsDbContext dbcontext, IProductsSevice itemsSevice)
+//        {
+//            _logger = logger;
+//            this.itemsSevice = itemsSevice;
+//            _dbcontext = dbcontext;
+//        }
 
-        //[HttpGet(Name = "GetAllItemCategory")]
-        //public async Task<ActionResult<IEnumerable<JObject>>> GetAll()
-        //{
-        //    var d = await itemCategorySevice.GetAll();
-        //    return  Ok(d);
+//        //[HttpGet(Name = "GetAllItemCategory")]
+//        //public async Task<ActionResult<IEnumerable<JObject>>> GetAll()
+//        //{
+//        //    var d = await itemCategorySevice.GetAll();
+//        //    return  Ok(d);
             
-        //}
+//        //}
 
-        [HttpGet]
-        public async Task<IEnumerable<JObject>> GetAll()
-        {
+//        [HttpGet]
+//        public async Task<IEnumerable<JObject>> GetAll()
+//        {
 
-            return await itemsSevice.GetAll();
-        }
+//            return await itemsSevice.GetAll();
+//        }
 
-        [HttpGet]
-        [Route("GetSearchFilter")]
-        public async Task<IEnumerable<JObject>> GetSearchFilter()
-        {
-            //return await itemsSevice.GetAllSearchFilterData();
-            return null;
-        }
+//        [HttpGet]
+//        [Route("GetSearchFilter")]
+//        public async Task<IEnumerable<JObject>> GetSearchFilter()
+//        {
+//            //return await itemsSevice.GetAllSearchFilterData();
+//            return null;
+//        }
 
-        [HttpGet]
-        [Route("GetProductGroupCategory")]
-        public async Task<IEnumerable<JObject>> GetProductGroupCategory()
-        {
-            //return await itemsSevice.GetAllSearchFilterData();
-            return null;
-        }
+//        [HttpGet]
+//        [Route("GetProductGroupCategory")]
+//        public async Task<IEnumerable<JObject>> GetProductGroupCategory()
+//        {
+//            //return await itemsSevice.GetAllSearchFilterData();
+//            return null;
+//        }
 
-        [HttpPost]
-        [Route("Search")]
-        public async Task<IEnumerable<JObject>> Search([FromBody]JObject filter)
-        {
-            return await itemsSevice.Search(filter);
-        }
+//        [HttpPost]
+//        [Route("Search")]
+//        public async Task<IEnumerable<JObject>> Search([FromBody]JObject filter)
+//        {
+//            return await itemsSevice.Search(filter);
+//        }
 
-        [HttpGet]
-        [Route("{id}")]
-        public async Task<JObject> GetbyId([FromRoute] string id)
-        {
-            return await itemsSevice.GetById(id);
-        }
+//        [HttpGet]
+//        [Route("{id}")]
+//        public async Task<JObject> GetbyId([FromRoute] string id)
+//        {
+//            return await itemsSevice.GetById(id);
+//        }
 
-        [HttpPost]
-        [Route("create")]
-        public async Task<bool> Create([FromBody] ProductsDtoPost data)
-        {
-            return await itemsSevice.Create(data);
-        }
+//        //[HttpPost]
+//        //[Route("create")]
+//        //public async Task<bool> Create([FromBody] ProductsDtoPost data)
+//        //{
+//        //    return await itemsSevice.Create(data);
+//        //}
 
-        [HttpPut]
-        [Route("update")]
-        public async Task<bool> Update([FromBody] ProductsDto data)
-        {
-            return await itemsSevice.Update(data);
-        }
+//        //[HttpPut]
+//        //[Route("update")]
+//        //public async Task<bool> Update([FromBody] ProductsDto data)
+//        //{
+//        //    return await itemsSevice.Update(data);
+//        //}
 
-        [HttpDelete]
-        [Route("{id}")]
-        public async Task<bool> Update([FromRoute] string id)
-        {
-            return await itemsSevice.Delete(id);
-        }
-    }
-}
+//        [HttpDelete]
+//        [Route("{id}")]
+//        public async Task<bool> Update([FromRoute] string id)
+//        {
+//            return await itemsSevice.Delete(id);
+//        }
+//    }
+//}
