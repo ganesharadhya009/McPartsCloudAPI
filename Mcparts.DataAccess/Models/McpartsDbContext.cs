@@ -1267,6 +1267,9 @@ public partial class McpartsDbContext : DbContext
             entity.Property(e => e.name).HasMaxLength(255);
             entity.Property(e => e.note).HasColumnType("character varying");
             entity.Property(e => e.partnumber).HasMaxLength(50);
+            entity.Property(e => e.productcategoryid).HasColumnType("character varying");
+            entity.Property(e => e.productsubcategoryid).HasColumnType("character varying");
+            entity.Property(e => e.productsubcategroysubsetid).HasColumnType("character varying");
             entity.Property(e => e.unitmeasureid).HasMaxLength(50);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
 

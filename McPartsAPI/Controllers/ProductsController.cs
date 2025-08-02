@@ -118,6 +118,8 @@ namespace McPartsAPI.Controllers
         public async Task<ActionResult<List<ProductDataBySubCategoryWithCountForMetadata>>> GetProductDataBySubCategoryWithCountForMetadata([FromBody] SearchFilterInput searchFilterInput)
         {
             var data = await _productsGetService.GetProductDataBySubCategoryWithCountForMetadata(searchFilterInput.metadatavalueid, searchFilterInput.categoryId);
+            var count = data.Count;
+
             return Ok(data);
         }
 

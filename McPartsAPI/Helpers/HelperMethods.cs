@@ -197,15 +197,16 @@ namespace McPartsAPI.Helpers
                 var productMetadataDtoData = GetProductMetadataDTO(mData, category, subcategory);
                 await _productMetadataService.AddAsync(productMetadataDtoData);
                 int partnumbercount = 1;
-                foreach (var mValue in dataMetadataVValues)
+                var KeyData = dataMetadataVValues[mData];
+                //foreach (var mValue in dataMetadataVValues)
+                //{
+                foreach (var vd in KeyData)
                 {
-                    foreach (var vd in mValue.Value)
-                    {
-                        var metvaluesdto = GetProductMetadatavaluesDTO(vd, partnumbercount.ToString(), productMetadataDtoData.id);
-                        await _productMetadataValueService.AddAsync(metvaluesdto);
-                        partnumbercount++;
-                    }
+                    var metvaluesdto = GetProductMetadatavaluesDTO(vd, partnumbercount.ToString(), productMetadataDtoData.id);
+                    await _productMetadataValueService.AddAsync(metvaluesdto);
+                    partnumbercount++;
                 }
+                //}
                 listproductMetadataDto.Add(productMetadataDtoData);
             }
         }
@@ -413,6 +414,8 @@ namespace McPartsAPI.Helpers
                         var productsdto = GetProductsDTO(name);
                         var code = GetProductCode(metadataValues, row, listMetadata);
                         productsdto.partnumber = code;
+                        productsdto.productcategoryid = categoryidSocketHead;
+                        productsdto.productsubcategoryid = subcategoryIdSocketHead;
                         await _service.AddAsync(productsdto);
                         
 
@@ -453,6 +456,8 @@ namespace McPartsAPI.Helpers
                         var productsdto = GetProductsDTO(name);
                         var code = GetProductCode(metadataValues, row, listMetadata);
                         productsdto.partnumber = code;
+                        productsdto.productcategoryid = categoryPin;
+                        productsdto.productsubcategoryid = subcategoryPinM6;
                         await _service.AddAsync(productsdto);
                         
 
@@ -494,6 +499,8 @@ namespace McPartsAPI.Helpers
                         var productsdto = GetProductsDTO(name);
                         var code = GetProductCode(metadataValues, row, listMetadata);
                         productsdto.partnumber = code;
+                        productsdto.productcategoryid = categoryPin;
+                        productsdto.productsubcategoryid = subcategoryPinH6;
                         await _service.AddAsync(productsdto);
 
 
@@ -533,6 +540,8 @@ namespace McPartsAPI.Helpers
                         var productsdto = GetProductsDTO(name);
                         var code = GetProductCode(metadataValues, row, listMetadata);
                         productsdto.partnumber = code;
+                        productsdto.productcategoryid = categoryWasher;
+                        productsdto.productsubcategoryid = subcategoryWasherPlain;
                         await _service.AddAsync(productsdto);
                         
 
@@ -573,6 +582,8 @@ namespace McPartsAPI.Helpers
                         var productsdto = GetProductsDTO(name);
                         var code = GetProductCode(metadataValues, row, listMetadata);
                         productsdto.partnumber = code;
+                        productsdto.productcategoryid = categoryWasher;
+                        productsdto.productsubcategoryid = subcategoryWasherSpring;
                         await _service.AddAsync(productsdto);
                         
 

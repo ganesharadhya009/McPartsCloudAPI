@@ -37,5 +37,11 @@ namespace Mcparts.Business.Dtos
         public string? note { get; set; }
 
         public int? lotsize { get; set; }
+
+        public string? productcategoryid { get; set; }
+
+        public string? productsubcategoryid { get; set; }
+
+        public string? productsubcategroysubsetid { get; set; }
     }
 }

@@ -35,6 +35,12 @@ public partial class products
 
     public int? lotsize { get; set; }
 
+    public string? productcategoryid { get; set; }
+
+    public string? productsubcategoryid { get; set; }
+
+    public string? productsubcategroysubsetid { get; set; }
+
     public virtual ICollection<inventorytransaction> inventorytransaction { get; set; } = new List<inventorytransaction>();
 
     public virtual ICollection<productmapper> productmapper { get; set; } = new List<productmapper>();
