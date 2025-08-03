@@ -33,5 +33,9 @@ namespace Mcparts.Business.Dtos
         public string? productsubcategorysubsetid { get; set; }
 
         public string? productmetadatavaluesid { get; set; }
+
+        public string? productmetadataname { get; set; }
+
+        public string? productmetadatavaluesname { get; set; }
     }
 }

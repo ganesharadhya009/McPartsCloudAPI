@@ -9,6 +9,8 @@ namespace Mcparts.Business.Dtos
     public record MetadataAndValue
     {
         public string? MetadataId { get; set; }
-        public string? MetadataIdValue { get; set; }
+        public string? MetadataIdName { get; set; }
+        public string? MetadataValueId { get; set; }
+        public string? MetadataValueName { get; set; }
     }
 }

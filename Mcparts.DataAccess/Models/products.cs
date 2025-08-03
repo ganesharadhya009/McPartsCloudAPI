@@ -43,7 +43,13 @@ public partial class products
 
     public virtual ICollection<inventorytransaction> inventorytransaction { get; set; } = new List<inventorytransaction>();
 
+    public virtual productcategory? productcategory { get; set; }
+
     public virtual ICollection<productmapper> productmapper { get; set; } = new List<productmapper>();
+
+    public virtual productsubcategory? productsubcategory { get; set; }
+
+    public virtual productsubcategorysubset? productsubcategroysubset { get; set; }
 
     public virtual ICollection<purchaseorderitem> purchaseorderitem { get; set; } = new List<purchaseorderitem>();
 

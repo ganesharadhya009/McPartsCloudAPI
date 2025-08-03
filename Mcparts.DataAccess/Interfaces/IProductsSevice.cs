@@ -27,11 +27,14 @@ namespace Mcparts.Infrastructure.Interfaces
 
         //data
         public Task<List<ProductDataByCategoryWithCount>> GetProductDataByCategoryWithCount();
-        public Task<List<ProductDataByCategoryWithCount>> GetProductDataByCategoryWithCountForMetadata(List<string> ids);
+        public Task<List<ProductDataByCategoryWithCount>> GetProductDataByCategoryWithCountForMetadata(string productcategoryid, List<string> productmetadataname,
+            List<string> productmetadatavaluesname);
         public Task<List<ProductDataBySubCategoryWithCount>> GetProductDataBySubCategoryWithCount(string productcategoryid);
-        public Task<List<ProductDataBySubCategoryWithCountForMetadata>> GetProductDataBySubCategoryWithCountForMetadata(List<string> ids, string productcategoryid);
+        public Task<List<ProductDataBySubCategoryWithCountForMetadata>> GetProductDataBySubCategoryWithCountForMetadata(string productcategoryid, List<string> productmetadataname,
+            List<string> productmetadatavaluesname);
         public Task<List<ProductDataBySubCategorySubsetWithCount>> GetProductDataBySubCategorySubsetWithCount(string productsubcategoryid);
-        public Task<List<ProductDataBySubCategorySubsetWithCountForMetadata>> GetProductDataBySubCategorySubsetWithCountForMetadata(List<string> ids, string productsubcategoryid);
+        public Task<List<ProductDataBySubCategorySubsetWithCountForMetadata>> GetProductDataBySubCategorySubsetWithCountForMetadata(string productcategoryid, List<string> productmetadataname,
+            List<string> productmetadatavaluesname);
 
         //public Task<List<JObject>> GetProductsAllBySubCategory(string id);
     }

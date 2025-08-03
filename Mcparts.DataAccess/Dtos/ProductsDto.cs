@@ -94,9 +94,9 @@ namespace Mcparts.DataAccess.Dtos
 
         public string? subcategoryId { get; set; }
 
-        public string? metadataid { get; set; }
+        public List<string>? metadataName { get; set; }
 
-        public List<string>? metadatavalueid { get; set; }
+        public List<string>? metadatavalueName { get; set; }
     }
 
     public record ProductsDto : ProductsDtoBase

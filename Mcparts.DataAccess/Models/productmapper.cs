@@ -29,6 +29,10 @@ public partial class productmapper
 
     public string? productmetadatavaluesid { get; set; }
 
+    public string? productmetadataname { get; set; }
+
+    public string? productmetadatavaluesname { get; set; }
+
     public virtual products? product { get; set; }
 
     public virtual productcategory? productcategory { get; set; }

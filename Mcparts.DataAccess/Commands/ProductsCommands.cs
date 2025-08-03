@@ -64,40 +64,36 @@ namespace Mcparts.DataAccess.Commands
             "left join productcategory pc on pm.productcategoryid = pc.id " +
             "group by pm.productcategoryid, pc.id ";
 
-        public static string GetProductDataByCategoryWithCountForMetadata = "select COUNT(DISTINCT pm.productcategoryid) as count, pm.productcategoryid, pc.name, pc.description ,pc.iconpath " +
+        public static string GetProductDataByCategoryWithCountForMetadata = "select COUNT(DISTINCT pm.productid) as count, pm.productcategoryid, pc.name, pc.description ,pc.iconpath " +
             "from productmapper pm " +
             "left join productcategory pc on pm.productcategoryid = pc.id " +
-            "left join productsubcategory psc on pm.productsubcategoryid = psc.id " +
-            "left join productmetadata pmd on pm.productmetadataid = pmd.id " +
             "left join productmetadatavalues pmdv on pmdv.productmetdataid = pmd.id " +
-            "where pmdv.id in('@metdatavalueid') " +
+            "where pm.productcategoryid in('@productcategoryid') and pm.productmetadataname in('@productmetadataname') and  pm.productmetadatavaluesname in('@productmetadatavaluesname') " +
             "group by pm.productcategoryid, pc.id";
 
-        public static string GetProductDataBySubCategoryWithCount = "select COUNT(DISTINCT pm.productsubcategoryid), pm.productsubcategoryid , psc.name, psc.description ,psc.iconpath " +
+        public static string GetProductDataBySubCategoryWithCount = "select COUNT(DISTINCT pm.productid), pm.productsubcategoryid , psc.name, psc.description ,psc.iconpath " +
             "from productmapper pm " +
             "left join productsubcategory psc on pm.productsubcategoryid = psc.id " +
             "where pm.productcategoryid ='@productcategoryid' " +
             "group by pm.productsubcategoryid, psc.id";
 
-        public static string GetProductDataBySubCategoryWithCountForMetadata = "select COUNT(DISTINCT pm.productsubcategoryid), pm.productsubcategoryid , psc.name, psc.description ,psc.iconpath " +
+        public static string GetProductDataBySubCategoryWithCountForMetadata = "select COUNT(DISTINCT pm.productid), pm.productsubcategoryid , psc.name, psc.description ,psc.iconpath " +
             "from productmapper pm " +
             "left join productsubcategory psc on pm.productsubcategoryid = psc.id " +
-            "left join productmetadata pmd on pm.productmetadataid = pmd.id " +
-            "left join productmetadatavalues pmdv on pmdv.productmetdataid = pmd.id " +
-            "where pm.productcategoryid ='@productcategoryid' and pmdv.id in('@metdatavalueid') " +
+            "where pm.productcategoryid in('@productcategoryid') and pm.productmetadataname in('@productmetadataname') and  pm.productmetadatavaluesname in('@productmetadatavaluesname') " +
             "group by pm.productsubcategoryid, psc.id";
 
-        public static string GetProductDataBySubCategorySubsetWithCount = "select COUNT(DISTINCT pm.productsubcategoryid), pm.productsubcategoryid , psc.name, psc.description ,psc.iconpath " +
+        public static string GetProductDataBySubCategorySubsetWithCount = "select COUNT(DISTINCT pm.productid), pm.productsubcategoryid , psc.name, psc.description ,psc.iconpath " +
            "from productmapper pm " +
            "left join productsubcategory psc on pm.productsubcategoryid = psc.id " +
            "where pm.productsubcategoryid ='@productsubcategoryid' " +
            "group by pm.productsubcategoryid, psc.id";
 
-        public static string GetProductDataBySubCategorySubsetWithCountForMetadata = "select COUNT(DISTINCT pm.productsubcategoryid), pm.productsubcategoryid , psc.name, psc.description ,psc.iconpath " +
+        public static string GetProductDataBySubCategorySubsetWithCountForMetadata = "select COUNT(DISTINCT pm.productid), pm.productsubcategoryid , psc.name, psc.description ,psc.iconpath " +
             "from productmapper pm " +
             "left join productmetadata pmd on pm.productmetadataid = pmd.id " +
             "left join productmetadatavalues pmdv on pmdv.productmetdataid = pmd.id " +
-            "where pm.productsubcategoryid ='@productsubcategoryid') and pmdv.id in('@metdatavalueid') " +
+            "where pm.productsubcategoryid in('@productsubcategoryid') and pm.productmetadataname in('@productmetadataname') and  pm.productmetadatavaluesname in('@productmetadatavaluesname') " +
             "group by pm.productsubcategoryid, psc.id";
     }
 

@@ -29,5 +29,7 @@ public partial class productsubcategorysubset
 
     public virtual ICollection<productmetadata> productmetadata { get; set; } = new List<productmetadata>();
 
+    public virtual ICollection<products> products { get; set; } = new List<products>();
+
     public virtual productsubcategory? productsubcategory { get; set; }
 }

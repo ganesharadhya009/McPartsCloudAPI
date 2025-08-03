@@ -31,5 +31,7 @@ public partial class productcategory
 
     public virtual ICollection<productmetadata> productmetadata { get; set; } = new List<productmetadata>();
 
+    public virtual ICollection<products> products { get; set; } = new List<products>();
+
     public virtual ICollection<productsubcategory> productsubcategory { get; set; } = new List<productsubcategory>();
 }

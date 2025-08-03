@@ -303,9 +303,12 @@ namespace Mcparts.Infrastructure.Services
             return data;
         }
 
-        public async Task<List<ProductDataByCategoryWithCount>> GetProductDataByCategoryWithCountForMetadata(List<string> ids)
+        public async Task<List<ProductDataByCategoryWithCount>> GetProductDataByCategoryWithCountForMetadata(string productcategoryid, List<string> productmetadataname,
+            List<string> productmetadatavaluesname)
         {
-            string query = ProductsCommands.GetProductDataByCategoryWithCount.Replace("@metdatavalueid", string.Join(",", ids));
+            string query = ProductsCommands.GetProductDataBySubCategoryWithCountForMetadata.Replace("@productmetadataname", string.Join(",", productmetadataname)).
+               Replace("@productmetadatavaluesname", string.Join(",", productmetadatavaluesname)).
+           Replace("@productcategoryid", productcategoryid);
             var data = await _databaseContext.Database.SqlQueryRaw<ProductDataByCategoryWithCount?>(query).AsNoTracking().ToListAsync();
             return data;
         }
@@ -317,9 +320,12 @@ namespace Mcparts.Infrastructure.Services
             return data;
         }
 
-        public async Task<List<ProductDataBySubCategoryWithCountForMetadata>> GetProductDataBySubCategoryWithCountForMetadata(List<string> ids, string productcategoryid)
+        public async Task<List<ProductDataBySubCategoryWithCountForMetadata>> GetProductDataBySubCategoryWithCountForMetadata(string productcategoryid, List<string> productmetadataname, 
+            List<string> productmetadatavaluesname)
         {
-            string query = ProductsCommands.GetProductDataBySubCategoryWithCountForMetadata.Replace("@metdatavalueid", string.Join(",", ids)).Replace("@productcategoryid", productcategoryid); 
+            string query = ProductsCommands.GetProductDataBySubCategoryWithCountForMetadata.Replace("@productmetadataname", string.Join(",", productmetadataname)).
+                Replace("@productmetadatavaluesname", string.Join(",", productmetadatavaluesname)).
+            Replace("@productcategoryid", productcategoryid); 
             var data = await _databaseContext.Database.SqlQueryRaw<ProductDataBySubCategoryWithCountForMetadata?>(query).AsNoTracking().ToListAsync();
             return data;
         }
@@ -331,9 +337,12 @@ namespace Mcparts.Infrastructure.Services
             return data;
         }
 
-        public async Task<List<ProductDataBySubCategorySubsetWithCountForMetadata>> GetProductDataBySubCategorySubsetWithCountForMetadata(List<string> ids, string productsubcategoryid)
+        public async Task<List<ProductDataBySubCategorySubsetWithCountForMetadata>> GetProductDataBySubCategorySubsetWithCountForMetadata(string productsubcategoryid, 
+            List<string> productmetadataname, List<string> productmetadatavaluesname)
         {
-            string query = ProductsCommands.GetProductDataBySubCategorySubsetWithCountForMetadata.Replace("@metdatavalueid", string.Join(",", ids)).Replace("@productsubcategoryid", productsubcategoryid);
+            string query = ProductsCommands.GetProductDataBySubCategorySubsetWithCountForMetadata.Replace("@metdatavalueid", string.Join(",", productmetadataname)).
+                Replace("@productmetadatavaluesname", string.Join(",", productmetadatavaluesname)).
+                Replace("@productsubcategoryid", productsubcategoryid);
             var data = await _databaseContext.Database.SqlQueryRaw<ProductDataBySubCategorySubsetWithCountForMetadata?>(query).AsNoTracking().ToListAsync();
             return data;
         }

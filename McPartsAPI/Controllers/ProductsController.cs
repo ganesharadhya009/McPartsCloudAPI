@@ -117,7 +117,7 @@ namespace McPartsAPI.Controllers
         [Route("GetProductDataBySubCategoryWithCountForMetadata")]
         public async Task<ActionResult<List<ProductDataBySubCategoryWithCountForMetadata>>> GetProductDataBySubCategoryWithCountForMetadata([FromBody] SearchFilterInput searchFilterInput)
         {
-            var data = await _productsGetService.GetProductDataBySubCategoryWithCountForMetadata(searchFilterInput.metadatavalueid, searchFilterInput.categoryId);
+            var data = await _productsGetService.GetProductDataBySubCategoryWithCountForMetadata(searchFilterInput.categoryId, searchFilterInput.metadataName, searchFilterInput.metadatavalueName);
             var count = data.Count;
 
             return Ok(data);
@@ -231,7 +231,7 @@ namespace McPartsAPI.Controllers
                     }
                     if (table.TableName == "SPRING WASHER")
                     {
-                        
+
                         var met = dictionaryMetadata["SPRING WASHER"];
                         var dataMetadataVValues = _helperMethods.ProcessHeaderAndData(table, "", "", dictionaryMetadata, "SPRING WASHER");
                         await _helperMethods.SaveMetadataAndValues(met, _productMetadataService,

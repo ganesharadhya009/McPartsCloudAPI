@@ -1175,7 +1175,9 @@ public partial class McpartsDbContext : DbContext
             entity.Property(e => e.productgroupid).HasColumnType("character varying");
             entity.Property(e => e.productid).HasColumnType("character varying");
             entity.Property(e => e.productmetadataid).HasColumnType("character varying");
+            entity.Property(e => e.productmetadataname).HasColumnType("character varying");
             entity.Property(e => e.productmetadatavaluesid).HasColumnType("character varying");
+            entity.Property(e => e.productmetadatavaluesname).HasColumnType("character varying");
             entity.Property(e => e.productsubcategoryid).HasColumnType("character varying");
             entity.Property(e => e.productsubcategorysubsetid).HasColumnType("character varying");
             entity.Property(e => e.updatedbyid).HasColumnType("character varying");
@@ -1272,6 +1274,18 @@ public partial class McpartsDbContext : DbContext
             entity.Property(e => e.productsubcategroysubsetid).HasColumnType("character varying");
             entity.Property(e => e.unitmeasureid).HasMaxLength(50);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
+
+            entity.HasOne(d => d.productcategory).WithMany(p => p.products)
+                .HasForeignKey(d => d.productcategoryid)
+                .HasConstraintName("products_productcategory_fk");
+
+            entity.HasOne(d => d.productsubcategory).WithMany(p => p.products)
+                .HasForeignKey(d => d.productsubcategoryid)
+                .HasConstraintName("products_productsubcategory_fk");
+
+            entity.HasOne(d => d.productsubcategroysubset).WithMany(p => p.products)
+                .HasForeignKey(d => d.productsubcategroysubsetid)
+                .HasConstraintName("products_productsubcategorysubset_fk");
 
             entity.HasOne(d => d.unitmeasure).WithMany(p => p.products)
                 .HasForeignKey(d => d.unitmeasureid)

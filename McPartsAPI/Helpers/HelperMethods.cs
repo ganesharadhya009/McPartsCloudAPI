@@ -211,7 +211,9 @@ namespace McPartsAPI.Helpers
             }
         }
 
-        public  productmapperdto GetProductMapperDTO(productsdto product, string categoryid, string subcategoryId, string productGroupId, string metadataId, string metadataValueId)
+        public  productmapperdto GetProductMapperDTO(productsdto product, string categoryid, string subcategoryId, 
+            string productGroupId, string metadataId, string metadataValueId,
+            string metadataName, string metadatavalueName)
         {
             return new productmapperdto()
             {
@@ -221,7 +223,10 @@ namespace McPartsAPI.Helpers
                 productsubcategoryid = subcategoryId,
                 productgroupid = productGroupId,
                 productmetadataid = metadataId,
-                productmetadatavaluesid = metadataValueId
+                productmetadatavaluesid = metadataValueId,
+                productmetadataname = metadataName,
+                productmetadatavaluesname = metadatavalueName
+               
             };
         }
 
@@ -264,135 +269,135 @@ namespace McPartsAPI.Helpers
             };
         }
 
-        public  async Task ProcessSpringWasher(DataRow row,
-          IEnumerable<productmetadatadto> metadata,
-          IEnumerable<productmetadatavaluesdto> metadataValues,
-          IProductsService _service,
-          IProductMapperService _productMapperService)
-        {
-            var name = row["NAME"].ToString();
-            var productsdto = GetProductsDTO(name);
-            var code = GetProductCodeForSpringWasher(metadataValues, row);
-            productsdto.partnumber = code;
-            await _service.AddAsync(productsdto);
+        //public  async Task ProcessSpringWasher(DataRow row,
+        //  IEnumerable<productmetadatadto> metadata,
+        //  IEnumerable<productmetadatavaluesdto> metadataValues,
+        //  IProductsService _service,
+        //  IProductMapperService _productMapperService)
+        //{
+        //    var name = row["NAME"].ToString();
+        //    var productsdto = GetProductsDTO(name);
+        //    var code = GetProductCodeForSpringWasher(metadataValues, row);
+        //    productsdto.partnumber = code;
+        //    await _service.AddAsync(productsdto);
 
 
-            var data = ProcessDataRowMetadataValues("MATERIAL", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
-            var productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    var data = ProcessDataRowMetadataValues("MATERIAL", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
+        //    var productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataValueId, data.MetadataIdName, data.MetadataValueName);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("THREAD TYPE", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("THREAD TYPE", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            //data = ProcessThreadPitch(row, metadata, metadataValues);
-            //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
-            //await _productMapperService.AddAsync(productMapperDto);
+        //    //data = ProcessThreadPitch(row, metadata, metadataValues);
+        //    //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+        //    //await _productMapperService.AddAsync(productMapperDto);
 
-            //data = ProcessForm(row, metadata, metadataValues);
-            //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
-            //await _productMapperService.AddAsync(productMapperDto);
+        //    //data = ProcessForm(row, metadata, metadataValues);
+        //    //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+        //    //await _productMapperService.AddAsync(productMapperDto);
 
-            //data = ProcessDriveType(row, metadata, metadataValues);
-            //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
-            //await _productMapperService.AddAsync(productMapperDto);
+        //    //data = ProcessDriveType(row, metadata, metadataValues);
+        //    //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+        //    //await _productMapperService.AddAsync(productMapperDto);
 
-            //data = ProcessPropertyClass(row, metadata, metadataValues);
-            //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
-            //await _productMapperService.AddAsync(productMapperDto);
+        //    //data = ProcessPropertyClass(row, metadata, metadataValues);
+        //    //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+        //    //await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("SURFACE FINISH", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("SURFACE FINISH", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("SIZE", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("SIZE", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("D1 MIN", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("D1 MIN", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("D1 MAX", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("D1 MAX", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("D2 MAX", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("D2 MAX", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            //data = ProcessK(row, metadata, metadataValues);
-            //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
-            //await _productMapperService.AddAsync(productMapperDto);
+        //    //data = ProcessK(row, metadata, metadataValues);
+        //    //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+        //    //await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("S", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("S", row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-        }
+        //}
 
-        public  async Task ProcessPlainWasher(DataRow row,
-           IEnumerable<productmetadatadto> metadata,
-           IEnumerable<productmetadatavaluesdto> metadataValues,
-           IProductsService _service,
-           IProductMapperService _productMapperService)
-        {
-            var name = row["NAME"].ToString();
-            var productsdto = GetProductsDTO(name);
-            var code = GetProductCodeForPlainWasher(metadataValues, row);
-            productsdto.partnumber = code;
-            await _service.AddAsync(productsdto);
+        //public  async Task ProcessPlainWasher(DataRow row,
+        //   IEnumerable<productmetadatadto> metadata,
+        //   IEnumerable<productmetadatavaluesdto> metadataValues,
+        //   IProductsService _service,
+        //   IProductMapperService _productMapperService)
+        //{
+        //    var name = row["NAME"].ToString();
+        //    var productsdto = GetProductsDTO(name);
+        //    var code = GetProductCodeForPlainWasher(metadataValues, row);
+        //    productsdto.partnumber = code;
+        //    await _service.AddAsync(productsdto);
 
 
-            var data = ProcessDataRowMetadataValues("MATERIAL", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
-            var productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    var data = ProcessDataRowMetadataValues("MATERIAL", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
+        //    var productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("THREAD TYPE", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("THREAD TYPE", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            //data = ProcessThreadPitch(row, metadata, metadataValues);
-            //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
-            //await _productMapperService.AddAsync(productMapperDto);
+        //    //data = ProcessThreadPitch(row, metadata, metadataValues);
+        //    //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+        //    //await _productMapperService.AddAsync(productMapperDto);
 
-            //data = ProcessForm(row, metadata, metadataValues);
-            //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
-            //await _productMapperService.AddAsync(productMapperDto);
+        //    //data = ProcessForm(row, metadata, metadataValues);
+        //    //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+        //    //await _productMapperService.AddAsync(productMapperDto);
 
-            //data = ProcessDriveType(row, metadata, metadataValues);
-            //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
-            //await _productMapperService.AddAsync(productMapperDto);
+        //    //data = ProcessDriveType(row, metadata, metadataValues);
+        //    //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+        //    //await _productMapperService.AddAsync(productMapperDto);
 
-            //data = ProcessPropertyClass(row, metadata, metadataValues);
-            //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
-            //await _productMapperService.AddAsync(productMapperDto);
+        //    //data = ProcessPropertyClass(row, metadata, metadataValues);
+        //    //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+        //    //await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("SURFACE FINISH", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("SURFACE FINISH", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("SIZE", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("SIZE", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("D1", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("D1", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("D2", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("D2", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            //data = ProcessK(row, metadata, metadataValues);
-            //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
-            //await _productMapperService.AddAsync(productMapperDto);
+        //    //data = ProcessK(row, metadata, metadataValues);
+        //    //productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdPlainWasher, data.MetadataId, data.MetadataIdValue);
+        //    //await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("S", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("S", row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-        }
+        //}
 
         public  async Task<List<string>> ProcessSOCKETHEADMainFunction(DataTable table, IEnumerable<productmetadatadto> metadata,
             IEnumerable<productmetadatavaluesdto> metadataValues,
@@ -422,7 +427,8 @@ namespace McPartsAPI.Helpers
                         foreach (var met in listMetadata)
                         {
                             var data = ProcessDataRowMetadataValues(met, row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-                            var productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+                            var productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead,groupIdSocketHead, 
+                                data.MetadataId, data.MetadataValueId, data.MetadataIdName, data.MetadataValueName);
                             await _productMapperService.AddAsync(productMapperDto);
                         }
                     }
@@ -464,7 +470,7 @@ namespace McPartsAPI.Helpers
                         foreach(var met in listMetadata)
                         {
                             var data = ProcessDataRowMetadataValues(met, row, metadata, metadataValues, categoryPin, subcategoryPinM6);
-                            var productMapperDto = GetProductMapperDTO(productsdto, categoryPin, subcategoryPinM6, groupIPin, data.MetadataId, data.MetadataIdValue);
+                            var productMapperDto = GetProductMapperDTO(productsdto, categoryPin, subcategoryPinM6, groupIPin, data.MetadataId, data.MetadataValueId, data.MetadataIdName, data.MetadataValueName);
                             await _productMapperService.AddAsync(productMapperDto);
                         }
 
@@ -507,7 +513,7 @@ namespace McPartsAPI.Helpers
                         foreach (var met in listMetadata)
                         {
                             var data = ProcessDataRowMetadataValues(met, row, metadata, metadataValues, categoryPin, subcategoryPinH6);
-                            var productMapperDto = GetProductMapperDTO(productsdto, categoryPin, subcategoryPinH6, groupIPin, data.MetadataId, data.MetadataIdValue);
+                            var productMapperDto = GetProductMapperDTO(productsdto, categoryPin, subcategoryPinH6, groupIPin, data.MetadataId, data.MetadataValueId, data.MetadataIdName, data.MetadataValueName);
                             await _productMapperService.AddAsync(productMapperDto);
                         }
 
@@ -548,7 +554,7 @@ namespace McPartsAPI.Helpers
                         foreach (var met in listMetadata)
                         {
                             var data = ProcessDataRowMetadataValues(met, row, metadata, metadataValues, categoryWasher, subcategoryWasherPlain);
-                            var productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataIdValue);
+                            var productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherPlain, groupIdWasher, data.MetadataId, data.MetadataValueId, data.MetadataIdName, data.MetadataValueName);
                             await _productMapperService.AddAsync(productMapperDto);
                         }
 
@@ -590,7 +596,7 @@ namespace McPartsAPI.Helpers
                         foreach (var met in listMetadata)
                         {
                             var data = ProcessDataRowMetadataValues(met, row, metadata, metadataValues, categoryWasher, subcategoryWasherSpring);
-                            var productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataIdValue);
+                            var productMapperDto = GetProductMapperDTO(productsdto, categoryWasher, subcategoryWasherSpring, groupIdWasher, data.MetadataId, data.MetadataValueId, data.MetadataIdName, data.MetadataValueName);
                             await _productMapperService.AddAsync(productMapperDto);
                         }
 
@@ -606,129 +612,129 @@ namespace McPartsAPI.Helpers
             return list;
         }
 
-        public  async Task ProcessSOCKETHEAD(DataRow row , 
-            IEnumerable<productmetadatadto> metadata, 
-            IEnumerable<productmetadatavaluesdto> metadataValues,
-            IProductsService _service,
-            IProductMapperService _productMapperService)
-        {
-            var name = row["NAME"].ToString();
-            var productsdto = GetProductsDTO(name);
-            var code = GetProductCodeForSocketHeads(metadataValues, row);
-            await _service.AddAsync(productsdto);
-            productsdto.partnumber = code;
+        //public  async Task ProcessSOCKETHEAD(DataRow row , 
+        //    IEnumerable<productmetadatadto> metadata, 
+        //    IEnumerable<productmetadatavaluesdto> metadataValues,
+        //    IProductsService _service,
+        //    IProductMapperService _productMapperService)
+        //{
+        //    var name = row["NAME"].ToString();
+        //    var productsdto = GetProductsDTO(name);
+        //    var code = GetProductCodeForSocketHeads(metadataValues, row);
+        //    await _service.AddAsync(productsdto);
+        //    productsdto.partnumber = code;
 
-            var data = ProcessDataRowMetadataValues("MATERIAL", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            var productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    var data = ProcessDataRowMetadataValues("MATERIAL", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    var productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("THREAD TYPE", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("THREAD TYPE", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("THREAD PITCH", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("THREAD PITCH", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("FORM", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("FORM", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("DRIVE TYPE", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("DRIVE TYPE", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("PROPERTY CLASS", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("PROPERTY CLASS", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("SURFACE FINISH", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("SURFACE FINISH", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("SIZE", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("SIZE", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("L", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("L", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("D2", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("D2", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("K", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("K", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("S", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("S", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIdSocketHead, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-        }
+        //}
 
-        public  async Task ProcessM6(DataRow row,
-            IEnumerable<productmetadatadto> metadata,
-            IEnumerable<productmetadatavaluesdto> metadataValues,
-            IProductsService _service,
-            IProductMapperService _productMapperService)
-        {
-            var name = row["NAME"].ToString();
-            var productsdto = GetProductsDTO(name);
-            var code = GetProductCodeForSocketHeads(metadataValues, row);
-            await _service.AddAsync(productsdto);
-            productsdto.partnumber = code;
+        //public  async Task ProcessM6(DataRow row,
+        //    IEnumerable<productmetadatadto> metadata,
+        //    IEnumerable<productmetadatavaluesdto> metadataValues,
+        //    IProductsService _service,
+        //    IProductMapperService _productMapperService)
+        //{
+        //    var name = row["NAME"].ToString();
+        //    var productsdto = GetProductsDTO(name);
+        //    var code = GetProductCodeForSocketHeads(metadataValues, row);
+        //    await _service.AddAsync(productsdto);
+        //    productsdto.partnumber = code;
 
-            var data = ProcessDataRowMetadataValues("MATERIAL", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            var productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    var data = ProcessDataRowMetadataValues("MATERIAL", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    var productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("THREAD TYPE", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("THREAD TYPE", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("THREAD PITCH", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("THREAD PITCH", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("FORM", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("FORM", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("DRIVE TYPE", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("DRIVE TYPE", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("PROPERTY CLASS", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("PROPERTY CLASS", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("SURFACE FINISH", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("SURFACE FINISH", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("SIZE", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("SIZE", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("L", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("L", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("D2", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("D2", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("K", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("K", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-            data = ProcessDataRowMetadataValues("S", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
-            productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
-            await _productMapperService.AddAsync(productMapperDto);
+        //    data = ProcessDataRowMetadataValues("S", row, metadata, metadataValues, categoryidSocketHead, subcategoryIdSocketHead);
+        //    productMapperDto = GetProductMapperDTO(productsdto, categoryidSocketHead, subcategoryIdSocketHead, groupIPin, data.MetadataId, data.MetadataIdValue);
+        //    await _productMapperService.AddAsync(productMapperDto);
 
-        }
+        //}
 
         //public  MetadataAndValue ProcessMaterial(DataRow row, IEnumerable<productmetadatadto> metadata, IEnumerable<productmetadatavaluesdto> metadatavalues)
         //{
@@ -926,7 +932,9 @@ namespace McPartsAPI.Helpers
             return new MetadataAndValue()
             {
                 MetadataId = metadataSingle.id,
-                MetadataIdValue = metvalue.id
+                MetadataIdName = metadataSingle.name,
+                MetadataValueId = metvalue.id,
+                MetadataValueName = metvalue.name
             };
         }
     }
