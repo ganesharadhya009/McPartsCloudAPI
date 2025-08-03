@@ -44,4 +44,6 @@ namespace Mcparts.Business.Dtos
 
         public string? productsubcategroysubsetid { get; set; }
     }
+
+   
 }

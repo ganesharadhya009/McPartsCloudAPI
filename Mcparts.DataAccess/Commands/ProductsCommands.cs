@@ -95,6 +95,15 @@ namespace Mcparts.DataAccess.Commands
             "left join productmetadatavalues pmdv on pmdv.productmetdataid = pmd.id " +
             "where pm.productsubcategoryid in('@productsubcategoryid') and pm.productmetadataname in('@productmetadataname') and  pm.productmetadatavaluesname in('@productmetadatavaluesname') " +
             "group by pm.productsubcategoryid, psc.id";
+
+        //
+        public static string GetProductsByCategorySubCategory = "select distinct p.id, p.name, p.partnumber, p.description, p.unitprice, p.lotsize, p.note, p.additionaldescription  from products p " +
+            "where p.productcategoryid='@productcategoryid' and p.productsubcategoryid='@productsubcategoryid'";
+
+        public static string GetProductsByCategorySubCategoryForMetadata = "select distinct p.id, p.name, p.partnumber, p.description, p.unitprice, p.lotsize, p.note, p.additionaldescription  from products p " +
+            "inner join productmapper pm on pm.productid = p.id " +
+            "where p.productcategoryid='@productcategoryid' and p.productsubcategoryid='@productsubcategoryid' " +
+            "and pm.productmetadataname in('@productmetadataname') and  pm.productmetadatavaluesname in('@productmetadatavaluesname')";
     }
 
    

@@ -36,6 +36,11 @@ namespace Mcparts.Infrastructure.Interfaces
         public Task<List<ProductDataBySubCategorySubsetWithCountForMetadata>> GetProductDataBySubCategorySubsetWithCountForMetadata(string productcategoryid, List<string> productmetadataname,
             List<string> productmetadatavaluesname);
 
+        public Task<List<productsdtoListing>> GetProductsByCategorySubCategory(string productcategoryid, string productsubcategoryid);
+
+        public Task<List<productsdtoListing>> GetProductsByCategorySubCategoryForMetadata(string productcategoryid, string productsubcategoryid,
+           List<string> productmetadataname, List<string> productmetadatavaluesname);
+
         //public Task<List<JObject>> GetProductsAllBySubCategory(string id);
     }
 }

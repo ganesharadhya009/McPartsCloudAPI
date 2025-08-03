@@ -123,6 +123,26 @@ namespace McPartsAPI.Controllers
             return Ok(data);
         }
 
+        [HttpPost]
+        [Route("GetProductsByCategorySubCategory")]
+        public async Task<ActionResult<List<productsdtoListing>>> GetProductsByCategorySubCategory([FromBody] SearchFilterInput searchFilterInput)
+        {
+            var data = await _productsGetService.GetProductsByCategorySubCategory(searchFilterInput.categoryId, searchFilterInput.subcategoryId);
+            var count = data.Count;
+
+            return Ok(data);
+        }
+
+        [HttpPost]
+        [Route("GetProductsByCategorySubCategoryForMetadata")]
+        public async Task<ActionResult<List<productsdtoListing>>> GetProductsByCategorySubCategoryForMetadata([FromBody] SearchFilterInput searchFilterInput)
+        {
+            var data = await _productsGetService.GetProductsByCategorySubCategoryForMetadata(searchFilterInput.categoryId, searchFilterInput.subcategoryId, searchFilterInput.metadataName, searchFilterInput.metadatavalueName);
+            var count = data.Count;
+
+            return Ok(data);
+        }
+
         //[HttpGet]
         //[Route("GetSearchFilterAllByCategory/{productcategoryid}")]
         //public async Task<ActionResult<List<ProductDataBySubCategoryWithCount>>> GetSearchFilterAllByCategory(string productcategoryid)

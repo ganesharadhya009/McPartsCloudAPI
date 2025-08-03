@@ -34,11 +34,22 @@ namespace McPartsAPI.Controllers
             return Ok(requestpayload);
 
         }
+
         [HttpGet]
         [Route("{id}")]
         public async Task<ActionResult<productgroupdtoGet>> GetDataById([FromRoute] string id)
         {
             Expression<Func<productsubcategory, bool>> expression = p => p.isdeleted == false && p.id == id;
+            var data = await _service.GetSingleEntityByExpressionAsync(expression);
+            var requestpayload = _mapper.Map<productsubcategorydtoGet>(data);
+            return Ok(requestpayload);
+        }
+
+        [HttpGet]
+        [Route("{CategoryId}")]
+        public async Task<ActionResult<productgroupdtoGet>> GetDataByCategoryId([FromRoute] string CategoryId)
+        {
+            Expression<Func<productsubcategory, bool>> expression = p => p.isdeleted == false && p.productcategoryid == CategoryId;
             var data = await _service.GetSingleEntityByExpressionAsync(expression);
             var requestpayload = _mapper.Map<productsubcategorydtoGet>(data);
             return Ok(requestpayload);

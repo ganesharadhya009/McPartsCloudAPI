@@ -368,6 +368,25 @@ namespace Mcparts.Infrastructure.Services
             return data;
         }
 
+        public async Task<List<productsdtoListing>> GetProductsByCategorySubCategory(string productcategoryid, string productsubcategoryid)
+        {
+            string query = ProductsCommands.GetProductsByCategorySubCategory.Replace("@productcategoryid", productcategoryid).
+                Replace("@productsubcategoryid", productsubcategoryid);
+            var data = await _databaseContext.Database.SqlQueryRaw<productsdtoListing?>(query).AsNoTracking().ToListAsync();
+            return data;
+        }
+
+        public async Task<List<productsdtoListing>> GetProductsByCategorySubCategoryForMetadata(string productcategoryid, string productsubcategoryid,
+            List<string> productmetadataname, List<string> productmetadatavaluesname)
+        {
+            string query = ProductsCommands.GetProductsByCategorySubCategoryForMetadata.Replace("@metdatavalueid", string.Join(",", productmetadataname)).
+                Replace("@productmetadatavaluesname", string.Join(",", productmetadatavaluesname)).
+                Replace("@productcategoryid", productcategoryid).
+                Replace("@productsubcategoryid", productsubcategoryid);
+            var data = await _databaseContext.Database.SqlQueryRaw<productsdtoListing?>(query).AsNoTracking().ToListAsync();
+            return data;
+        }
+
 
         //public async Task<List<JObject>> GetProductsFilterAllByCategory(string id)
         //{
@@ -540,6 +559,6 @@ namespace Mcparts.Infrastructure.Services
         //    throw new NotImplementedException();
         //}
 
-       
+
     }
 }
