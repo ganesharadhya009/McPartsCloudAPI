@@ -55,6 +55,16 @@ namespace Mcparts.Business.Mappings
             CreateMap<productmapperdto, productmapperdtoGet>().ReverseMap();
             CreateMap<productmapperdto, productmapperdtoGet>();
 
+            CreateMap<customer, customerdto>().ReverseMap();
+            CreateMap<customer, customerdto>();
+            CreateMap<customerdto, customerdtoGet>().ReverseMap();
+            CreateMap<customerdto, customerdtoGet>();
+
+            CreateMap<users, usersdto>().ReverseMap();
+            CreateMap<users, usersdto>();
+            CreateMap<usersdto, usersdtoGet>().ReverseMap();
+            CreateMap<usersdto, usersdtoGet>();
+
 
 
         }

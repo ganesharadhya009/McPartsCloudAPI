@@ -3,89 +3,67 @@ using System.Collections.Generic;
 
 namespace Mcparts.DataAccess.Models;
 
-/// <summary>
-/// Auth: Stores user login data within a secure schema.
-/// </summary>
 public partial class users
 {
-    public Guid? instance_id { get; set; }
+    public string id { get; set; } = null!;
 
-    public Guid id { get; set; }
+    public string? usertype { get; set; }
 
-    public string? aud { get; set; }
+    public string? firstname { get; set; }
 
-    public string? role { get; set; }
+    public string? lastname { get; set; }
+
+    public string? primarycontactnumber { get; set; }
+
+    public string? secondarycontactnumber { get; set; }
+
+    public string? address1 { get; set; }
+
+    public string? address2 { get; set; }
+
+    public string? street { get; set; }
+
+    public string? district { get; set; }
+
+    public string? pincode { get; set; }
 
     public string? email { get; set; }
 
-    public string? encrypted_password { get; set; }
+    public string? userstatusid { get; set; }
 
-    public DateTime? email_confirmed_at { get; set; }
+    public string? password { get; set; }
 
-    public DateTime? invited_at { get; set; }
+    public string? propertyid { get; set; }
 
-    public string? confirmation_token { get; set; }
+    public string? gender { get; set; }
 
-    public DateTime? confirmation_sent_at { get; set; }
+    public byte[]? idproof { get; set; }
 
-    public string? recovery_token { get; set; }
+    public byte[]? photo { get; set; }
 
-    public DateTime? recovery_sent_at { get; set; }
+    public string? area { get; set; }
 
-    public string? email_change_token_new { get; set; }
+    public string? idproofname { get; set; }
 
-    public string? email_change { get; set; }
+    public string? photoname { get; set; }
 
-    public DateTime? email_change_sent_at { get; set; }
+    public string? referredby { get; set; }
 
-    public DateTime? last_sign_in_at { get; set; }
+    public string? temporarypassword { get; set; }
 
-    public string? raw_app_meta_data { get; set; }
+    public DateTime? registereddate { get; set; }
 
-    public string? raw_user_meta_data { get; set; }
+    public bool isdeleted { get; set; }
 
-    public bool? is_super_admin { get; set; }
+    public DateTime? createdatutc { get; set; }
 
-    public DateTime? created_at { get; set; }
+    public string? createdbyid { get; set; }
 
-    public DateTime? updated_at { get; set; }
+    public DateTime? updatedatutc { get; set; }
 
-    public string? phone { get; set; }
+    public string? updatedbyid { get; set; }
 
-    public DateTime? phone_confirmed_at { get; set; }
+    public virtual userstatus? userstatus { get; set; }
 
-    public string? phone_change { get; set; }
-
-    public string? phone_change_token { get; set; }
-
-    public DateTime? phone_change_sent_at { get; set; }
-
-    public DateTime? confirmed_at { get; set; }
-
-    public string? email_change_token_current { get; set; }
-
-    public short? email_change_confirm_status { get; set; }
-
-    public DateTime? banned_until { get; set; }
-
-    public string? reauthentication_token { get; set; }
-
-    public DateTime? reauthentication_sent_at { get; set; }
-
-    /// <summary>
-    /// Auth: Set this column to true when the account comes from SSO. These accounts can have duplicate emails.
-    /// </summary>
-    public bool is_sso_user { get; set; }
-
-    public DateTime? deleted_at { get; set; }
-
-    public bool is_anonymous { get; set; }
-
-    public virtual ICollection<identities> identities { get; set; } = new List<identities>();
-
-    public virtual ICollection<mfa_factors> mfa_factors { get; set; } = new List<mfa_factors>();
-
-    public virtual ICollection<one_time_tokens> one_time_tokens { get; set; } = new List<one_time_tokens>();
-
-    public virtual ICollection<sessions> sessions { get; set; } = new List<sessions>();
+    public virtual usertype? usertypeNavigation { get; set; }
 }

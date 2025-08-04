@@ -5,6 +5,7 @@ using Mcparts.Business.Services.IServices.IServiceMappings;
 using Mcparts.DataAccess.Dtos;
 using Mcparts.DataAccess.Models;
 using Mcparts.Infrastructure.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using System.Linq.Expressions;
@@ -13,6 +14,7 @@ namespace McPartsAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductSubCategorySubsetController : ControllerBase
     {
         private readonly IProductSubCategorySubsetService _service;

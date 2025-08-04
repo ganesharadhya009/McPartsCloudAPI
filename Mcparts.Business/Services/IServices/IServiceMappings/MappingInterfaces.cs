@@ -42,5 +42,13 @@ namespace Mcparts.Business.Services.IServices.IServiceMappings
     {
     }
 
+    public interface ICustomersService : IGenericServiceAsync<customer, customerdto>
+    {
+    }
+
+    public interface IUsersService : IGenericServiceAsync<users, usersdto>
+    {
+    }
+
 
 }

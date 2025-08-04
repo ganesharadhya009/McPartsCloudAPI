@@ -9,6 +9,7 @@ using Mcparts.DataAccess.Models;
 using Mcparts.Infrastructure.Interfaces;
 using Mcparts.Infrastructure.Services;
 using McPartsAPI.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Storage.Json;
@@ -23,6 +24,7 @@ namespace McPartsAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IProductsService _service;

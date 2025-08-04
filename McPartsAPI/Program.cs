@@ -8,13 +8,17 @@ using Mcparts.DataAccess.Models;
 using Mcparts.DataAccess.Repositories;
 using Mcparts.Infrastructure.Interfaces;
 using Mcparts.Infrastructure.Services;
+using McPartsAPI.Helpers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Npgsql;
 using Swashbuckle;
 using Swashbuckle.AspNetCore.Swagger;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +28,7 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(SwaggerConfiguration.Configure);
 var connectionString = builder.Configuration.GetConnectionString("PostgreDB");
 builder.Services.AddControllers()
     .AddNewtonsoftJson(options =>
@@ -69,34 +73,38 @@ builder.Services.AddScoped<IProductSubCategorySubsetService, ProductSubCategoryS
 builder.Services.AddScoped<IProductsService, ProductsService>();
 builder.Services.AddScoped<IProductsGetSevice, ProductsGetSevice>();
 builder.Services.AddScoped<IProductMapperService, ProductMapperService>();
+builder.Services.AddScoped<ICustomersService, CustomersService>();
+builder.Services.AddScoped<IUsersService, UsersService>();
 
 
-//builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-//var key = builder.Configuration.GetValue<string>("Jwt:Key");
+var key = builder.Configuration.GetValue<string>("Jwt:Key");
 
-//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-//                .AddJwtBearer(options =>
-//                {
-//                    options.RequireHttpsMetadata = false;
-//                    options.TokenValidationParameters = new TokenValidationParameters
-//                    {
-//                        ValidateIssuerSigningKey = true,
-//                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
-//                        ValidIssuer = builder.Configuration.GetValue<string>("Jwt:Issuer"),
-//                        ValidAudience = builder.Configuration.GetValue<string>("Jwt:Audience"),
-//                        ValidateIssuer = true,
-//                        ValidateAudience = true,
-//                        ValidateLifetime = true,
-//                        ClockSkew = TimeSpan.Zero,
-//                    };
-//                });
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
+                        ValidIssuer = builder.Configuration.GetValue<string>("Jwt:Issuer"),
+                        ValidAudience = builder.Configuration.GetValue<string>("Jwt:Audience"),
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero,
+                    };
+                });
 
-//builder.Services.AddAuthorization();
+builder.Services.AddAuthorization();
 
 //var connectionString = builder.Configuration.GetConnectionString("PostgreDB");
 builder.Services.AddEntityFrameworkNpgsql().AddDbContext<McpartsDbContext>(options =>
 options.UseNpgsql(connectionString));
+
+System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
 var app = builder.Build();
 
@@ -114,7 +122,7 @@ app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 app.UseAuthentication();
 
-//app.UseAuthorization();
+app.UseAuthorization();
 
 app.MapControllers();
 

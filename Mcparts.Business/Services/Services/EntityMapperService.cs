@@ -67,5 +67,21 @@ namespace Mcparts.Business.Services.Services
         }
     }
 
+    public class CustomersService : GenericServiceAsync<customer, customerdto>, ICustomersService
+    {
+        public CustomersService(IGenericRepository<customer, customerdto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class UsersService : GenericServiceAsync<users, usersdto>, IUsersService
+    {
+        public UsersService(IGenericRepository<users, usersdto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+
+
 
 }
