@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
+using System.Security.AccessControl;
 using System.Security.Claims;
+using System.Text.Json;
 
 namespace Mcparts.DataAccess.Models;
 
@@ -14,6 +17,8 @@ public partial class McpartsDbContext : DbContext
     {
         _httpContextAccessor = httpContextAccessor;
     }
+
+    public virtual DbSet<auditlog> auditlog { get; set; }
 
     public virtual DbSet<company> company { get; set; }
 
@@ -160,6 +165,17 @@ public partial class McpartsDbContext : DbContext
             .HasPostgresExtension("extensions", "uuid-ossp")
             .HasPostgresExtension("graphql", "pg_graphql")
             .HasPostgresExtension("vault", "supabase_vault");
+
+        modelBuilder.Entity<auditlog>(entity =>
+        {
+            entity.HasKey(e => e.id).HasName("auditlog_pk");
+
+            entity.Property(e => e.id).HasColumnType("character varying");
+            entity.Property(e => e.action).HasColumnType("character varying");
+            entity.Property(e => e.changes).HasColumnType("character varying");
+            entity.Property(e => e.tablename).HasColumnType("character varying");
+            entity.Property(e => e.userid).HasColumnType("character varying");
+        });
 
         modelBuilder.Entity<company>(entity =>
         {
@@ -1377,8 +1393,9 @@ public partial class McpartsDbContext : DbContext
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
+        List<auditlog> auditLogs = new();
         try
         {
             //string userId = _httpContextAccessor.HttpContext?.User?.Identity?.Name;
@@ -1392,8 +1409,8 @@ public partial class McpartsDbContext : DbContext
 
             var entries = ChangeTracker.Entries()
                   .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified || e.State == EntityState.Deleted);
-            //var currentUser = user ?? Guid.NewGuid();
-
+            var currentUser = userId;//TODO put actual userid
+            
             foreach (var entry in entries)
             {
                 if (entry.Metadata.Name == $"Mcparts.DataAccess.Models.users"
@@ -1407,30 +1424,74 @@ public partial class McpartsDbContext : DbContext
                         entry.Property("updatedatutc").CurrentValue = DateTime.Now;
 
 
-                        //auditLogs.Add(LogChanges(currentUser, entry, "INSERT"));
+                        auditLogs.Add(LogChanges(currentUser, entry, "INSERT"));
                     }
                     else if (entry.State == EntityState.Modified)
                     {
                         entry.Property("updatedbyid").CurrentValue = userId;
                         entry.Property("updatedatutc").CurrentValue = DateTime.Now;
 
-                        //var changes = GetModifiedProperties(entry);
-                        //if (changes.Any())
-                        //{
-                        //    auditLogs.Add(LogChanges(currentUser, entry, "UPDATE", changes));
-                        //}
+                        var changes = GetModifiedProperties(entry);
+                        if (changes.Any())
+                        {
+                            auditLogs.Add(LogChanges(currentUser, entry, "UPDATE", changes));
+                        }
                     }
                     else if (entry.State == EntityState.Deleted)
                     {
-                        // auditLogs.Add(LogChanges(currentUser, entry, "DELETE"));
+                        auditLogs.Add(LogChanges(currentUser, entry, "DELETE"));
                     }
                 }
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
 
         }
-        return base.SaveChangesAsync(cancellationToken);
+        var result = await base.SaveChangesAsync(cancellationToken);
+
+        if (auditLogs.Any())
+        {
+            await auditlog.AddRangeAsync(auditLogs);
+            await base.SaveChangesAsync(cancellationToken);
+        }
+
+        return result;
+    }
+
+    private string SerializeObject(object obj)
+    {
+        return JsonSerializer.Serialize(obj, new JsonSerializerOptions { WriteIndented = false });
+    }
+
+    private auditlog LogChanges(string userId, EntityEntry entry, string action, object? changedData = null)
+    {
+        return new auditlog
+        {
+            id = Guid.NewGuid().ToString(),
+            tablename = entry.Entity.GetType().Name,
+            action = action,
+            changes = changedData != null ? SerializeObject(changedData) : SerializeObject(entry.OriginalValues.Properties.ToDictionary(p => p.Name, p => entry.OriginalValues[p])),
+            userid = userId,
+            createdbyutc = DateTime.UtcNow
+        };
+    }
+
+    private Dictionary<string, object> GetModifiedProperties(EntityEntry entry)
+    {
+        var changes = new Dictionary<string, object>();
+
+        foreach (var property in entry.OriginalValues.Properties)
+        {
+            var original = entry.OriginalValues[property];
+            var current = entry.CurrentValues[property];
+
+            if (!object.Equals(original, current))
+            {
+                changes[property.Name] = new { OldValue = original, NewValue = current };
+            }
+        }
+
+        return changes;
     }
 }
