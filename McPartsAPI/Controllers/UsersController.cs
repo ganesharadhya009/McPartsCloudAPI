@@ -83,28 +83,55 @@ namespace McPartsAPI.Controllers
         }
 
         [HttpPost]
+        [Route("ForgotPassword")]
+        public async Task<ActionResult<bool>> ForgotPassword([FromBody] UserForgotPasswordDto userData)
+        {
+            Expression<Func<users, bool>> expressionEmployees = p => p.email.ToLower() == userData.Email.ToLower();
+            var emaildata = await _service.GetSingleEntityByExpressionAsync(expressionEmployees);
+
+            if (emaildata is null)
+            {
+                return NotFound();
+            }
+            
+            return Ok(true);
+        }
+
+        [HttpPost]
+        [Route("ForgotPasswordConfirmation")]
+        public async Task<ActionResult<bool>> ForgotPasswordConfirmation([FromBody] UserForgotPasswordConfirmationDto userData)
+        {
+            Expression<Func<users, bool>> expressionEmployees = p => p.email.ToLower() == userData.Email.ToLower();
+            var emaildata = await _service.GetSingleEntityByExpressionAsync(expressionEmployees);
+
+            if (emaildata is null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                emaildata.password = userData.Password;
+
+            }
+            await _service.UpdateAsync(emaildata);
+
+            return Ok(true);
+        }
+
+        [HttpPost]
         [Route("Login")]
         [AllowAnonymous]
         public async Task<ActionResult<usersdtoGet>> Login([FromBody] UserLoginDto userData)
         {
-            Expression<Func<users, bool>> expressionEmployees = p => p.usertype == "a4e1f874-9c36-41aa-8af4-f94615c6c364";
-            var data = await _service.GetListByExpressionAsync(expressionEmployees);
+            Expression<Func<users, bool>> expressionEmployees = p => p.email.ToLower() == userData.email.ToLower();
+            var emaildata = await _service.GetSingleEntityByExpressionAsync(expressionEmployees);
 
-            userData.email = userData.email.ToUpper().Trim();
-
-            if (!data.Any(p => p.email?.ToUpper() == userData.email))
+            if (emaildata is null)
             {
                 return NotFound();
             }
 
-            //if (!data.Any(p => p.primarycontactnumber == userData.password))
-            //{
-            //    return Unauthorized();
-            //}
-
-            var emaildata = data.FirstOrDefault(p => p.email?.ToUpper() == userData.email);
-
-            if (emaildata?.temporarypassword == null)
+            if (emaildata.temporarypassword == null)
             {
                 //it means password reset happened
                 if (emaildata.password == userData.password)

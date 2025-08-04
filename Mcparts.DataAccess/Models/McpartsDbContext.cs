@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace Mcparts.DataAccess.Models;
 
 public partial class McpartsDbContext : DbContext
 {
-    public McpartsDbContext(DbContextOptions<McpartsDbContext> options)
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    public McpartsDbContext(DbContextOptions<McpartsDbContext> options, IHttpContextAccessor httpContextAccessor)
         : base(options)
     {
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public virtual DbSet<company> company { get; set; }
@@ -1372,4 +1376,61 @@ public partial class McpartsDbContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            //string userId = _httpContextAccessor.HttpContext?.User?.Identity?.Name;
+            //Guid? user = userId != null ? Guid.Parse(userId) : null;
+            // var test = ((System.Security.Claims.ClaimsIdentity)(_httpContextAccessor.HttpContext?.User?.Identity)).Claims;
+            var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var claims = _httpContextAccessor.HttpContext?.User.Claims.ToList();
+            userId = claims[0].Value;
+            var userName = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Email);
+
+            var entries = ChangeTracker.Entries()
+                  .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified || e.State == EntityState.Deleted);
+            //var currentUser = user ?? Guid.NewGuid();
+
+            foreach (var entry in entries)
+            {
+                if (entry.Metadata.Name == $"Mcparts.DataAccess.Models.users"
+                    )
+                {
+                    if (entry.State == EntityState.Added)
+                    {
+                        entry.Property("createdbyid").CurrentValue = userId;
+                        entry.Property("createdatutc").CurrentValue = DateTime.Now;
+                        entry.Property("updatedbyid").CurrentValue = userId;
+                        entry.Property("updatedatutc").CurrentValue = DateTime.Now;
+
+
+                        //auditLogs.Add(LogChanges(currentUser, entry, "INSERT"));
+                    }
+                    else if (entry.State == EntityState.Modified)
+                    {
+                        entry.Property("updatedbyid").CurrentValue = userId;
+                        entry.Property("updatedatutc").CurrentValue = DateTime.Now;
+
+                        //var changes = GetModifiedProperties(entry);
+                        //if (changes.Any())
+                        //{
+                        //    auditLogs.Add(LogChanges(currentUser, entry, "UPDATE", changes));
+                        //}
+                    }
+                    else if (entry.State == EntityState.Deleted)
+                    {
+                        // auditLogs.Add(LogChanges(currentUser, entry, "DELETE"));
+                    }
+                }
+            }
+        }
+        catch(Exception ex)
+        {
+
+        }
+        return base.SaveChangesAsync(cancellationToken);
+    }
 }

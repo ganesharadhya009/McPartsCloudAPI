@@ -8,6 +8,8 @@ using Mcparts.DataAccess.Models;
 using Mcparts.DataAccess.Repositories;
 using Mcparts.Infrastructure.Interfaces;
 using Mcparts.Infrastructure.Services;
+using McPartsAPI.Common.CustomExceptionHandler;
+using McPartsAPI.Common.Middlewares;
 using McPartsAPI.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -105,6 +107,7 @@ builder.Services.AddEntityFrameworkNpgsql().AddDbContext<McpartsDbContext>(optio
 options.UseNpgsql(connectionString));
 
 System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 var app = builder.Build();
 
@@ -117,6 +120,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseSwagger();
+app.UseCors();
+app.UseMiddleware<GlobalApiExceptionHandlerMiddleware>();
 app.UseSwaggerUI();
 app.UseCors("AllowAll");
 app.UseHttpsRedirection();

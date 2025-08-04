@@ -15,6 +15,19 @@ namespace Mcparts.Business.Dtos
         public string? password { get; set; }
     }
 
+    public record UserForgotPasswordDto
+    {
+        public required string Email { get; init; }
+    }
+
+    public record UserForgotPasswordConfirmationDto
+    {
+        public required string Email { get; init; }
+        public required string Password { get; init; }
+    }
+
+
+
     public record UserPasswordResetDto
     {
         public string email { get; set; } = null!;

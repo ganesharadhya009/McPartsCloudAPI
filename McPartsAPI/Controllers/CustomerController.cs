@@ -5,6 +5,7 @@ using Mcparts.Business.Services.IServices.IServiceMappings;
 using Mcparts.DataAccess.Dtos;
 using Mcparts.DataAccess.Models;
 using Mcparts.Infrastructure.Interfaces;
+using McPartsAPI.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
@@ -77,7 +78,7 @@ namespace McPartsAPI.Controllers
                 name = data.name,
                 number = data.number,
                 emailaddress = data.email,
-                password = data.password
+                password = data.password,
             };
 
             await _service.AddAsync(customerdata);
@@ -88,7 +89,9 @@ namespace McPartsAPI.Controllers
                 primarycontactnumber = data.number,
                 password = data.password,
                 email = data.email,
-                usertype = "a4e1f874-9c36-41aa-8af4-f94615c6c363"
+                usertype = ApplicationConstants.UserTypeMember,
+                registereddate = DateTime.UtcNow,
+                userstatusid = ApplicationConstants.UserStatusActive
 
             };
             await _userService.AddAsync(userdata);
