@@ -1419,9 +1419,9 @@ public partial class McpartsDbContext : DbContext
                     if (entry.State == EntityState.Added)
                     {
                         entry.Property("createdbyid").CurrentValue = userId;
-                        entry.Property("createdatutc").CurrentValue = DateTime.Now;
+                        entry.Property("createdatutc").CurrentValue = DateTime.UtcNow;
                         entry.Property("updatedbyid").CurrentValue = userId;
-                        entry.Property("updatedatutc").CurrentValue = DateTime.Now;
+                        entry.Property("updatedatutc").CurrentValue = DateTime.UtcNow;
 
 
                         auditLogs.Add(LogChanges(currentUser, entry, "INSERT"));
@@ -1429,7 +1429,7 @@ public partial class McpartsDbContext : DbContext
                     else if (entry.State == EntityState.Modified)
                     {
                         entry.Property("updatedbyid").CurrentValue = userId;
-                        entry.Property("updatedatutc").CurrentValue = DateTime.Now;
+                        entry.Property("updatedatutc").CurrentValue = DateTime.UtcNow;
 
                         var changes = GetModifiedProperties(entry);
                         if (changes.Any())
