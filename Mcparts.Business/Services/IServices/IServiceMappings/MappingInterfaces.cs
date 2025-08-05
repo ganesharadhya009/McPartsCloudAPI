@@ -48,6 +48,7 @@ namespace Mcparts.Business.Services.IServices.IServiceMappings
 
     public interface IUsersService : IGenericServiceAsync<users, usersdto>
     {
+        public usersdto GetUsersDtoFromCustomerDto(customerdto data);
     }
 
 

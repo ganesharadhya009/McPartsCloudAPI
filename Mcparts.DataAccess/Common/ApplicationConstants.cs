@@ -1,4 +1,4 @@
-﻿namespace McPartsAPI.Helpers
+﻿namespace Mcparts.DataAccess.Common
 {
     public class ApplicationConstants
     {

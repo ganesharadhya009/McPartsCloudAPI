@@ -54,15 +54,8 @@ namespace McPartsAPI.Controllers
         {
             await _service.AddAsync(data);
 
-            var userdata = new usersdto()
-            {
-                firstname = data.name,
-                primarycontactnumber  = data.number,
-                secondarycontactnumber = data.phonenumber,
-                email = data.emailaddress
-
-            };
-            _userService.AddAsync(userdata);
+           
+            await _userService.AddAsync(_userService.GetUsersDtoFromCustomerDto(data));
 
             return Ok(data.id);
 
@@ -82,19 +75,8 @@ namespace McPartsAPI.Controllers
             };
 
             await _service.AddAsync(customerdata);
-
-            var userdata = new usersdto()
-            {
-                firstname = data.name,
-                primarycontactnumber = data.number,
-                password = data.password,
-                email = data.email,
-                usertype = ApplicationConstants.UserTypeMember,
-                registereddate = DateTime.UtcNow,
-                userstatusid = ApplicationConstants.UserStatusActive
-
-            };
-            await _userService.AddAsync(userdata);
+           
+            await _userService.AddAsync(_userService.GetUsersDtoFromCustomerDto(customerdata));
 
             return Ok(true);
 

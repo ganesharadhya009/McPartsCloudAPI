@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Mcparts.Business.Dtos;
 using Mcparts.Business.Services.IServices.IServiceMappings;
+using Mcparts.DataAccess.Common;
 using Mcparts.DataAccess.Interfaces;
 using Mcparts.DataAccess.Models;
 using System;
@@ -72,12 +73,30 @@ namespace Mcparts.Business.Services.Services
         public CustomersService(IGenericRepository<customer, customerdto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
         {
         }
+
+
     }
 
     public class UsersService : GenericServiceAsync<users, usersdto>, IUsersService
     {
         public UsersService(IGenericRepository<users, usersdto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
         {
+        }
+
+        public usersdto GetUsersDtoFromCustomerDto(customerdto data)
+        {
+            var userdata = new usersdto()
+            {
+                firstname = data.name,
+                primarycontactnumber = data.number,
+                secondarycontactnumber = data.phonenumber,
+                email = data.emailaddress,
+                usertype = ApplicationConstants.UserTypeMember,
+                registereddate = DateTime.UtcNow,
+                userstatusid = ApplicationConstants.UserStatusActive
+
+            };
+            return userdata;
         }
     }
 

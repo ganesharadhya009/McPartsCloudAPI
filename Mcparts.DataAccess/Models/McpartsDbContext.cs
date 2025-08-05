@@ -1413,7 +1413,8 @@ public partial class McpartsDbContext : DbContext
             
             foreach (var entry in entries)
             {
-                if (entry.Metadata.Name == $"Mcparts.DataAccess.Models.users"
+                if (entry.Metadata.Name == $"Mcparts.DataAccess.Models.users" || 
+                    entry.Metadata.Name == $"Mcparts.DataAccess.Models.customers"
                     )
                 {
                     if (entry.State == EntityState.Added)
