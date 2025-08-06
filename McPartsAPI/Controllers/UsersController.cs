@@ -52,6 +52,27 @@ namespace McPartsAPI.Controllers
         [Route("create")]
         public async Task<ActionResult<bool>> Create([FromBody] usersdto data)
         {
+            if ((string.IsNullOrEmpty(data.email)) || (string.IsNullOrEmpty(data.primarycontactnumber)))
+                return BadRequest();
+
+            Expression<Func<users, bool>> expression = p => p.isdeleted == false && p.email == data.email;
+
+            var verifyData = await _service.GetSingleEntityByExpressionAsync(expression);
+
+            if (verifyData is not null)
+            {
+                return BadRequest($"Customer email already exists");
+            }
+
+            expression = p => p.isdeleted == false && p.primarycontactnumber == data.primarycontactnumber;
+
+            verifyData = await _service.GetSingleEntityByExpressionAsync(expression);
+
+            if (verifyData is not null)
+            {
+                return BadRequest($"Customer number already exists");
+            }
+
             string tempfirstname4letters = (data.firstname.Length > 4) ? data.firstname.Substring(0, 4) : data.firstname;
             string tempPrimary4letters = (data.primarycontactnumber.Length > 4) ? data.primarycontactnumber.Substring(0, 4) : data.primarycontactnumber;
 

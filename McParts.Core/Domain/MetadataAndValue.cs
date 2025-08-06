@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mcparts.Business.Dtos
+namespace McParts.Core.Domain
 {
     public record MetadataAndValue
     {

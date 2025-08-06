@@ -6,6 +6,9 @@ using Mcparts.Business.Services.Services;
 using Mcparts.DataAccess.Interfaces;
 using Mcparts.DataAccess.Models;
 using Mcparts.DataAccess.Repositories;
+using Mcparts.Infrastructure.EmailManager;
+using Mcparts.Infrastructure.FileDocumentManager;
+using Mcparts.Infrastructure.FileImageManager;
 using Mcparts.Infrastructure.Interfaces;
 using Mcparts.Infrastructure.Services;
 using McPartsAPI.Common.CustomExceptionHandler;
@@ -14,6 +17,7 @@ using McPartsAPI.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
@@ -78,6 +82,31 @@ builder.Services.AddScoped<IProductMapperService, ProductMapperService>();
 builder.Services.AddScoped<ICustomersService, CustomersService>();
 builder.Services.AddScoped<IUsersService, UsersService>();
 
+builder.Services.AddScoped<ICustomerCategoryService, CustomerCategoryService>();
+builder.Services.AddScoped<IDeliveryOrderService, DeliveryOrderService>();
+builder.Services.AddScoped<IGoodsReceiveService, GoodsReceiveService>();
+builder.Services.AddScoped<IInventoryTransactionService, InventoryTransactionService>();
+builder.Services.AddScoped<INumberSequenceService, NumberSequenceService>();
+builder.Services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
+builder.Services.AddScoped<IPurchaseOrderItemService, PurchaseOrderItemService>();
+builder.Services.AddScoped<IPurchaseReturnService, PurchaseReturnService>();
+builder.Services.AddScoped<IRolesService, RolesService>();
+builder.Services.AddScoped<ISalesOrderService, SalesOrderService>();
+builder.Services.AddScoped<ISalesOrderItemService, SalesOrderItemService>();
+builder.Services.AddScoped<ISalesReturnService, SalesReturnService>();
+builder.Services.AddScoped<IScrappingService, ScrappingService>();
+builder.Services.AddScoped<IStockCountService, StockCountService>();
+builder.Services.AddScoped<ITaxService, TaxService>();
+builder.Services.AddScoped<ITransferInService, TransferInService>();
+builder.Services.AddScoped<ITransferOutService, TransferOutService>();
+builder.Services.AddScoped<IUnitMeasureService, UnitMeasureService>();
+builder.Services.AddScoped<IVendorService, VendorService>();
+builder.Services.AddScoped<IVendorCategoryService, VendorCategoryService>();
+builder.Services.AddScoped<IVendorGroupService, VendorGroupService>();
+builder.Services.AddScoped<IWarehouseService, WarehouseService>();
+builder.Services.AddScoped<ICustomerGroupService, CustomerGroupService>();
+builder.Services.AddScoped<ICompanyService, CompanyService>();
+
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -108,6 +137,15 @@ options.UseNpgsql(connectionString));
 
 System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
+builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
+builder.Services.AddTransient<IEmailService, EmailService>();
+
+builder.Services.Configure<FileDocumentSettings>(builder.Configuration.GetSection("FileDocumentManager"));
+builder.Services.AddTransient<IFileDocumentService, FileDocumentService>();
+
+builder.Services.Configure<FileImageSettings>(builder.Configuration.GetSection("FileImageManager"));
+builder.Services.AddTransient<IFileImageService, FileImageService>();
 
 var app = builder.Build();
 

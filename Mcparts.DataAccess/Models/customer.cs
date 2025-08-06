@@ -57,6 +57,8 @@ public partial class customer
 
     public string? updatedbyid { get; set; }
 
+    public string? email { get; set; }
+
     public virtual customercategory? customercategory { get; set; }
 
     public virtual ICollection<customercontact> customercontact { get; set; } = new List<customercontact>();

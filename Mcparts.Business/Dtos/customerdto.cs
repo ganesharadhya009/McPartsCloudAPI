@@ -74,5 +74,7 @@ namespace Mcparts.Business.Dtos
         public string? customercategoryid { get; set; }
 
         public string? password { get; set; }
+
+        public string? email { get; set; }
     }
 }

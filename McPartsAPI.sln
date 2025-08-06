@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcparts.DataAccess", "Mcpar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcparts.Business", "Mcparts.Business\Mcparts.Business.csproj", "{CE09286C-3263-95A6-0AA3-F7BFFA2AB421}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcparts.Infrastructure", "Mcparts.Infrastructure\Mcparts.Infrastructure.csproj", "{A3C32F8B-E721-4C81-A180-7EB2CC0FB4EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "McParts.Core", "McParts.Core\McParts.Core.csproj", "{6BE444C8-C7FB-49BF-8E0F-8CFBE66760E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{CE09286C-3263-95A6-0AA3-F7BFFA2AB421}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE09286C-3263-95A6-0AA3-F7BFFA2AB421}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE09286C-3263-95A6-0AA3-F7BFFA2AB421}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3C32F8B-E721-4C81-A180-7EB2CC0FB4EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3C32F8B-E721-4C81-A180-7EB2CC0FB4EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3C32F8B-E721-4C81-A180-7EB2CC0FB4EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3C32F8B-E721-4C81-A180-7EB2CC0FB4EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BE444C8-C7FB-49BF-8E0F-8CFBE66760E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BE444C8-C7FB-49BF-8E0F-8CFBE66760E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BE444C8-C7FB-49BF-8E0F-8CFBE66760E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BE444C8-C7FB-49BF-8E0F-8CFBE66760E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

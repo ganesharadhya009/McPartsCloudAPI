@@ -52,6 +52,27 @@ namespace McPartsAPI.Controllers
         [Route("create")]
         public async Task<ActionResult<bool>> Create([FromBody] customerdto data)
         {
+            if ((string.IsNullOrEmpty(data.email)) || (string.IsNullOrEmpty(data.number)))
+                return BadRequest();
+
+            Expression<Func<customer, bool>> expression = p => p.isdeleted == false && p.emailaddress == data.email;
+
+            var verifyData = await _service.GetSingleEntityByExpressionAsync(expression);
+
+            if (verifyData is not null)
+            {
+                return BadRequest($"Customer email already exists");
+            }
+
+            expression = p => p.isdeleted == false && p.number == data.number;
+
+            verifyData = await _service.GetSingleEntityByExpressionAsync(expression);
+
+            if (verifyData is not null)
+            {
+                return BadRequest($"Customer number already exists");
+            }
+
             await _service.AddAsync(data);
 
            
@@ -66,6 +87,27 @@ namespace McPartsAPI.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<bool>> SignUp([FromBody] customersignupdto data)
         {
+            if ((string.IsNullOrEmpty(data.name)) || (string.IsNullOrEmpty(data.email)) || (string.IsNullOrEmpty(data.number)))
+                return BadRequest();
+
+            Expression<Func<customer, bool>> expression = p => p.isdeleted == false && p.emailaddress == data.email;
+
+            var verifyData = await _service.GetSingleEntityByExpressionAsync(expression);
+
+            if (verifyData is not null)
+            {
+                return BadRequest($"Customer email already exists");
+            }
+
+            expression = p => p.isdeleted == false && p.number == data.number;
+
+            verifyData = await _service.GetSingleEntityByExpressionAsync(expression);
+
+            if (verifyData is not null)
+            {
+                return BadRequest($"Customer number already exists");
+            }
+
             var customerdata = new customerdto()
             {
                 name = data.name,
@@ -75,7 +117,7 @@ namespace McPartsAPI.Controllers
             };
 
             await _service.AddAsync(customerdata);
-           
+
             await _userService.AddAsync(_userService.GetUsersDtoFromCustomerDto(customerdata));
 
             return Ok(true);

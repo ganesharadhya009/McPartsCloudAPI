@@ -100,6 +100,173 @@ namespace Mcparts.Business.Services.Services
         }
     }
 
+    public class CustomerCategoryService : GenericServiceAsync<customercategory, customercategorydto>, ICustomerCategoryService
+    {
+        public CustomerCategoryService(IGenericRepository<customercategory, customercategorydto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class DeliveryOrderService : GenericServiceAsync<deliveryorder, deliveryorderdto>, IDeliveryOrderService
+    {
+        public DeliveryOrderService(IGenericRepository<deliveryorder, deliveryorderdto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class GoodsReceiveService : GenericServiceAsync<goodsreceive, goodsreceivedto>, IGoodsReceiveService
+    {
+        public GoodsReceiveService(IGenericRepository<goodsreceive, goodsreceivedto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class InventoryTransactionService : GenericServiceAsync<inventorytransaction, inventorytransactiondto>, IInventoryTransactionService
+    {
+        public InventoryTransactionService(IGenericRepository<inventorytransaction, inventorytransactiondto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class NumberSequenceService : GenericServiceAsync<numbersequence, numbersequencedto>, INumberSequenceService
+    {
+        public NumberSequenceService(IGenericRepository<numbersequence, numbersequencedto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class PurchaseOrderService : GenericServiceAsync<purchaseorder, purchaseorderdto>, IPurchaseOrderService
+    {
+        public PurchaseOrderService(IGenericRepository<purchaseorder, purchaseorderdto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class PurchaseOrderItemService : GenericServiceAsync<purchaseorderitem, purchaseorderitemdto>, IPurchaseOrderItemService
+    {
+        public PurchaseOrderItemService(IGenericRepository<purchaseorderitem, purchaseorderitemdto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class PurchaseReturnService : GenericServiceAsync<purchasereturn, purchasereturndto>, IPurchaseReturnService
+    {
+        public PurchaseReturnService(IGenericRepository<purchasereturn, purchasereturndto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class RolesService : GenericServiceAsync<roles, rolesdto>, IRolesService
+    {
+        public RolesService(IGenericRepository<roles, rolesdto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class SalesOrderService : GenericServiceAsync<salesorder, salesorderdto>, ISalesOrderService
+    {
+        public SalesOrderService(IGenericRepository<salesorder, salesorderdto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class SalesOrderItemService : GenericServiceAsync<salesorderitem, salesorderitemdto>, ISalesOrderItemService
+    {
+        public SalesOrderItemService(IGenericRepository<salesorderitem, salesorderitemdto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class SalesReturnService : GenericServiceAsync<salesreturn, salesreturndto>, ISalesReturnService
+    {
+        public SalesReturnService(IGenericRepository<salesreturn, salesreturndto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class ScrappingService : GenericServiceAsync<scrapping, scrappingdto>, IScrappingService
+    {
+        public ScrappingService(IGenericRepository<scrapping, scrappingdto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class StockCountService : GenericServiceAsync<stockcount, stockcountdto>, IStockCountService
+    {
+        public StockCountService(IGenericRepository<stockcount, stockcountdto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class TaxService : GenericServiceAsync<tax, taxdto>, ITaxService
+    {
+        public TaxService(IGenericRepository<tax, taxdto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class TransferInService : GenericServiceAsync<transferin, transferindto>, ITransferInService
+    {
+        public TransferInService(IGenericRepository<transferin, transferindto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class TransferOutService : GenericServiceAsync<transferout, transferoutdto>, ITransferOutService
+    {
+        public TransferOutService(IGenericRepository<transferout, transferoutdto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class UnitMeasureService : GenericServiceAsync<unitmeasure, unitmeasuredto>, IUnitMeasureService
+    {
+        public UnitMeasureService(IGenericRepository<unitmeasure, unitmeasuredto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class VendorService : GenericServiceAsync<vendor, vendordto>, IVendorService
+    {
+        public VendorService(IGenericRepository<vendor, vendordto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class VendorCategoryService : GenericServiceAsync<vendorcategory, vendorcategorydto>, IVendorCategoryService
+    {
+        public VendorCategoryService(IGenericRepository<vendorcategory, vendorcategorydto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class VendorGroupService : GenericServiceAsync<vendorgroup, vendorgroupdto>, IVendorGroupService
+    {
+        public VendorGroupService(IGenericRepository<vendorgroup, vendorgroupdto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class WarehouseService : GenericServiceAsync<warehouse, warehousedto>, IWarehouseService
+    {
+        public WarehouseService(IGenericRepository<warehouse, warehousedto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class CustomerGroupService : GenericServiceAsync<customergroup, customergroupdto>, ICustomerGroupService
+    {
+        public CustomerGroupService(IGenericRepository<customergroup, customergroupdto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
+
+    public class CompanyService : GenericServiceAsync<company, companydto>, ICompanyService
+    {
+        public CompanyService(IGenericRepository<company, companydto> genericRepository, IMapper mapper, IUnitOfWork unitofwork) : base(unitofwork, mapper)
+        {
+        }
+    }
 
 
 

@@ -3,6 +3,7 @@ using Mcparts.Business.Services.IServices.IServiceMappings;
 using Mcparts.Business.Services.Services;
 using Mcparts.DataAccess.Dtos;
 using Mcparts.DataAccess.Models;
+using McParts.Core.Domain;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Data;
 using System.Security.Claims;

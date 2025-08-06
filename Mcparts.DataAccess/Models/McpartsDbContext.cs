@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
-using System.Security.AccessControl;
 using System.Security.Claims;
 using System.Text.Json;
 
@@ -35,8 +34,6 @@ public partial class McpartsDbContext : DbContext
     public virtual DbSet<filedocument> filedocument { get; set; }
 
     public virtual DbSet<fileimage> fileimage { get; set; }
-
-    public virtual DbSet<gainers> gainers { get; set; }
 
     public virtual DbSet<getproductcategorydataallwithcount> getproductcategorydataallwithcount { get; set; }
 
@@ -79,8 +76,6 @@ public partial class McpartsDbContext : DbContext
     public virtual DbSet<itemthreadtype> itemthreadtype { get; set; }
 
     public virtual DbSet<itemtype> itemtype { get; set; }
-
-    public virtual DbSet<loosers> loosers { get; set; }
 
     public virtual DbSet<negativeadjustment> negativeadjustment { get; set; }
 
@@ -209,6 +204,7 @@ public partial class McpartsDbContext : DbContext
             entity.Property(e => e.customercategoryid).HasMaxLength(50);
             entity.Property(e => e.customergroupid).HasMaxLength(50);
             entity.Property(e => e.description).HasMaxLength(4000);
+            entity.Property(e => e.email).HasColumnType("character varying");
             entity.Property(e => e.emailaddress).HasMaxLength(255);
             entity.Property(e => e.facebook).HasMaxLength(255);
             entity.Property(e => e.faxnumber).HasMaxLength(255);
@@ -242,7 +238,6 @@ public partial class McpartsDbContext : DbContext
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
-            entity.Property(e => e.isdeleted).HasColumnType("bit(1)");
             entity.Property(e => e.name).HasMaxLength(255);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
         });
@@ -320,20 +315,6 @@ public partial class McpartsDbContext : DbContext
             entity.Property(e => e.name).HasMaxLength(255);
             entity.Property(e => e.originalname).HasMaxLength(255);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
-        });
-
-        modelBuilder.Entity<gainers>(entity =>
-        {
-            entity.HasNoKey();
-
-            entity.Property(e => e.apitimestamp).HasColumnType("timestamp without time zone");
-            entity.Property(e => e.ca_ex_dt).HasColumnType("character varying");
-            entity.Property(e => e.ca_purpose).HasColumnType("character varying");
-            entity.Property(e => e.legend).HasColumnType("character varying");
-            entity.Property(e => e.market_type).HasColumnType("character varying");
-            entity.Property(e => e.series).HasColumnType("character varying");
-            entity.Property(e => e.srctimestamp).HasColumnType("timestamp without time zone");
-            entity.Property(e => e.symbol).HasColumnType("character varying");
         });
 
         modelBuilder.Entity<getproductcategorydataallwithcount>(entity =>
@@ -740,20 +721,6 @@ public partial class McpartsDbContext : DbContext
             entity.HasOne(d => d.itemsubcategory).WithMany(p => p.itemtype)
                 .HasForeignKey(d => d.itemsubcategoryid)
                 .HasConstraintName("itemtype_itemsubcategory_fk");
-        });
-
-        modelBuilder.Entity<loosers>(entity =>
-        {
-            entity.HasNoKey();
-
-            entity.Property(e => e.apitimestamp).HasColumnType("timestamp without time zone");
-            entity.Property(e => e.ca_ex_dt).HasColumnType("character varying");
-            entity.Property(e => e.ca_purpose).HasColumnType("character varying");
-            entity.Property(e => e.legend).HasColumnType("character varying");
-            entity.Property(e => e.market_type).HasColumnType("character varying");
-            entity.Property(e => e.series).HasColumnType("character varying");
-            entity.Property(e => e.srctimestamp).HasColumnType("timestamp without time zone");
-            entity.Property(e => e.symbol).HasColumnType("character varying");
         });
 
         modelBuilder.Entity<negativeadjustment>(entity =>
@@ -1371,7 +1338,6 @@ public partial class McpartsDbContext : DbContext
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
-            entity.Property(e => e.isdeleted).HasColumnType("bit(1)");
             entity.Property(e => e.name).HasMaxLength(255);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
         });
@@ -1410,10 +1376,10 @@ public partial class McpartsDbContext : DbContext
             var entries = ChangeTracker.Entries()
                   .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified || e.State == EntityState.Deleted);
             var currentUser = userId;//TODO put actual userid
-            
+
             foreach (var entry in entries)
             {
-                if (entry.Metadata.Name == $"Mcparts.DataAccess.Models.users" || 
+                if (entry.Metadata.Name == $"Mcparts.DataAccess.Models.users" ||
                     entry.Metadata.Name == $"Mcparts.DataAccess.Models.customers"
                     )
                 {
