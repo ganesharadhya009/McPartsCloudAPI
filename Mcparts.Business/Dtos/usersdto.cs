@@ -97,6 +97,12 @@ namespace Mcparts.Business.Dtos
 
         public DateTime? registereddate { get; set; }
 
+        public byte[]? passwordkey { get; set; }
+
+        public byte[]? passwordiv { get; set; }
+
+        public byte[]? passwordencrypyted { get; set; }
+
     }
 }
 

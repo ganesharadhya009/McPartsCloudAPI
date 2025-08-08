@@ -53,7 +53,7 @@ public partial class users
 
     public DateTime? registereddate { get; set; }
 
-    public bool isdeleted { get; set; }
+    public bool? isdeleted { get; set; }
 
     public DateTime? createdatutc { get; set; }
 
@@ -62,6 +62,12 @@ public partial class users
     public DateTime? updatedatutc { get; set; }
 
     public string? updatedbyid { get; set; }
+
+    public byte[]? passwordkey { get; set; }
+
+    public byte[]? passwordiv { get; set; }
+
+    public byte[]? passwordencrypyted { get; set; }
 
     public virtual userstatus? userstatus { get; set; }
 

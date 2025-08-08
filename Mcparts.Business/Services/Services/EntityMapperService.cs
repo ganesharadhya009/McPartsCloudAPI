@@ -4,6 +4,7 @@ using Mcparts.Business.Services.IServices.IServiceMappings;
 using Mcparts.DataAccess.Common;
 using Mcparts.DataAccess.Interfaces;
 using Mcparts.DataAccess.Models;
+using Mcparts.Infrastructure.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,6 +86,7 @@ namespace Mcparts.Business.Services.Services
 
         public usersdto GetUsersDtoFromCustomerDto(customerdto data)
         {
+            var pass = AesOperationWithoutKey.EncryptString(data.password);
             var userdata = new usersdto()
             {
                 firstname = data.name,
@@ -93,7 +95,10 @@ namespace Mcparts.Business.Services.Services
                 email = data.emailaddress,
                 usertype = ApplicationConstants.UserTypeMember,
                 registereddate = DateTime.UtcNow,
-                userstatusid = ApplicationConstants.UserStatusActive
+                userstatusid = ApplicationConstants.UserStatusActive,
+                passwordencrypyted = pass.EncryptedPassword,
+                passwordkey = pass.Key,
+                passwordiv = pass.IV
 
             };
             return userdata;

@@ -19,7 +19,7 @@ public partial class products
 
     public string? unitmeasureid { get; set; }
 
-    public bool isdeleted { get; set; }
+    public bool? isdeleted { get; set; }
 
     public DateTime? createdatutc { get; set; }
 

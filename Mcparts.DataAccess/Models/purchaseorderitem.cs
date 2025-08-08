@@ -19,7 +19,7 @@ public partial class purchaseorderitem
 
     public double? total { get; set; }
 
-    public bool isdeleted { get; set; }
+    public bool? isdeleted { get; set; }
 
     public DateTime? createdatutc { get; set; }
 

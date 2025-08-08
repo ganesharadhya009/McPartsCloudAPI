@@ -17,7 +17,7 @@ public partial class stockcount
 
     public string? warehouseid { get; set; }
 
-    public bool isdeleted { get; set; }
+    public bool? isdeleted { get; set; }
 
     public DateTime? createdatutc { get; set; }
 

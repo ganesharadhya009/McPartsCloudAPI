@@ -3,15 +3,13 @@ using System.Collections.Generic;
 
 namespace Mcparts.DataAccess.Models;
 
-public partial class vendorcategory
+public partial class userrolemapper
 {
     public string id { get; set; } = null!;
 
-    public string? name { get; set; }
+    public string? userid { get; set; }
 
-    public string? description { get; set; }
-
-    public bool? isdeleted { get; set; }
+    public string? roleid { get; set; }
 
     public DateTime? createdatutc { get; set; }
 
@@ -21,5 +19,5 @@ public partial class vendorcategory
 
     public string? updatedbyid { get; set; }
 
-    public virtual ICollection<vendor> vendor { get; set; } = new List<vendor>();
+    public bool? isdeleted { get; set; }
 }

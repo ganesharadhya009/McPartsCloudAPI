@@ -25,7 +25,7 @@ public partial class purchaseorder
 
     public double? aftertaxamount { get; set; }
 
-    public bool isdeleted { get; set; }
+    public bool? isdeleted { get; set; }
 
     public DateTime? createdatutc { get; set; }
 

@@ -31,7 +31,7 @@ public partial class company
 
     public string? website { get; set; }
 
-    public bool isdeleted { get; set; }
+    public bool? isdeleted { get; set; }
 
     public DateTime? createdatutc { get; set; }
 

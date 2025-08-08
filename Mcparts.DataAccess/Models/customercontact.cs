@@ -21,7 +21,7 @@ public partial class customercontact
 
     public string? customerid { get; set; }
 
-    public bool isdeleted { get; set; }
+    public bool? isdeleted { get; set; }
 
     public DateTime? createdatutc { get; set; }
 

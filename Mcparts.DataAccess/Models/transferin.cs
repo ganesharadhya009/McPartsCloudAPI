@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Mcparts.DataAccess.Models;
@@ -18,8 +17,6 @@ public partial class transferin
 
     public string? transferoutid { get; set; }
 
-    public BitArray isdeleted { get; set; } = null!;
-
     public DateTime? createdatutc { get; set; }
 
     public string? createdbyid { get; set; }
@@ -27,6 +24,8 @@ public partial class transferin
     public DateTime? updatedatutc { get; set; }
 
     public string? updatedbyid { get; set; }
+
+    public bool? isdeleted { get; set; }
 
     public virtual transferout? transferout { get; set; }
 }

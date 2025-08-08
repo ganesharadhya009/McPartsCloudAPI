@@ -33,6 +33,8 @@ public partial class productmapper
 
     public string? productmetadatavaluesname { get; set; }
 
+    public bool? isdeleted { get; set; }
+
     public virtual products? product { get; set; }
 
     public virtual productcategory? productcategory { get; set; }

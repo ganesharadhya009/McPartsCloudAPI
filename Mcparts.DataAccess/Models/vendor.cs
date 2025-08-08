@@ -47,7 +47,7 @@ public partial class vendor
 
     public string? vendorcategoryid { get; set; }
 
-    public bool isdeleted { get; set; }
+    public bool? isdeleted { get; set; }
 
     public DateTime? createdatutc { get; set; }
 

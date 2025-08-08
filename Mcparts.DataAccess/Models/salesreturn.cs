@@ -17,7 +17,7 @@ public partial class salesreturn
 
     public string? deliveryorderid { get; set; }
 
-    public bool isdeleted { get; set; }
+    public bool? isdeleted { get; set; }
 
     public DateTime? createdatutc { get; set; }
 

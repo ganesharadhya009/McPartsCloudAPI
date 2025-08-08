@@ -15,7 +15,7 @@ public partial class positiveadjustment
 
     public string? description { get; set; }
 
-    public bool isdeleted { get; set; }
+    public bool? isdeleted { get; set; }
 
     public DateTime? createdatutc { get; set; }
 

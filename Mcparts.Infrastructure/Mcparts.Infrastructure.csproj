@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\McParts.Core\McParts.Core.csproj" />
     <ProjectReference Include="..\Mcparts.DataAccess\Mcparts.DataAccess.csproj" />
   </ItemGroup>
 

@@ -73,10 +73,10 @@ namespace McPartsAPI.Controllers
                 return BadRequest($"Customer number already exists");
             }
 
-            await _service.AddAsync(data);
-
-           
             await _userService.AddAsync(_userService.GetUsersDtoFromCustomerDto(data));
+
+            data.password = null;
+            await _service.AddAsync(data);
 
             return Ok(data.id);
 
@@ -116,9 +116,13 @@ namespace McPartsAPI.Controllers
                 password = data.password,
             };
 
+            await _userService.AddAsync(_userService.GetUsersDtoFromCustomerDto(customerdata));
+
+            customerdata.password = null;
+
             await _service.AddAsync(customerdata);
 
-            await _userService.AddAsync(_userService.GetUsersDtoFromCustomerDto(customerdata));
+            
 
             return Ok(true);
 

@@ -14,7 +14,7 @@ public partial class warehouse
 
     public BitArray? systemwarehouse { get; set; }
 
-    public bool isdeleted { get; set; }
+    public bool? isdeleted { get; set; }
 
     public DateTime? createdatutc { get; set; }
 

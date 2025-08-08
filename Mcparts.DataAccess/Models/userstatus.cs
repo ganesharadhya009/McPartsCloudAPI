@@ -9,7 +9,7 @@ public partial class userstatus
 
     public string? name { get; set; }
 
-    public bool isdeleted { get; set; }
+    public bool? isdeleted { get; set; }
 
     public DateTime? createdatutc { get; set; }
 

@@ -129,6 +129,8 @@ public partial class McpartsDbContext : DbContext
 
     public virtual DbSet<unitmeasure> unitmeasure { get; set; }
 
+    public virtual DbSet<userrolemapper> userrolemapper { get; set; }
+
     public virtual DbSet<users> users { get; set; }
 
     public virtual DbSet<userstatus> userstatus { get; set; }
@@ -176,6 +178,8 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("pk_company");
 
+            entity.HasIndex(e => e.isdeleted, "company_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.city).HasMaxLength(255);
             entity.Property(e => e.country).HasMaxLength(255);
@@ -184,6 +188,7 @@ public partial class McpartsDbContext : DbContext
             entity.Property(e => e.description).HasMaxLength(4000);
             entity.Property(e => e.emailaddress).HasMaxLength(255);
             entity.Property(e => e.faxnumber).HasMaxLength(255);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.name).HasMaxLength(255);
             entity.Property(e => e.phonenumber).HasMaxLength(255);
             entity.Property(e => e.state).HasMaxLength(255);
@@ -196,6 +201,10 @@ public partial class McpartsDbContext : DbContext
         modelBuilder.Entity<customer>(entity =>
         {
             entity.HasKey(e => e.id).HasName("customer_pk");
+
+            entity.HasIndex(e => e.emailaddress, "customer_emailaddress_idx");
+
+            entity.HasIndex(e => e.isdeleted, "customer_isdeleted_idx");
 
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.city).HasMaxLength(255);
@@ -235,9 +244,12 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("customercategory_pk");
 
+            entity.HasIndex(e => e.isdeleted, "customercategory_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.name).HasMaxLength(255);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
         });
@@ -246,11 +258,14 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("customercontact_pk");
 
+            entity.HasIndex(e => e.isdeleted, "customercontact_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.customerid).HasMaxLength(50);
             entity.Property(e => e.description).HasMaxLength(4000);
             entity.Property(e => e.emailaddress).HasMaxLength(255);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.jobtitle).HasMaxLength(255);
             entity.Property(e => e.name).HasMaxLength(255);
             entity.Property(e => e.number).HasMaxLength(50);
@@ -266,9 +281,12 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("customergroup_pk");
 
+            entity.HasIndex(e => e.isdeleted, "customergroup_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.name).HasMaxLength(255);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
         });
@@ -277,9 +295,12 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("deliveryorder_pk");
 
+            entity.HasIndex(e => e.isdeleted, "deliveryorder_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.number).HasMaxLength(50);
             entity.Property(e => e.salesorderid).HasMaxLength(50);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
@@ -293,11 +314,14 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("filedocument_pk");
 
+            entity.HasIndex(e => e.isdeleted, "filedocument_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
             entity.Property(e => e.extension).HasMaxLength(50);
             entity.Property(e => e.generatedname).HasMaxLength(255);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.name).HasMaxLength(255);
             entity.Property(e => e.originalname).HasMaxLength(255);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
@@ -307,11 +331,14 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("fileimage_pk");
 
+            entity.HasIndex(e => e.isdeleted, "fileimage_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
             entity.Property(e => e.extension).HasMaxLength(50);
             entity.Property(e => e.generatedname).HasMaxLength(255);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.name).HasMaxLength(255);
             entity.Property(e => e.originalname).HasMaxLength(255);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
@@ -383,9 +410,12 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("goodsreceive_pk");
 
+            entity.HasIndex(e => e.isdeleted, "goodsreceive_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.number).HasMaxLength(50);
             entity.Property(e => e.purchaseorderid).HasMaxLength(50);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
@@ -399,8 +429,11 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("inventorytransaction_pk");
 
+            entity.HasIndex(e => e.isdeleted, "inventorytransaction_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.modulecode).HasMaxLength(50);
             entity.Property(e => e.moduleid).HasMaxLength(50);
             entity.Property(e => e.modulename).HasMaxLength(255);
@@ -727,9 +760,12 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("negativeadjustment_pk");
 
+            entity.HasIndex(e => e.isdeleted, "negativeadjustment_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.number).HasMaxLength(255);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
         });
@@ -738,9 +774,12 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("numbersequence_pk");
 
+            entity.HasIndex(e => e.isdeleted, "numbersequence_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.entityname).HasMaxLength(255);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.prefix).HasMaxLength(50);
             entity.Property(e => e.suffix).HasMaxLength(50);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
@@ -750,9 +789,12 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("positiveadjustment_pk");
 
+            entity.HasIndex(e => e.isdeleted, "positiveadjustment_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.number).HasMaxLength(255);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
         });
@@ -760,6 +802,8 @@ public partial class McpartsDbContext : DbContext
         modelBuilder.Entity<productcategory>(entity =>
         {
             entity.HasKey(e => e.id).HasName("productcategory_pk");
+
+            entity.HasIndex(e => e.isdeleted, "productcategory_isdeleted_idx");
 
             entity.Property(e => e.id).HasColumnType("character varying");
             entity.Property(e => e.createdbyid).HasColumnType("character varying");
@@ -779,6 +823,8 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("productgroup_pk");
 
+            entity.HasIndex(e => e.isdeleted, "productgroup_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
@@ -791,8 +837,19 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("productmapper_pk");
 
+            entity.HasIndex(e => e.isdeleted, "productmapper_isdeleted_idx");
+
+            entity.HasIndex(e => e.productcategoryid, "productmapper_productcategoryid_idx");
+
+            entity.HasIndex(e => e.productmetadataname, "productmapper_productmetadataname_idx");
+
+            entity.HasIndex(e => e.productmetadatavaluesname, "productmapper_productmetadatavaluesname_idx");
+
+            entity.HasIndex(e => e.productsubcategoryid, "productmapper_productsubcategoryid_idx");
+
             entity.Property(e => e.id).HasColumnType("character varying");
             entity.Property(e => e.createdbyid).HasColumnType("character varying");
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.productcategoryid).HasColumnType("character varying");
             entity.Property(e => e.productgroupid).HasColumnType("character varying");
             entity.Property(e => e.productid).HasColumnType("character varying");
@@ -833,6 +890,8 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("productmetdata_pk");
 
+            entity.HasIndex(e => e.isdeleted, "productmetadata_isdeleted_idx");
+
             entity.Property(e => e.id).HasColumnType("character varying");
             entity.Property(e => e.controltype).HasColumnType("character varying");
             entity.Property(e => e.createdbyid).HasColumnType("character varying");
@@ -864,6 +923,8 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("productmetdatavalues_pk");
 
+            entity.HasIndex(e => e.isdeleted, "productmetadatavalues_isdeleted_idx");
+
             entity.Property(e => e.id).HasColumnType("character varying");
             entity.Property(e => e.createdbyid).HasColumnType("character varying");
             entity.Property(e => e.description).HasColumnType("character varying");
@@ -882,6 +943,8 @@ public partial class McpartsDbContext : DbContext
         modelBuilder.Entity<products>(entity =>
         {
             entity.HasKey(e => e.id).HasName("product_pk");
+
+            entity.HasIndex(e => e.isdeleted, "products_isdeleted_idx");
 
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.additionaldescription).HasColumnType("character varying");
@@ -918,6 +981,8 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("productsubcategory_pk");
 
+            entity.HasIndex(e => e.isdeleted, "productsubcategory_isdeleted_idx");
+
             entity.Property(e => e.id).HasColumnType("character varying");
             entity.Property(e => e.createdbyid).HasColumnType("character varying");
             entity.Property(e => e.description).HasColumnType("character varying");
@@ -935,6 +1000,8 @@ public partial class McpartsDbContext : DbContext
         modelBuilder.Entity<productsubcategorysubset>(entity =>
         {
             entity.HasKey(e => e.id).HasName("productsubcategorysubset_pk");
+
+            entity.HasIndex(e => e.isdeleted, "productsubcategorysubset_isdeleted_idx");
 
             entity.Property(e => e.id).HasColumnType("character varying");
             entity.Property(e => e.createdbyid).HasColumnType("character varying");
@@ -954,9 +1021,12 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("purchaseorder_pk");
 
+            entity.HasIndex(e => e.isdeleted, "purchaseorder_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.number).HasMaxLength(50);
             entity.Property(e => e.taxid).HasMaxLength(50);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
@@ -975,8 +1045,11 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("purchaseorderitem_pk");
 
+            entity.HasIndex(e => e.isdeleted, "purchaseorderitem_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.productid).HasMaxLength(50);
             entity.Property(e => e.purchaseorderid).HasMaxLength(50);
             entity.Property(e => e.summary).HasMaxLength(4000);
@@ -995,6 +1068,8 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("purchasereturn_pk");
 
+            entity.HasIndex(e => e.isdeleted, "purchasereturn_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
@@ -1011,6 +1086,8 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("roles_pk");
 
+            entity.HasIndex(e => e.isdeleted, "roles_isdeleted_idx");
+
             entity.Property(e => e.id).HasColumnType("character varying");
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasColumnType("character varying");
@@ -1023,10 +1100,13 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("salesorder_pk");
 
+            entity.HasIndex(e => e.isdeleted, "salesorder_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.customerid).HasMaxLength(50);
             entity.Property(e => e.description).HasMaxLength(4000);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.number).HasMaxLength(50);
             entity.Property(e => e.taxid).HasMaxLength(50);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
@@ -1044,8 +1124,11 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("salesorderitem_pk");
 
+            entity.HasIndex(e => e.isdeleted, "salesorderitem_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.productid).HasMaxLength(50);
             entity.Property(e => e.salesorderid).HasMaxLength(50);
             entity.Property(e => e.summary).HasMaxLength(4000);
@@ -1064,10 +1147,13 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("salesreturn_pk");
 
+            entity.HasIndex(e => e.isdeleted, "salesreturn_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.deliveryorderid).HasMaxLength(50);
             entity.Property(e => e.description).HasMaxLength(4000);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.number).HasMaxLength(50);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
 
@@ -1080,9 +1166,12 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("scrapping_pk");
 
+            entity.HasIndex(e => e.isdeleted, "scrapping_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.number).HasMaxLength(50);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
             entity.Property(e => e.warehouseid).HasMaxLength(50);
@@ -1096,9 +1185,12 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("stockcount_pk");
 
+            entity.HasIndex(e => e.isdeleted, "stockcount_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.number).HasMaxLength(50);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
             entity.Property(e => e.warehouseid).HasMaxLength(50);
@@ -1112,9 +1204,12 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("tax_pk");
 
+            entity.HasIndex(e => e.isdeleted, "tax_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.name).HasMaxLength(255);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
         });
@@ -1123,10 +1218,12 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("todo_pk");
 
+            entity.HasIndex(e => e.isdeleted, "todo_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
-            entity.Property(e => e.isdeleted).HasColumnType("bit(1)");
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.name).HasMaxLength(255);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
         });
@@ -1134,6 +1231,8 @@ public partial class McpartsDbContext : DbContext
         modelBuilder.Entity<todoitem>(entity =>
         {
             entity.HasKey(e => e.id).HasName("todoitem_pk");
+
+            entity.HasIndex(e => e.isdeleted, "todoitem_isdeleted_idx");
 
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
@@ -1152,10 +1251,12 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("transferin_pk");
 
+            entity.HasIndex(e => e.isdeleted, "transferin_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
-            entity.Property(e => e.isdeleted).HasColumnType("bit(1)");
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.number).HasMaxLength(50);
             entity.Property(e => e.transferoutid).HasMaxLength(50);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
@@ -1169,10 +1270,12 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("transferout_pk");
 
+            entity.HasIndex(e => e.isdeleted, "transferout_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
-            entity.Property(e => e.isdeleted).HasColumnType("bit(1)");
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.number).HasMaxLength(50);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
             entity.Property(e => e.warehousefromid).HasMaxLength(50);
@@ -1191,16 +1294,35 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("unitmeasure_pk");
 
+            entity.HasIndex(e => e.isdeleted, "unitmeasure_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.name).HasMaxLength(255);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
+        });
+
+        modelBuilder.Entity<userrolemapper>(entity =>
+        {
+            entity.HasKey(e => e.id).HasName("newtable_pk");
+
+            entity.HasIndex(e => e.isdeleted, "userrolemapper_isdeleted_idx");
+
+            entity.Property(e => e.id).HasColumnType("character varying");
+            entity.Property(e => e.createdbyid).HasColumnType("character varying");
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
+            entity.Property(e => e.roleid).HasColumnType("character varying");
+            entity.Property(e => e.updatedbyid).HasColumnType("character varying");
+            entity.Property(e => e.userid).HasColumnType("character varying");
         });
 
         modelBuilder.Entity<users>(entity =>
         {
             entity.HasKey(e => e.id).HasName("users_pk");
+
+            entity.HasIndex(e => e.email, "users_email_idx");
 
             entity.HasIndex(e => e.isdeleted, "users_isdeleted_idx");
 
@@ -1244,6 +1366,8 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("userstatus_pk");
 
+            entity.HasIndex(e => e.isdeleted, "userstatus_isdeleted_idx");
+
             entity.Property(e => e.id).HasColumnType("character varying");
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.isdeleted).HasDefaultValue(false);
@@ -1254,6 +1378,8 @@ public partial class McpartsDbContext : DbContext
         modelBuilder.Entity<usertype>(entity =>
         {
             entity.HasKey(e => e.id).HasName("usertype_pk");
+
+            entity.HasIndex(e => e.isdeleted, "usertype_isdeleted_idx");
 
             entity.Property(e => e.id).HasColumnType("character varying");
             entity.Property(e => e.createdbyid).HasMaxLength(450);
@@ -1266,6 +1392,8 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("vendor_pk");
 
+            entity.HasIndex(e => e.isdeleted, "vendor_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.city).HasMaxLength(255);
             entity.Property(e => e.country).HasMaxLength(255);
@@ -1275,6 +1403,7 @@ public partial class McpartsDbContext : DbContext
             entity.Property(e => e.facebook).HasMaxLength(255);
             entity.Property(e => e.faxnumber).HasMaxLength(255);
             entity.Property(e => e.instagram).HasMaxLength(255);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.linkedin).HasMaxLength(255);
             entity.Property(e => e.name).HasMaxLength(255);
             entity.Property(e => e.number).HasMaxLength(50);
@@ -1303,9 +1432,12 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("vendorcategory_pk");
 
+            entity.HasIndex(e => e.isdeleted, "vendorcategory_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.name).HasMaxLength(255);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
         });
@@ -1314,11 +1446,13 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("vendorcontact_pk");
 
+            entity.HasIndex(e => e.isdeleted, "vendorcontact_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
             entity.Property(e => e.emailaddress).HasMaxLength(255);
-            entity.Property(e => e.isdeleted).HasColumnType("bit(1)");
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.jobtitle).HasMaxLength(255);
             entity.Property(e => e.name).HasMaxLength(255);
             entity.Property(e => e.number).HasMaxLength(50);
@@ -1335,9 +1469,12 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("vendorgroup_pk");
 
+            entity.HasIndex(e => e.isdeleted, "vendorgroup_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.name).HasMaxLength(255);
             entity.Property(e => e.updatedbyid).HasMaxLength(450);
         });
@@ -1346,9 +1483,12 @@ public partial class McpartsDbContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("warehouse_pk");
 
+            entity.HasIndex(e => e.isdeleted, "warehouse_isdeleted_idx");
+
             entity.Property(e => e.id).HasMaxLength(50);
             entity.Property(e => e.createdbyid).HasMaxLength(450);
             entity.Property(e => e.description).HasMaxLength(4000);
+            entity.Property(e => e.isdeleted).HasDefaultValue(false);
             entity.Property(e => e.name).HasMaxLength(255);
             entity.Property(e => e.systemwarehouse).HasColumnType("bit(1)");
             entity.Property(e => e.updatedbyid).HasMaxLength(450);

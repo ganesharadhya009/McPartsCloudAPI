@@ -17,7 +17,7 @@ public partial class goodsreceive
 
     public string? purchaseorderid { get; set; }
 
-    public bool isdeleted { get; set; }
+    public bool? isdeleted { get; set; }
 
     public DateTime? createdatutc { get; set; }
 

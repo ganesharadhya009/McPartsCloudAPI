@@ -41,7 +41,7 @@ public partial class inventorytransaction
 
     public double? qtyscdelta { get; set; }
 
-    public bool isdeleted { get; set; }
+    public bool? isdeleted { get; set; }
 
     public DateTime? createdatutc { get; set; }
 
