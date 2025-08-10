@@ -75,6 +75,7 @@ namespace McPartsAPI.Controllers
 
         [HttpGet]
         [Route("GetProductGroupCategroyData")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<ProductGroupCategoriesDto>>> GetProductGroupCategroyData()
         {
             var data = await _productsGetService.GetProductsGroupCategory();
@@ -87,6 +88,7 @@ namespace McPartsAPI.Controllers
         [HttpGet]
         [OutputCache]
         [Route("GetSearchFilterAllByCategory/{productcategoryid}")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<SearchFilterAll>>> GetSearchFilterAllByCategory(string productcategoryid)
         {
             var data = await _productsGetService.GetSearchFilterAllByCategory(productcategoryid);
@@ -96,6 +98,7 @@ namespace McPartsAPI.Controllers
         [HttpGet]
         [OutputCache]
         [Route("GetSearchFilterAllBySubCategory/{productsubcategoryid}")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<SearchFilterAll>>> GetSearchFilterAllBySubCategory(string productsubcategoryid)
         {
             var data = await _productsGetService.GetSearchFilterAllBySubCategory(productsubcategoryid);
@@ -105,6 +108,7 @@ namespace McPartsAPI.Controllers
         [HttpGet]
         [OutputCache]
         [Route("GetProductDataBySubCategoryWithCount/{productcategoryid}")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<ProductDataBySubCategoryWithCount>>> GetProductDataBySubCategoryWithCount(string productcategoryid)
         {
             var data = await _productsGetService.GetProductDataBySubCategoryWithCount(productcategoryid);
@@ -114,6 +118,7 @@ namespace McPartsAPI.Controllers
         [HttpGet]
         [OutputCache]
         [Route("GetProductDataBySubCategorySubsetWithCount/{productsubcategoryid}")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<ProductDataBySubCategoryWithCount>>> GetProductDataBySubCategorySubsetWithCount(string productsubcategoryid)
         {
             var data = await _productsGetService.GetProductDataBySubCategorySubsetWithCount(productsubcategoryid);
@@ -123,6 +128,7 @@ namespace McPartsAPI.Controllers
         [HttpPost]
         [OutputCache]
         [Route("GetProductDataBySubCategoryWithCountForMetadata")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<ProductDataBySubCategoryWithCountForMetadata>>> GetProductDataBySubCategoryWithCountForMetadata([FromBody] SearchFilterInput searchFilterInput)
         {
             var data = await _productsGetService.GetProductDataBySubCategoryWithCountForMetadata(searchFilterInput.categoryId, searchFilterInput.metadataName, searchFilterInput.metadatavalueName);
@@ -134,6 +140,7 @@ namespace McPartsAPI.Controllers
         [HttpPost]
         [OutputCache]
         [Route("GetProductsByCategorySubCategory")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<productsdtoListing>>> GetProductsByCategorySubCategory([FromBody] SearchFilterInput searchFilterInput)
         {
             var data = await _productsGetService.GetProductsByCategorySubCategory(searchFilterInput.categoryId, searchFilterInput.subcategoryId);
@@ -145,6 +152,7 @@ namespace McPartsAPI.Controllers
         [HttpPost]
         [OutputCache]
         [Route("GetProductsByCategorySubCategoryForMetadata")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<productsdtoListing>>> GetProductsByCategorySubCategoryForMetadata([FromBody] SearchFilterInput searchFilterInput)
         {
             var data = await _productsGetService.GetProductsByCategorySubCategoryForMetadata(searchFilterInput.categoryId, searchFilterInput.subcategoryId, searchFilterInput.metadataName, searchFilterInput.metadatavalueName);
