@@ -11,6 +11,7 @@ using Mcparts.Infrastructure.Services;
 using McPartsAPI.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Storage.Json;
 using Newtonsoft.Json.Linq;
@@ -84,6 +85,7 @@ namespace McPartsAPI.Controllers
         }
 
         [HttpGet]
+        [OutputCache]
         [Route("GetSearchFilterAllByCategory/{productcategoryid}")]
         public async Task<ActionResult<List<SearchFilterAll>>> GetSearchFilterAllByCategory(string productcategoryid)
         {
@@ -92,6 +94,7 @@ namespace McPartsAPI.Controllers
         }
 
         [HttpGet]
+        [OutputCache]
         [Route("GetSearchFilterAllBySubCategory/{productsubcategoryid}")]
         public async Task<ActionResult<List<SearchFilterAll>>> GetSearchFilterAllBySubCategory(string productsubcategoryid)
         {
@@ -100,6 +103,7 @@ namespace McPartsAPI.Controllers
         }
 
         [HttpGet]
+        [OutputCache]
         [Route("GetProductDataBySubCategoryWithCount/{productcategoryid}")]
         public async Task<ActionResult<List<ProductDataBySubCategoryWithCount>>> GetProductDataBySubCategoryWithCount(string productcategoryid)
         {
@@ -108,6 +112,7 @@ namespace McPartsAPI.Controllers
         }
 
         [HttpGet]
+        [OutputCache]
         [Route("GetProductDataBySubCategorySubsetWithCount/{productsubcategoryid}")]
         public async Task<ActionResult<List<ProductDataBySubCategoryWithCount>>> GetProductDataBySubCategorySubsetWithCount(string productsubcategoryid)
         {
@@ -116,6 +121,7 @@ namespace McPartsAPI.Controllers
         }
 
         [HttpPost]
+        [OutputCache]
         [Route("GetProductDataBySubCategoryWithCountForMetadata")]
         public async Task<ActionResult<List<ProductDataBySubCategoryWithCountForMetadata>>> GetProductDataBySubCategoryWithCountForMetadata([FromBody] SearchFilterInput searchFilterInput)
         {
@@ -126,6 +132,7 @@ namespace McPartsAPI.Controllers
         }
 
         [HttpPost]
+        [OutputCache]
         [Route("GetProductsByCategorySubCategory")]
         public async Task<ActionResult<List<productsdtoListing>>> GetProductsByCategorySubCategory([FromBody] SearchFilterInput searchFilterInput)
         {
@@ -136,6 +143,7 @@ namespace McPartsAPI.Controllers
         }
 
         [HttpPost]
+        [OutputCache]
         [Route("GetProductsByCategorySubCategoryForMetadata")]
         public async Task<ActionResult<List<productsdtoListing>>> GetProductsByCategorySubCategoryForMetadata([FromBody] SearchFilterInput searchFilterInput)
         {

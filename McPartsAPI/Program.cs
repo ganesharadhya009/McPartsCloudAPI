@@ -25,6 +25,8 @@ using Npgsql;
 using Swashbuckle;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Text;
+using Microsoft.AspNetCore.ResponseCompression;
+using System.IO.Compression;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +45,26 @@ builder.Services.AddControllers()
     });
 
 
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowAllOrigins", policy =>
+//    {
+//        var corsOrigins = builder.Configuration["App:CorsOrigins"];
+//        if (!string.IsNullOrEmpty(corsOrigins))
+//        {
+//            policy.WithOrigins(corsOrigins.Split(",", StringSplitOptions.RemoveEmptyEntries))
+//                  .AllowAnyMethod()
+//                  .AllowAnyHeader();
+//        }
+//        else
+//        {
+//            // Handle missing or empty CORS origins configuration
+//            throw new InvalidOperationException("CORS origins configuration is missing or empty.");
+//        }
+//    });
+//});
+
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
@@ -53,6 +75,23 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod()
             .AllowAnyHeader();
         });
+});
+
+builder.Services.AddResponseCompression(options =>
+{
+    //options.EnableForHttps = true;
+    options.Providers.Add<GzipCompressionProvider>();
+});
+
+builder.Services.Configure<GzipCompressionProviderOptions>(options =>
+{
+    options.Level = CompressionLevel.Fastest;
+});
+
+//builder.Services.AddTransient<OutputCachingPolicyExtension, OutputCachingPolicyExtension>();
+builder.Services.AddOutputCache(options =>
+{
+    options.DefaultExpirationTimeSpan = TimeSpan.FromSeconds(86400);
 });
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -147,6 +186,11 @@ builder.Services.AddTransient<IFileDocumentService, FileDocumentService>();
 builder.Services.Configure<FileImageSettings>(builder.Configuration.GetSection("FileImageManager"));
 builder.Services.AddTransient<IFileImageService, FileImageService>();
 
+//builder.Services.AddOutputCache(options =>
+//{
+//    options.AddPolicy("CacheForAuthenticatedUsers", OutputCachingPolicyExtension.Instance);
+//})
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -156,16 +200,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseResponseCompression();
 app.UseSwagger();
 app.UseCors();
 app.UseMiddleware<GlobalApiExceptionHandlerMiddleware>();
 app.UseSwaggerUI();
 app.UseCors("AllowAll");
+app.UseCors("AllowAllOrigins");
 app.UseHttpsRedirection();
 app.UseAuthentication();
-
 app.UseAuthorization();
+app.UseOutputCache();
 
 app.MapControllers();
 
