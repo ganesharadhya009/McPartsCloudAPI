@@ -77,6 +77,12 @@ builder.Services.AddCors(options =>
         });
 });
 
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+//});
+
+
 builder.Services.AddResponseCompression(options =>
 {
     //options.EnableForHttps = true;
@@ -207,6 +213,7 @@ app.UseMiddleware<GlobalApiExceptionHandlerMiddleware>();
 app.UseSwaggerUI();
 app.UseCors("AllowAll");
 app.UseCors("AllowAllOrigins");
+//app.UseCors("Open");
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

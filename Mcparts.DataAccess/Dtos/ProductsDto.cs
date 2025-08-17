@@ -13,9 +13,15 @@ namespace Mcparts.DataAccess.Dtos
 
         public string? productgroupname { get; set; }
 
+        public string? productgroupdescription { get; set; }
+
         public string? productcategoryid { get; set; }
 
         public string? productcategoryname { get; set; }
+
+        public string? productcategorydescription { get; set; }
+
+        public string? productcategoryiconpath { get; set; }
     }
 
     public record ProductDataGetBase

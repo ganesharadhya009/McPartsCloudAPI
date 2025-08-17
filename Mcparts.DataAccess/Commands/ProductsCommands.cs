@@ -19,8 +19,8 @@ namespace Mcparts.DataAccess.Commands
         public static string GetSearcFilterData = "select id,name,tablename from searchheadervalues";
         public static string Search = "SELECT id,partnumber,name,description,additionaldescription,note FROM itemsviewall";
 
-        public static string GetProductGroupCategories = "select pg.id as productgroupid, pg.name as productgroupname, " +
-            "pc.id as productcategoryid, pc.name as productcategoryname " +
+        public static string GetProductGroupCategories = "select pg.id as productgroupid, pg.description as productgroupdescription, pg.name as productgroupname, " +
+            "pc.id as productcategoryid, pc.name as productcategoryname, pc.description as productcategorydescription, pc.iconpath as productcategoryiconpath " +
             "from productgroup pg " +
             "left join productcategory pc on pg.id = pc.productgroupid";
         
